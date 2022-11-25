@@ -26,7 +26,7 @@ app.use("/api/user_interests", userInterestRoutes);
 
 //Starting Feature
 app.get("/", (req, res) => {
-  res.json({ greetings: "hello world" });
+  res.send('Option for pathway: /api/users  /api/matches  /api/interests  /api/user_interests');
 });
 
 //server connection
