@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const express = require("express");
 const userRoutes = require("./routes/userRoutes");
 const matchRoutes = require("./routes/matchRoutes");
+const interestRoutes = require("./routes/interestRoutes");
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(morgan("dev"));
 //routes
 app.use("/api/users", userRoutes);
 app.use("/api/matches", matchRoutes);
+app.use("/api/interests", interestRoutes);
 //
 
 //Starting Feature
