@@ -1,11 +1,7 @@
 import "./App.scss";
+import LoginPage from "./landingPage/login/Login";
+import Register from "./landingPage/register/Register";
 
-function App() {
-  return (
-    <div>
-      <h1>OnlyFriends App</h1>
-    </div>
-  );
-}
+function App() {}
 
 export default App;
