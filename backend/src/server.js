@@ -18,6 +18,11 @@ app.use(morgan("dev"));
 app.use("/api/users", userRoutes);
 //
 
+//Starting Feature
+app.get('/', (req, res) => {
+	res.json({greetings: 'hello world'});
+})
+
 //server connection
 app.listen(process.env.PORT || 8800, () => {
   console.log(

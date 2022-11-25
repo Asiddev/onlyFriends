@@ -1,7 +1,11 @@
-const db = require('../db/connection.js');
+const userQueries = require('../db/queries/users');
 
 const getAllUsers = (req, res) => {
-  res.send("at all useres");
+  userQueries.getAllUsers()
+  .then(users => {
+    console.log(users);
+    res.send(users);
+  })
 };
 
 module.exports = {
