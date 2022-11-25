@@ -1,8 +1,4 @@
-INSERT INTO users (id, email, password) VALUES (1, 'rick.sandchez@gmail.com', 'picklerick');
-INSERT INTO users (id, email, password) VALUES (2, 'lisa.simpson@gmail.com', 'ehhhhh');
-INSERT INTO users (id, email, password) VALUES (3, 'link@yahoo.com', 'hyrule');
-INSERT INTO users (id, email, password) VALUES (4, 'simon_bel123@mail.ca', 'dracula');
-
-
-
-INSERT INTO users (id, name, email, password, profile_picture, banner_picture, description, location, created_date)
+INSERT INTO users (id, name, email, password, profile_picture, banner_picture, description, location, created_date) VALUES (1, 'Aldwin Bautista', 'Aldiwn@email.com', 123,'https://i.imgur.com/QMntCB7.png','https://i.imgur.com/qdVnqRJ.jpg','I love being in deep thoughts and providing for the ones I care', 'Vancouver', '2022-11-25');
+INSERT INTO users (id, name, email, password, profile_picture, banner_picture, description, location, created_date) VALUES (2, 'Jakob Bollman', 'Jakob@email.com', 123,'https://i.imgur.com/g7PB1Nk.jpg','https://i.imgur.com/UigZzwS.jpg','I love skiing and people with amazing smile like me. Hit me up if you like to smile', 'Vancouver', '2022-11-25');
+INSERT INTO users (id, name, email, password, profile_picture, banner_picture, description, location, created_date) VALUES (2, 'Jaxson Berg', 'Jaxson@email.com', 123,'https://i.imgur.com/lgDJDBu.png','https://i.imgur.com/LVQui1O.png','I love coding and playing story driven games. I also have majestic hair', 'Calgary', '2022-11-25');
+INSERT INTO users (id, name, email, password, profile_picture, banner_picture, description, location, created_date) VALUES (2, 'Kasey Valdez', 'Kasey@email.com', 123,'https://i.imgur.com/QaxJGky.jpg','https://i.imgur.com/CIIjCnO.jpg','I love using profile pic not of myself and big chungus', 'Vancouver', '2022-11-25');
