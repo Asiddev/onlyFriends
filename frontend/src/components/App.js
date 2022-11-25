@@ -1,7 +1,12 @@
 import * as React from 'react';
-import { Button, Chip } from '@mui/material';
+import { Button, Chip, Slider } from '@mui/material';
 
 function App() {
+  
+  const handleClick = () => {
+    console.info('You clicked the Chip.');
+  };
+
   return (
     <div>
       <h1>Material UI - demos</h1>
@@ -13,14 +18,18 @@ function App() {
       <Button variant="string">string</Button>
 
       <h2>chips</h2>
-      <Chip label="Chip variant Outlined - color primary" variant="outlined" color="primary"/>
-      <Chip label="Chip variant Filled - color primary" variant="filled" color="primary" />
-      <Chip label="Chip variant Outlined - color primary" variant="outlined" color="primary"/>
-      <Chip label="Chip variant Outlined - color primary" variant="outlined" color="primary"/>
-      <Chip label="Chip variant Outlined - color primary" variant="outlined" color="primary"/>
-      <Chip label="Chip variant Filled - color primary" variant="filled" color="primary" />
-      {/* <Chip label="Clickable" onClick={handleClick} />
-      <Chip label="Clickable" variant="outlined" onClick={handleClick} /> */}
+      <Chip label="Archery" variant="outlined" color="primary" onClick={handleClick}/>
+      <Chip label="Axe-throwing" variant="filled" color="primary" onClick={handleClick}/>
+      <Chip label="Climbing" variant="outlined" color="primary" onClick={handleClick}/>
+      <Chip label="Kayaking" variant="outlined" color="primary" onClick={handleClick}/>
+      <Chip label="Gaming" variant="filled" color="primary" onClick={handleClick}/>
+      <Chip label="Parkour" variant="filled" color="primary" onClick={handleClick}/>
+
+      <h2>slider</h2>
+      <Slider defaultValue={50} />
+      
+      <h2>text</h2>
+
     </div>
   );
 }
