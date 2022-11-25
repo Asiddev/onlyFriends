@@ -19,12 +19,12 @@ app.use("/api/users", userRoutes);
 //
 
 //Starting Feature
-app.get('/', (req, res) => {
-	res.json({greetings: 'hello world'});
-})
+app.get("/", (req, res) => {
+  res.json({ greetings: "hello world" });
+});
 
 //server connection
-app.listen(process.env.PORT || 8800, () => {
+app.listen(process.env.PORT || 8080, () => {
   console.log(
     "Succefully Starting Server : listening on port " + process.env.PORT
   );
