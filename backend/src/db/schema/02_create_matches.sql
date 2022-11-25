@@ -6,5 +6,5 @@ CREATE TABLE users (
   user_liked INTEGER NOT NULL,
   match BOOLEAN NOT NULL DEFAULT FALSE,
   created_at DATE NOT NULL,
-  updated_at DATE NOT NULL,
+  updated_at DATE NOT NULL DEFAULT created_at,
 );
