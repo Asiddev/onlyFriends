@@ -6,6 +6,7 @@ const express = require("express");
 const userRoutes = require("./routes/userRoutes");
 const matchRoutes = require("./routes/matchRoutes");
 const interestRoutes = require("./routes/interestRoutes");
+const userInterestRoutes = require("./routes/userInterestRoutes");
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(morgan("dev"));
 app.use("/api/users", userRoutes);
 app.use("/api/matches", matchRoutes);
 app.use("/api/interests", interestRoutes);
+app.use("/api/user_interests", userInterestRoutes);
 //
 
 //Starting Feature
