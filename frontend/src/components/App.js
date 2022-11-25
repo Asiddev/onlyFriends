@@ -1,11 +1,19 @@
 import "./App.scss";
-import LoginPage from "./landingPage/login/Login";
-import Register from "./landingPage/register/Register";
+import LoginPage from "./home/login/Login";
+import Register from "./home/register/Register";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
-  let user = true;
-
-  return <div>{user ? <LoginPage /> : <Register />}</div>;
+  return (
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
 }
 
 export default App;
