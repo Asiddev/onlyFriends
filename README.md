@@ -1,3 +1,4 @@
-Finals project
+# OnlyFriends 
+## Lighthouse Labs Finals project
 
-Alex , Kevin , Nico
+### by Alex, Kevin, and Nico
