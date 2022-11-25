@@ -9,7 +9,7 @@ function App() {
   let user = {
     id: 1,
     name: "alex",
-    active: true,
+    active: false,
   };
 
   return (
