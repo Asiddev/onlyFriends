@@ -55,9 +55,9 @@ function Register() {
                 alignItems: 'center',
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                <LockOutlinedIcon />
-              </Avatar>
+
+              <img src="https://i.imgur.com/Bgur1Fk.png" alt="OnlyFriends logo" style={{width:"15rem", paddingBottom: "1rem"}} />
+
               <Typography component="h1" variant="h5">
                 Register
               </Typography>
