@@ -1,25 +1,12 @@
 import * as React from 'react';
 import "./Register.scss";
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Alert, AlertTitle, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material';
 
 function Copyright(props) {
-
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © Nico Hernandez, Alex Sidor, Kevin Lee '}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" href="https://github.com/Asiddev/onlyFriends">
         OnlyFriends
       </Link>{' '}
       {new Date().getFullYear()}
@@ -30,22 +17,20 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-
 function Register() {
 
   const [error, setError] = React.useState("");
-
 
   const validator = (event) => {
     setError("");
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    //Check email is valid format or blank
+    // Check email is valid format or blank
     if (!isValidEmail(data.get('email')) || !data.get('email')) {
       setError("Invalid email");
       return;
     } else if (!data.get('password')) {
-      setError("Invalid password")
+      setError("Invalid password");
     }
     console.log({
       email: data.get('email'),
@@ -73,13 +58,20 @@ function Register() {
               }}
             >
 
-              <img src="https://i.imgur.com/Bgur1Fk.png" alt="OnlyFriends logo" style={{width:"15rem", paddingBottom: "1rem"}} />
+              <img src="https://i.imgur.com/Bgur1Fk.png" alt="OnlyFriends logo" style={{ width: "15rem", paddingBottom: "1rem" }} />
 
               <Typography component="h1" variant="h5">
                 Register
               </Typography>
               <Box component="form" onSubmit={validator} noValidate sx={{ mt: 1 }}>
-                <section>{error}</section>
+
+                {error &&
+                  <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {error}
+                  </Alert>
+                } <br />
+
                 <TextField
                   margin="normal"
                   required
