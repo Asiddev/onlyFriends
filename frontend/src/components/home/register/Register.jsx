@@ -15,6 +15,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 function Copyright(props) {
+
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © Nico Hernandez, Alex Sidor, Kevin Lee '}
@@ -32,14 +33,29 @@ const theme = createTheme();
 
 function Register() {
 
-  const handleSubmit = (event) => {
+  const [error, setError] = React.useState("");
+
+
+  const validator = (event) => {
+    setError("");
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    //Check email is valid format or blank
+    if (!isValidEmail(data.get('email')) || !data.get('email')) {
+      setError("Invalid email");
+      return;
+    } else if (!data.get('password')) {
+      setError("Invalid password")
+    }
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
   };
+
+  function isValidEmail(email) {
+    return /\S+@\S+\.\S+/.test(email);
+  }
 
   return (
     <div className='container'>
@@ -62,7 +78,8 @@ function Register() {
               <Typography component="h1" variant="h5">
                 Register
               </Typography>
-              <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+              <Box component="form" onSubmit={validator} noValidate sx={{ mt: 1 }}>
+                <section>{error}</section>
                 <TextField
                   margin="normal"
                   required
