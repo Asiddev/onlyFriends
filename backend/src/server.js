@@ -1,4 +1,5 @@
 require("dotenv").config();
+const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
@@ -12,9 +13,11 @@ const app = express();
 
 //middlewares
 app.use(cookieParser());
+app.use(bodyParser.json());
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
+
 //
 
 //routes
@@ -26,7 +29,9 @@ app.use("/api/user_interests", userInterestRoutes);
 
 //Starting Feature
 app.get("/", (req, res) => {
-  res.send('Option for pathway: /api/users  /api/matches  /api/interests  /api/user_interests');
+  res.send(
+    "Option for pathway: /api/users  /api/matches  /api/interests  /api/user_interests"
+  );
 });
 
 //server connection

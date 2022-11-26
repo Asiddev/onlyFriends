@@ -9,5 +9,5 @@ CREATE TABLE users (
   banner_picture VARCHAR(255),
   description VARCHAR(100),
   location VARCHAR(255),
-  created_at DATE NOT NULL
+  created_at timestamp default current_timestamp
 );
