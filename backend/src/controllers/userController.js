@@ -11,12 +11,13 @@ const getAllUsers = (req, res) => {
 const addUser = (req, res) => {
   userQueries.checkUserDB(req.body.email).then((user) => {
     if (!user) {
-      return res.status(401).json("Wrong email or password");
+      return res.status(401).json("Email is taken");
     } else {
       let saltRounds = 10;
       let salt = bcrypt.genSaltSync(saltRounds);
       let hash = bcrypt.hashSync(req.body.password, salt);
 
+      //hello
       //set cookie
       //encryption
       //hash password
