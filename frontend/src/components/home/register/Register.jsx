@@ -1,16 +1,37 @@
-import * as React from 'react';
+import * as React from "react";
 import "./Register.scss";
-import { Alert, AlertTitle, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material';
+import {
+  Alert,
+  AlertTitle,
+  Button,
+  CssBaseline,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container,
+  createTheme,
+  ThemeProvider,
+} from "@mui/material";
+import axios from "axios";
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © Nico Hernandez, Alex Sidor, Kevin Lee '}
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © Nico Hernandez, Alex Sidor, Kevin Lee "}
       <Link color="inherit" href="https://github.com/Asiddev/onlyFriends">
         OnlyFriends
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -18,24 +39,25 @@ function Copyright(props) {
 const theme = createTheme();
 
 function Register() {
-
   const [error, setError] = React.useState("");
 
   const validator = (event) => {
     setError("");
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const newData = new FormData(event.currentTarget);
     // Check email is valid format or blank
-    if (!isValidEmail(data.get('email')) || !data.get('email')) {
+    if (!isValidEmail(newData.get("email")) || !newData.get("email")) {
       setError("Invalid email");
       return;
-    } else if (!data.get('password')) {
+    } else if (!newData.get("password")) {
       setError("Invalid password");
     }
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const newDataObj = {
+      email: newData.get("email"),
+      password: newData.get("password"),
+    };
+
+    axios.post("/api/users", newDataObj);
   };
 
   function isValidEmail(email) {
@@ -43,35 +65,41 @@ function Register() {
   }
 
   return (
-    <div className='container'>
-
-      <div className='left-half'>
+    <div className="container">
+      <div className="left-half">
         <ThemeProvider theme={theme}>
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box
               sx={{
                 marginTop: 8,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
               }}
             >
-
-              <img src="https://i.imgur.com/Bgur1Fk.png" alt="OnlyFriends logo" style={{ width: "15rem", paddingBottom: "1rem" }} />
+              <img
+                src="https://i.imgur.com/Bgur1Fk.png"
+                alt="OnlyFriends logo"
+                style={{ width: "15rem", paddingBottom: "1rem" }}
+              />
 
               <Typography component="h1" variant="h5">
                 Register
               </Typography>
-              <Box component="form" onSubmit={validator} noValidate sx={{ mt: 1 }}>
-
-                {error &&
+              <Box
+                component="form"
+                onSubmit={validator}
+                noValidate
+                sx={{ mt: 1 }}
+              >
+                {error && (
                   <Alert severity="error">
                     <AlertTitle>Error</AlertTitle>
                     {error}
                   </Alert>
-                } <br />
-
+                )}{" "}
+                <br />
                 <TextField
                   margin="normal"
                   required
@@ -123,17 +151,21 @@ function Register() {
         </ThemeProvider>
       </div>
 
-      <div className='right-half'>
-        <div className='container-right-half'>
+      <div className="right-half">
+        <div className="container-right-half">
           <p>
-            <span className='light-blue'>Only</span><span className='dark-blue'>Friends</span> allows people with similar interests or hobbies to get together.
-          </p> <br />
+            <span className="light-blue">Only</span>
+            <span className="dark-blue">Friends</span> allows people with
+            similar interests or hobbies to get together.
+          </p>{" "}
+          <br />
           <p>
-            Once you've created a profile, you will be part of a vast community of people looking to find others that love to spend time off the same way you do!
+            Once you've created a profile, you will be part of a vast community
+            of people looking to find others that love to spend time off the
+            same way you do!
           </p>
         </div>
       </div>
-
     </div>
   );
 }
