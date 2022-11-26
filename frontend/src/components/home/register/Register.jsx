@@ -77,8 +77,8 @@ function Register() {
   }
 
   return (
-    <div className="container">
-      <div className="left-half">
+    <Grid container spacing={2}>
+      <Grid item xs={6}>
         <ThemeProvider theme={theme}>
           <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -95,7 +95,6 @@ function Register() {
                 alt="OnlyFriends logo"
                 style={{ width: "15rem", paddingBottom: "1rem" }}
               />
-
               <Typography component="h1" variant="h5">
                 Register
               </Typography>
@@ -161,24 +160,21 @@ function Register() {
             <Copyright sx={{ mt: 8, mb: 4 }} />
           </Container>
         </ThemeProvider>
-      </div>
-
-      <div className="right-half">
-        <div className="container-right-half">
-          <p>
-            <span className="light-blue">Only</span>
-            <span className="dark-blue">Friends</span> allows people with
-            similar interests or hobbies to get together.
-          </p>{" "}
-          <br />
-          <p>
-            Once you've created a profile, you will be part of a vast community
-            of people looking to find others that love to spend time off the
-            same way you do!
-          </p>
-        </div>
-      </div>
-    </div>
+      </Grid>
+      <Grid item xs={6}>
+        <p>
+          <span className="light-blue">Only</span>
+          <span className="dark-blue">Friends</span> allows people with
+          similar interests or hobbies to get together.
+        </p>{" "}
+        <br />
+        <p>
+          Once you've created a profile, you will be part of a vast community
+          of people looking to find others that love to spend time off the
+          same way you do!
+        </p>
+      </Grid>
+    </Grid>
   );
 }
 
