@@ -17,7 +17,6 @@ const addUser = (req, res) => {
       let salt = bcrypt.genSaltSync(saltRounds);
       let hash = bcrypt.hashSync(req.body.password, salt);
 
-      //hello
       //set cookie
       //encryption
       //hash password
