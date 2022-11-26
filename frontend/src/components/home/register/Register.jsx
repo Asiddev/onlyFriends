@@ -53,6 +53,7 @@ function Register() {
       return;
     } else if (!newData.get("password")) {
       setError("Invalid password");
+      return;
     }
     const newDataObj = {
       email: newData.get("email"),

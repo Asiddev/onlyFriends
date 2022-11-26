@@ -19,4 +19,12 @@ const addUser = (email, password) => {
   );
 };
 
-module.exports = { getAllUsers, getUserById, addUser };
+const checkUserDB = (email) => {
+  return db
+    .query("SELECT id,email,password FROM users WHERE email = $1", [email])
+    .then((data) => {
+      return data.rows[0];
+    });
+};
+
+module.exports = { getAllUsers, getUserById, addUser, checkUserDB };

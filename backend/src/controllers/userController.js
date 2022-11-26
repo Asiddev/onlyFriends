@@ -1,4 +1,5 @@
 const userQueries = require("../db/queries/users");
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const getAllUsers = (req, res) => {
@@ -12,8 +13,6 @@ const addUser = (req, res) => {
   let salt = bcrypt.genSaltSync(saltRounds);
   let hash = bcrypt.hashSync(req.body.password, salt);
 
-  // bcrypt.compare(req.body.password, hash).then((result) => console.log(result));
-
   //set cookie
   //encryption
   //hash password
@@ -25,7 +24,44 @@ const addUser = (req, res) => {
   return res.status(201).redirect("/");
 };
 
+const Login = (req, res) => {
+  userQueries.checkUserDB(req.body.email).then((user) => {
+    if (!user) {
+      return res.status(401).json("No account with that email");
+    }
+
+    if (user && !bcrypt.compareSync(req.body.password, user.password)) {
+      return res.status(401).json("Invalid Autharization , Please try again ");
+    }
+
+    const token = jwt.sign(user.id, process.env.JWT_SECRET);
+
+    res.cookie("access-token", token);
+
+    console.log("token assigned");
+
+    return res.status(200).json({
+      status: "Login successful!",
+      success: true,
+      token: token,
+    });
+
+    //res.cookie("user" , token)
+    // redirect dashboard --->
+  });
+};
+
 module.exports = {
   getAllUsers,
   addUser,
+  Login,
 };
+
+// bcrypt.compare(req.body.password, user.password).then((result) => {
+//   if (result) {
+//     console.log(
+//       "password  and email correct , give user a cookie to store"
+//     );
+//   } else {
+//     return res.status(403).send("Invalid password or email");
+//   }
