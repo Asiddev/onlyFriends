@@ -9,19 +9,25 @@ const getAllUsers = (req, res) => {
 };
 
 const addUser = (req, res) => {
-  let saltRounds = 10;
-  let salt = bcrypt.genSaltSync(saltRounds);
-  let hash = bcrypt.hashSync(req.body.password, salt);
+  userQueries.checkUserDB(req.body.email).then((user) => {
+    if (!user) {
+      return res.status(401).json("Wrong email or password");
+    } else {
+      let saltRounds = 10;
+      let salt = bcrypt.genSaltSync(saltRounds);
+      let hash = bcrypt.hashSync(req.body.password, salt);
 
-  //set cookie
-  //encryption
-  //hash password
+      //set cookie
+      //encryption
+      //hash password
 
-  userQueries.addUser(req.body.email, hash).then((data) => {
-    console.log(data.rows[0]);
-    return data.rows[0];
+      userQueries.addUser(req.body.email, hash).then((data) => {
+        console.log(data.rows[0]);
+        return data.rows[0];
+      });
+      return res.status(201).redirect("/");
+    }
   });
-  return res.status(201).redirect("/");
 };
 
 const Login = (req, res) => {
