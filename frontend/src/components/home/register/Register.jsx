@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import "./Register.scss";
 import {
   Alert,
@@ -39,6 +40,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 function Register() {
+  const navigator = useNavigate();
   const [error, setError] = React.useState("");
 
   const validator = (event) => {
@@ -57,7 +59,10 @@ function Register() {
       password: newData.get("password"),
     };
 
-    axios.post("/api/users", newDataObj);
+    axios.post("/api/users", newDataObj).then(() => {
+      console.log("success!");
+      return navigator("/login");
+    });
   };
 
   function isValidEmail(email) {
