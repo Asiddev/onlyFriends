@@ -60,10 +60,16 @@ function Register() {
       password: newData.get("password"),
     };
 
-    axios.post("/api/users", newDataObj).then(() => {
-      console.log("success!");
-      return navigator("/login");
-    });
+    axios
+      .post("/api/users", newDataObj)
+      .then((data) => {
+        console.log("success!");
+        return navigator("/login");
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(err.response.data);
+      });
   };
 
   function isValidEmail(email) {
