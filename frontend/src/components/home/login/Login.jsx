@@ -153,19 +153,17 @@ function Login() {
       </div>
 
       <div className="right-half">
-        <div className="container-right-half">
-          <p>
-            <span className="light-blue">Only</span>
-            <span className="dark-blue">Friends</span> allows people with
-            similar interests or hobbies to get together.
-          </p>{" "}
-          <br />
-          <p>
-            Once you've created a profile, you will be part of a vast community
-            of people looking to find others that love to spend time off the
-            same way you do!
-          </p>
-        </div>
+        <p>
+          <span className="light-blue">Only</span>
+          <span className="dark-blue">Friends</span> allows people with
+          similar interests or hobbies to get together.
+        </p>
+        <br />
+        <p>
+          Once you've created a profile, you will be part of a vast community
+          of people looking to find others that love to spend time off the
+          same way you do!
+        </p>
       </div>
     </div>
   );
