@@ -107,7 +107,6 @@ function Dashboard(props) {
           apiKey={process.env.REACT_APP_MY_API_KEY}
           style={{ width: "90%" }}
           onPlaceSelected={(place) => {
-            console.log(place);
           }}
           options={{
             types: ["(regions)"],
