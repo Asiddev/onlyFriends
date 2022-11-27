@@ -1,5 +1,4 @@
-import React from "react";
-
+import React, { useState, useEffect} from "react";
 import {
   AppBar,
   Box,
@@ -22,9 +21,7 @@ import {
   createTheme,
   ThemeProvider,
 } from "@mui/material";
-
 import { useNavigate } from "react-router-dom";
-
 import "./Dashboard.scss";
 import axios from "axios";
 
@@ -46,10 +43,6 @@ function Copyright(props) {
   );
 }
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-const theme = createTheme();
-
 function Dashboard(props) {
   const navigate = useNavigate();
   const handleLogout = function (e) {
@@ -60,6 +53,17 @@ function Dashboard(props) {
       navigate("/login");
     });
   };
+
+  const [bio, setBio] = useState('');
+  let bioLimit = 100;
+  const [bioLength, setBioLength] = useState(bioLimit);
+
+  const bioUpdater = (event) => {
+    setBio(event.target.value);
+    let wordCount = event.target.value.length;
+    
+    setBioLength(bioLimit - wordCount);
+  }
 
   return (
     <div>
@@ -123,8 +127,12 @@ function Dashboard(props) {
         <Typography variant="p">Bio</Typography>
         <TextField
           label="Bio"
+          value = {bio}
+          onChange = {bioUpdater}
           placeholder="e.g. I love long walks to the fridge"
         ></TextField>
+        <Typography variant="h6">{bioLength}</Typography>
+        
       </Container>
 
       <br />
