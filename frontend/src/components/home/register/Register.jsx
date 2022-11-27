@@ -130,7 +130,6 @@ function Register() {
                   id="email"
                   label="Email Address"
                   name="email"
-                  autoFocus
                 />
                 <TextField
                   margin="normal"
