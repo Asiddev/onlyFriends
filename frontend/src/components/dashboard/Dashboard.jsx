@@ -1,32 +1,6 @@
 import React from "react";
-
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  Typography,
-  Button,
-  IconButton,
-  Avatar,
-  TextField,
-  Chip,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  CssBaseline,
-  Grid,
-  Stack,
-  Container,
-  Link,
-  createTheme,
-  ThemeProvider,
-} from "@mui/material";
-
-import { useNavigate } from "react-router-dom";
-
+import { AppBar, Box, Toolbar, Typography, Button, IconButton, Avatar, TextField, Chip, Card, CardActions, CardContent, CardMedia, CssBaseline, Grid, Stack, Container, Link, createTheme, ThemeProvider, } from '@mui/material';
 import "./Dashboard.scss";
-import axios from "axios";
 
 function Copyright(props) {
   return (
@@ -51,25 +25,15 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const theme = createTheme();
 
 function Dashboard(props) {
-  const navigate = useNavigate();
-  const handleLogout = function (e) {
-    e.preventDefault();
-    axios.get("/api/users/logout").then(() => {
-      localStorage.removeItem("user");
-      props.setCurrentUser(null);
-      navigate("/login");
-    });
-  };
 
   return (
     <div>
+
       <CssBaseline />
 
       <Box marginBottom={10}>
         <AppBar>
           <Toolbar className="navbar-logo">
-            <h1>{props.user.name}</h1>
-
             {/* <img
               src="https://i.imgur.com/Bgur1Fk.png"
               alt="OnlyFriends logo"
@@ -81,7 +45,6 @@ function Dashboard(props) {
               alt="OnlyFriends logo"
               src="https://i.imgur.com/Bgur1Fk.png"
             />
-            <button onClick={handleLogout}> logout</button>
           </Toolbar>
         </AppBar>
       </Box>
@@ -103,37 +66,54 @@ function Dashboard(props) {
       <br />
 
       <Container maxWidth="sm">
-        <Typography variant="p">Upload a profile picture</Typography>
-        <Button variant="contained" component="label">
+        <Typography variant="p">
+          Upload a profile picture
+        </Typography>
+        <Button
+          variant="contained"
+          component="label"
+        >
           Upload File
-          <input type="file" hidden />
+          <input
+            type="file"
+            hidden
+          />
         </Button>
       </Container>
 
       <br />
 
       <Container maxWidth="sm">
-        <Typography variant="p">Location</Typography>
+        <Typography variant="p">
+          Location
+        </Typography>
         <TextField label="Location" placeholder="e.g. Vancouver"></TextField>
       </Container>
 
       <br />
 
       <Container maxWidth="sm">
-        <Typography variant="p">Bio</Typography>
-        <TextField
-          label="Bio"
-          placeholder="e.g. I love long walks to the fridge"
-        ></TextField>
+        <Typography variant="p">
+          Bio
+        </Typography>
+        <TextField label="Bio" placeholder="e.g. I love long walks to the fridge"></TextField>
       </Container>
 
       <br />
 
       <Container maxWidth="sm">
-        <Typography variant="p">Upload a cover banner</Typography>
-        <Button variant="contained" component="label">
+        <Typography variant="p">
+          Upload a cover banner
+        </Typography>
+        <Button
+          variant="contained"
+          component="label"
+        >
           Upload File
-          <input type="file" hidden />
+          <input
+            type="file"
+            hidden
+          />
         </Button>
       </Container>
 
@@ -187,12 +167,15 @@ function Dashboard(props) {
       <br />
 
       <Container maxWidth="sm">
-        <Button variant="contained">Save</Button>
+        <Button variant="contained">
+          Save
+        </Button>
       </Container>
 
-      <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
+      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
         <Copyright />
       </Box>
+
     </div>
   );
 }
