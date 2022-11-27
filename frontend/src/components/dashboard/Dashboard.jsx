@@ -1,27 +1,19 @@
 import React, { useState, useEffect } from "react";
+import Autocomplete from "react-google-autocomplete";
+import { usePlacesWidget } from "react-google-autocomplete";
 import {
   AppBar,
   Box,
   Toolbar,
   Typography,
   Button,
-  IconButton,
-  Avatar,
   TextField,
   Chip,
   Card,
-  CardActions,
-  CardContent,
-  CardMedia,
   CssBaseline,
-  Grid,
-  Stack,
   Container,
   Link,
-  createTheme,
-  ThemeProvider,
 } from "@mui/material";
-
 import "./Dashboard.scss";
 
 function Copyright(props) {
@@ -105,6 +97,23 @@ function Dashboard(props) {
       <Container maxWidth="sm">
         <Typography variant="p">Location</Typography>
         <TextField label="Location" placeholder="e.g. Vancouver"></TextField>
+      </Container>
+
+
+      {/* Test for Kevin location */}
+      <Container maxWidth="sm">
+        <Typography variant="p">Location for Test</Typography>
+        <Autocomplete
+          apiKey={process.env.REACT_APP_MY_API_KEY}
+          style={{ width: "90%" }}
+          onPlaceSelected={(place) => {
+            console.log(place);
+          }}
+          options={{
+            types: ["(regions)"],
+            componentRestrictions: { country: "ca" },
+          }}
+        />;
       </Container>
 
       <br />
