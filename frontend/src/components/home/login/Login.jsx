@@ -17,6 +17,7 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import axios from "axios";
+
 // import "./Login.scss";
 
 function Copyright(props) {
@@ -56,6 +57,9 @@ function Login(props) {
     axios
       .post("/api/users/login", newDataObj)
       .then((data) => {
+        console.log(data.data.user);
+        props.setCurrentUser(data.data.user);
+        localStorage.setItem("user", JSON.stringify(data.data.user));
         props.setCookie(data.token);
         navigate("/");
       })
@@ -102,6 +106,7 @@ function Login(props) {
                 )}{" "}
                 <br />
                 <TextField
+                  className="white-inputs"
                   margin="normal"
                   required
                   fullWidth
@@ -112,6 +117,7 @@ function Login(props) {
                   autoFocus
                 />
                 <TextField
+                  className="white-inputs"
                   margin="normal"
                   required
                   fullWidth
@@ -140,7 +146,7 @@ function Login(props) {
                     </Link>
                   </Grid>
                   <Grid item>
-                    <Link href="#" variant="body2">
+                    <Link href="/" variant="body2">
                       {"Don't have an account? Sign Up"}
                     </Link>
                   </Grid>

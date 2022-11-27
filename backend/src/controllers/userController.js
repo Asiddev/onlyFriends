@@ -9,7 +9,6 @@ const getAllUsers = (req, res) => {
 };
 
 const addUser = (req, res) => {
-  console.log(req.body);
   userQueries.checkUserDB(req.body.email).then((user) => {
     if (user) {
       return res.status(401).json("Email is taken");
@@ -22,10 +21,12 @@ const addUser = (req, res) => {
           let salt = bcrypt.genSaltSync(saltRounds);
           let hash = bcrypt.hashSync(req.body.password, salt);
 
-          userQueries.addUser(req.body.email, hash, req.body.name).then((data) => {
-            console.log(data.rows[0]);
-            return data.rows[0];
-          });
+          userQueries
+            .addUser(req.body.email, hash, req.body.name)
+            .then((data) => {
+              console.log(data.rows[0]);
+              return data.rows[0];
+            });
         }
       } else {
         return res
@@ -41,6 +42,7 @@ const addUser = (req, res) => {
 
 const Login = (req, res) => {
   userQueries.checkUserDB(req.body.email).then((user) => {
+    console.log(user);
     if (!user) {
       return res.status(401).json("No account with that email");
     }
@@ -49,7 +51,12 @@ const Login = (req, res) => {
       return res.status(401).json("Invalid Autharization , Please try again ");
     }
 
-    const token = jwt.sign(user.id, process.env.JWT_SECRET);
+    const token = jwt.sign(
+      { id: user.id, name: user.name },
+      process.env.JWT_SECRET
+    );
+
+    let { password, ...others } = user;
 
     res.cookie("access-token", token);
 
@@ -59,6 +66,7 @@ const Login = (req, res) => {
       status: "Login successful!",
       success: true,
       token: token,
+      user: others,
     });
 
     //res.cookie("user" , token)
@@ -66,17 +74,16 @@ const Login = (req, res) => {
   });
 };
 
+const Logout = (req, res) => {
+  return res
+    .clearCookie("access-token")
+    .status(200)
+    .json("Succesfully logged out");
+};
+
 module.exports = {
   getAllUsers,
   addUser,
   Login,
+  Logout,
 };
-
-// bcrypt.compare(req.body.password, user.password).then((result) => {
-//   if (result) {
-//     console.log(
-//       "password  and email correct , give user a cookie to store"
-//     );
-//   } else {
-//     return res.status(403).send("Invalid password or email");
-//   }

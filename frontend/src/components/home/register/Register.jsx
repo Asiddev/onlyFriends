@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Register.scss";
+import "../../../styles/animations.scss";
 import {
   Alert,
   AlertTitle,
@@ -96,9 +97,10 @@ function Register() {
                 src="https://i.imgur.com/Bgur1Fk.png"
                 alt="OnlyFriends logo"
                 style={{ width: "15rem", paddingBottom: "1rem" }}
+                className="bounce2"
               />
 
-              <Typography component="h1" variant="h5">
+              <Typography component="h1" variant="h5" className="theme-font">
                 Register
               </Typography>
               <Box
@@ -115,6 +117,7 @@ function Register() {
                 )}
                 <br />
                 <TextField
+                  className="white-inputs"
                   margin="normal"
                   required
                   fullWidth
@@ -124,6 +127,7 @@ function Register() {
                   autoFocus
                 />
                 <TextField
+                  className="white-inputs"
                   margin="normal"
                   required
                   fullWidth
@@ -132,6 +136,7 @@ function Register() {
                   name="email"
                 />
                 <TextField
+                  className="white-inputs"
                   margin="normal"
                   required
                   fullWidth
@@ -141,6 +146,7 @@ function Register() {
                   id="password"
                 />
                 <TextField
+                  className="white-inputs"
                   margin="normal"
                   required
                   fullWidth
@@ -161,6 +167,7 @@ function Register() {
                 >
                   Register
                 </Button>
+
                 <Grid container>
                   <Grid item xs>
                     <Link href="#" variant="body2">
@@ -168,8 +175,8 @@ function Register() {
                     </Link>
                   </Grid>
                   <Grid item>
-                    <Link href="#" variant="body2">
-                      {"Don't have an account? Sign Up"}
+                    <Link href="/login" variant="body2">
+                      {"Already have an account?"}
                     </Link>
                   </Grid>
                 </Grid>
@@ -181,6 +188,13 @@ function Register() {
       </div>
 
       <div className="right-half">
+        <img
+          className="picture-size"
+          src="https://i.imgur.com/8T2x8sm.png"
+          alt=""
+        />
+        <br />
+        <br />
         <p>
           <span className="light-blue">Only</span>
           <span className="dark-blue">Friends</span> allows people with similar

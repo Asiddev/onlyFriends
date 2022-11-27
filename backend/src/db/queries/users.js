@@ -21,7 +21,7 @@ const addUser = (email, password, name) => {
 
 const checkUserDB = (email) => {
   return db
-    .query("SELECT id,email,password FROM users WHERE email = $1", [email])
+    .query("SELECT * FROM users WHERE email = $1", [email])
     .then((data) => {
       return data.rows[0];
     });
