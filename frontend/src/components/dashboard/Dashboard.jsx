@@ -65,6 +65,8 @@ function Dashboard(props) {
     setBioLength(bioLimit - wordCount);
   }
 
+
+
   return (
     <div>
       <CssBaseline />
@@ -131,7 +133,7 @@ function Dashboard(props) {
           onChange = {bioUpdater}
           placeholder="e.g. I love long walks to the fridge"
         ></TextField>
-        <Typography variant="h6">{bioLength}</Typography>
+        <Typography className = {bioLength > 0? "safe" : "danger"} variant="h6">{bioLength}</Typography>
         
       </Container>
 
