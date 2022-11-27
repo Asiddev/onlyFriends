@@ -43,7 +43,8 @@ function Dashboard(props) {
   const [bio, setBio] = useState("");
   let bioLimit = 100;
   const [bioLength, setBioLength] = useState(bioLimit);
-  const [ProfileImage, setProfileImage] = useState(null);
+  const [profileImage, setProfileImage] = useState(null);
+  const [bannerImage, setBannerImage] = useState(null);
   const [error, setError] = useState("");
 
  //Put function below into another file
@@ -71,36 +72,36 @@ function Dashboard(props) {
     //Make error message set states here
     event.preventDefault();
     const newData = new FormData(event.currentTarget);
-    const newDataObj = {
+    const loggedUser = JSON.parse(localStorage.getItem("user"))
+    const userObj = {
+      id: loggedUser.id,
       location: newData.get("Location"),
       description: newData.get("Bio"),
     }
-    console.log(newDataObj);
+  
     //Render error if any conditions are not met
     
     //Upload image into firebase and get url link id
-    const profileUUID = v4();
-    const bannerUUID = v4();
-    const profilePathway = `profileImages/${profileUUID}`;
-    const bannerPathway = `bannerImages/${bannerUUID}`;
+    const profilePathway = `profileImages/${v4()}`;
+    const bannerPathway = `bannerImages/${v4()}`;
     
-    uploadImage(profilePathway, ProfileImage)
-    .then((url) => newDataObj.profile_picture = url)
-    .then(() => console.log(newDataObj))
+    uploadImage(profilePathway, profileImage)
+    .then((url) => userObj.profile_picture = url)
 
-  
+    uploadImage(bannerPathway, bannerImage)
+    .then((url) => userObj.banner_picture = url)
    
     //Axios Post request to backend
-    // axios
-    //   .post("/api/profiles", newDataObj)
-    //   .then((data) => {
-    //     console.log("success!");
-    //     return navigator("/login");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     setError(err.response.data);
-    //   });
+    axios
+      .post("/api/profiles", userObj)
+      .then((data) => {
+        console.log("success!");
+        return navigator("/login");
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(err.response.data);
+      });
   }
 
   return (
@@ -218,7 +219,7 @@ function Dashboard(props) {
         <Typography variant="p">Upload a cover banner</Typography>
         <Button variant="contained" component="label">
           Upload File
-          <input type="file" hidden />
+          <input type="file" name="banner_picture" onChange = {(event) => {setBannerImage(event.target.files[0])}} hidden />
         </Button>
       </Container>
 
