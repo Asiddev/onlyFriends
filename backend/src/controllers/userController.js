@@ -22,7 +22,7 @@ const addUser = (req, res) => {
           let salt = bcrypt.genSaltSync(saltRounds);
           let hash = bcrypt.hashSync(req.body.password, salt);
 
-          userQueries.addUser(req.body.email, hash).then((data) => {
+          userQueries.addUser(req.body.email, hash, req.body.name).then((data) => {
             console.log(data.rows[0]);
             return data.rows[0];
           });
