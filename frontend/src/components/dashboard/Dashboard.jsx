@@ -95,13 +95,13 @@ function Dashboard(props) {
       <br />
 
       <Container maxWidth="sm">
-        <Typography variant="p">Location</Typography>
-        <TextField label="Location" placeholder="e.g. Vancouver"></TextField>
+        <Typography variant="p">Textfield for reference</Typography>
+        <TextField label="Location" placeholder="e.g. Narnia"></TextField>
       </Container>
 
 
       {/* Test for Kevin location */}
-      <Container maxWidth="sm">
+      {/* <Container maxWidth="sm">
         <Typography variant="p">Location for Test</Typography>
         <Autocomplete
           apiKey={process.env.REACT_APP_MY_API_KEY}
@@ -112,8 +112,25 @@ function Dashboard(props) {
             types: ["(regions)"],
             componentRestrictions: { country: "ca" },
           }}
-    
-        />;
+
+        />
+      </Container> */}
+
+      {/* Test with proper textfield look */}
+      <Container maxWidth="sm">
+        <Typography variant="p">Location for Test with correct texfield look</Typography>
+        <Autocomplete
+          className="MuiTextField-root"
+          apiKey={process.env.REACT_APP_MY_API_KEY}
+          style={{ width: "90%" }}
+          onPlaceSelected={(place) => {
+          }}
+          options={{
+            types: ["(regions)"],
+            componentRestrictions: { country: "ca" },
+          }}
+
+        />
       </Container>
 
       <br />
