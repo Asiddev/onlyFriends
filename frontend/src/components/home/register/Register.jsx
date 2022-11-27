@@ -56,8 +56,10 @@ function Register() {
       return;
     }
     const newDataObj = {
+      name: newData.get("name"),
       email: newData.get("email"),
       password: newData.get("password"),
+      password_confirmation: newData.get("password_confirmation"),
     };
 
     axios
@@ -116,10 +118,18 @@ function Register() {
                   margin="normal"
                   required
                   fullWidth
+                  id="name"
+                  label="Full Name"
+                  name="name"
+                  autoFocus
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
-                  autoComplete="email"
                   autoFocus
                 />
                 <TextField
@@ -130,7 +140,15 @@ function Register() {
                   label="Password"
                   type="password"
                   id="password"
-                  autoComplete="current-password"
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password_confirmation"
+                  label="Password Confirmation"
+                  type="password"
+                  id="password_confirmation"
                 />
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
@@ -166,11 +184,14 @@ function Register() {
       <div className="right-half">
         <p>
           <span className="light-blue">Only</span>
-          <span className="dark-blue">Friends</span> allows people with similar interests or hobbies to get together.
+          <span className="dark-blue">Friends</span> allows people with similar
+          interests or hobbies to get together.
         </p>
         <br />
         <p>
-          Once you've created a profile, you will be part of a vast community of people looking to find others that love to spend time off the same way you do!
+          Once you've created a profile, you will be part of a vast community of
+          people looking to find others that love to spend time off the same way
+          you do!
         </p>
       </div>
     </div>

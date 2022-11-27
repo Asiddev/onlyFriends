@@ -3,23 +3,24 @@ import LoginPage from "./home/login/Login";
 import Register from "./home/register/Register";
 import Dashboard from "./dashboard/Dashboard";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useCookies } from "react-cookie";
+import { useEffect, useState } from "react";
 
 function App() {
-  let user = {
-    id: 1,
-    name: "alex",
-    active: false,
-  };
+  const [cookies, setCookie] = useCookies(null);
+
+  useEffect(() => {
+    console.log("ooiooo", cookies);
+  }, [cookies]);
 
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage setCookie={setCookie} />} />
           <Route
             path="/"
-            element={user.active ? <Dashboard user={user} /> : <Register />}
+            element={cookies["access-token"] ? <Dashboard /> : <Register />}
           />
         </Routes>
       </BrowserRouter>

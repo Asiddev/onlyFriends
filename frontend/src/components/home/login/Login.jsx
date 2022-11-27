@@ -39,8 +39,8 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-function Login() {
-  const navigator = useNavigate();
+function Login(props) {
+  const navigate = useNavigate();
   const [error, setError] = React.useState("");
 
   const validator = (event) => {
@@ -56,8 +56,8 @@ function Login() {
     axios
       .post("/api/users/login", newDataObj)
       .then((data) => {
-        console.log("success!");
-        return navigator("/");
+        props.setCookie(data.token);
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);
@@ -155,14 +155,14 @@ function Login() {
       <div className="right-half">
         <p>
           <span className="light-blue">Only</span>
-          <span className="dark-blue">Friends</span> allows people with
-          similar interests or hobbies to get together.
+          <span className="dark-blue">Friends</span> allows people with similar
+          interests or hobbies to get together.
         </p>
         <br />
         <p>
-          Once you've created a profile, you will be part of a vast community
-          of people looking to find others that love to spend time off the
-          same way you do!
+          Once you've created a profile, you will be part of a vast community of
+          people looking to find others that love to spend time off the same way
+          you do!
         </p>
       </div>
     </div>
