@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+
 import {
   AppBar,
   Box,
@@ -10,10 +10,45 @@ import {
   Avatar,
   TextField,
   Chip,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  CssBaseline,
+  Grid,
+  Stack,
+  Container,
+  Link,
+  createTheme,
+  ThemeProvider,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+
+import { useNavigate } from "react-router-dom";
+
 import "./Dashboard.scss";
 import axios from "axios";
+
+function Copyright(props) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © Nico Hernandez, Alex Sidor, Kevin Lee "}
+      <Link color="inherit" href="https://github.com/Asiddev/onlyFriends">
+        OnlyFriends
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
+
+const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+const theme = createTheme();
 
 function Dashboard(props) {
   const navigate = useNavigate();
@@ -21,91 +56,143 @@ function Dashboard(props) {
     e.preventDefault();
     axios.get("/api/users/logout").then(() => {
       localStorage.removeItem("user");
-      props.setCurrectUser(null);
-      navigate("/");
+      props.setCurrentUser(null);
+      navigate("/login");
     });
   };
-  console.log(props);
+
   return (
     <div>
-      <h1>CURRENT USER :{props.user.name}</h1>
-      <button onClick={handleLogout}>Logout</button>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar className="navbar-bg-color">
-            <img
+      <CssBaseline />
+
+      <Box marginBottom={10}>
+        <AppBar>
+          <Toolbar className="navbar-logo">
+            <h1>{props.user.name}</h1>
+
+            {/* <img
               src="https://i.imgur.com/Bgur1Fk.png"
               alt="OnlyFriends logo"
-              style={{ width: "10rem", paddingBottom: "1rem" }}
+              style={{ width: "10rem", alignItems: "center", justifyContent: "center" }}
+            /> */}
+            <Box
+              component="img"
+              sx={{ width: 150 }}
+              alt="OnlyFriends logo"
+              src="https://i.imgur.com/Bgur1Fk.png"
             />
+            <button onClick={handleLogout}> logout</button>
           </Toolbar>
         </AppBar>
       </Box>
 
-      <br />
-
-      <Box>
-        <Typography variant="h5">Profile Setup</Typography>
-        <Typography variant="p">
+      <Container maxWidth="sm">
+        <Typography
+          variant="h4"
+          align="center"
+          color="text.primary"
+          gutterBottom
+        >
+          Profile Setup
+        </Typography>
+        <Typography variant="p" align="center" color="text.secondary" paragraph>
           Provide the necessary information to start finding like-minded people!
         </Typography>
-      </Box>
+      </Container>
 
       <br />
 
-      <Box>
+      <Container maxWidth="sm">
         <Typography variant="p">Upload a profile picture</Typography>
-        <Avatar>test</Avatar>
-      </Box>
+        <Button variant="contained" component="label">
+          Upload File
+          <input type="file" hidden />
+        </Button>
+      </Container>
 
       <br />
 
-      <Box>
+      <Container maxWidth="sm">
         <Typography variant="p">Location</Typography>
-        <TextField label="e.g. Vancouver"></TextField>
-      </Box>
+        <TextField label="Location" placeholder="e.g. Vancouver"></TextField>
+      </Container>
 
       <br />
 
-      <Box>
+      <Container maxWidth="sm">
         <Typography variant="p">Bio</Typography>
-        <TextField label="e.g. I love long walks to the fridge"></TextField>
-      </Box>
+        <TextField
+          label="Bio"
+          placeholder="e.g. I love long walks to the fridge"
+        ></TextField>
+      </Container>
 
       <br />
 
-      <Box>
+      <Container maxWidth="sm">
         <Typography variant="p">Upload a cover banner</Typography>
-        <Avatar>test</Avatar>
-      </Box>
+        <Button variant="contained" component="label">
+          Upload File
+          <input type="file" hidden />
+        </Button>
+      </Container>
 
       <br />
 
-      <Box>
+      <Container maxWidth="sm" className="chip-spacing">
         <Typography variant="p">
           Select all interests/hobbies that apply
         </Typography>
 
         <br />
-        <br />
 
         <Chip label="Archery" variant="outlined" color="primary" />
         <Chip label="Axe-throwing" variant="filled" color="primary" />
-        <Chip label="Climbing" variant="outlined" color="primary" />
+        <Chip label="Climbing" variant="filled" color="primary" />
         <Chip label="Fencing" variant="filled" color="primary" />
         <Chip label="Kayaking" variant="outlined" color="primary" />
+        <Chip label="Polevaulting" variant="outlined" color="primary" />
+        <Chip label="Archery" variant="filled" color="primary" />
+        <Chip label="Axe-throwing" variant="outlined" color="primary" />
+        <Chip label="Climbing" variant="outlined" color="primary" />
+        <Chip label="Fencing" variant="filled" color="primary" />
+        <Chip label="Kayaking" variant="filled" color="primary" />
         <Chip label="Polevaulting" variant="outlined" color="primary" />
         <Chip label="Archery" variant="outlined" color="primary" />
         <Chip label="Axe-throwing" variant="filled" color="primary" />
-        <Chip label="Climbing" variant="outlined" color="primary" />
+        <Chip label="Climbing" variant="filled" color="primary" />
         <Chip label="Fencing" variant="filled" color="primary" />
         <Chip label="Kayaking" variant="outlined" color="primary" />
         <Chip label="Polevaulting" variant="outlined" color="primary" />
-      </Box>
+        <Chip label="Archery" variant="filled" color="primary" />
+        <Chip label="Axe-throwing" variant="outlined" color="primary" />
+        <Chip label="Climbing" variant="outlined" color="primary" />
+        <Chip label="Fencing" variant="filled" color="primary" />
+        <Chip label="Kayaking" variant="filled" color="primary" />
+        <Chip label="Polevaulting" variant="outlined" color="primary" />
+        <Chip label="Archery" variant="outlined" color="primary" />
+        <Chip label="Axe-throwing" variant="filled" color="primary" />
+        <Chip label="Climbing" variant="filled" color="primary" />
+        <Chip label="Fencing" variant="filled" color="primary" />
+        <Chip label="Kayaking" variant="outlined" color="primary" />
+        <Chip label="Polevaulting" variant="outlined" color="primary" />
+        <Chip label="Archery" variant="filled" color="primary" />
+        <Chip label="Axe-throwing" variant="outlined" color="primary" />
+        <Chip label="Climbing" variant="outlined" color="primary" />
+        <Chip label="Fencing" variant="filled" color="primary" />
+        <Chip label="Kayaking" variant="filled" color="primary" />
+        <Chip label="Polevaulting" variant="outlined" color="primary" />
+      </Container>
 
       <br />
 
-      <Button variant="contained">Save</Button>
+      <Container maxWidth="sm">
+        <Button variant="contained">Save</Button>
+      </Container>
+
+      <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
+        <Copyright />
+      </Box>
     </div>
   );
 }
