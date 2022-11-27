@@ -77,6 +77,15 @@ function Dashboard(props) {
         <Typography variant="p">
           Select all interests/hobbies that apply
         </Typography>
+
+        <br /><br />
+
+        <Chip label="Archery" variant="outlined" color="primary" />
+        <Chip label="Axe-throwing" variant="filled" color="primary" />
+        <Chip label="Climbing" variant="outlined" color="primary" />
+        <Chip label="Fencing" variant="filled" color="primary" />
+        <Chip label="Kayaking" variant="outlined" color="primary" />
+        <Chip label="Polevaulting" variant="outlined" color="primary" />
         <Chip label="Archery" variant="outlined" color="primary" />
         <Chip label="Axe-throwing" variant="filled" color="primary" />
         <Chip label="Climbing" variant="outlined" color="primary" />
@@ -84,6 +93,12 @@ function Dashboard(props) {
         <Chip label="Kayaking" variant="outlined" color="primary" />
         <Chip label="Polevaulting" variant="outlined" color="primary" />
       </Box>
+
+      <br />
+
+      <Button variant="contained">
+        Save
+      </Button>
 
     </div>
   );
