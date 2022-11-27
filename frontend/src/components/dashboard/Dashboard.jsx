@@ -1,5 +1,27 @@
-import React, {useState, useEffect} from "react";
-import { AppBar, Box, Toolbar, Typography, Button, IconButton, Avatar, TextField, Chip, Card, CardActions, CardContent, CardMedia, CssBaseline, Grid, Stack, Container, Link, createTheme, ThemeProvider, } from '@mui/material';
+import React, { useState, useEffect } from "react";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+  Avatar,
+  TextField,
+  Chip,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  CssBaseline,
+  Grid,
+  Stack,
+  Container,
+  Link,
+  createTheme,
+  ThemeProvider,
+} from "@mui/material";
+
 import "./Dashboard.scss";
 
 function Copyright(props) {
@@ -21,23 +43,19 @@ function Copyright(props) {
 }
 
 function Dashboard(props) {
-
-  const [bio, setBio] = useState('');
+  const [bio, setBio] = useState("");
   let bioLimit = 100;
   const [bioLength, setBioLength] = useState(bioLimit);
 
   const bioUpdater = (event) => {
     setBio(event.target.value);
     let wordCount = event.target.value.length;
-    
+
     setBioLength(bioLimit - wordCount);
-  }
-
-
+  };
 
   return (
     <div>
-
       <CssBaseline />
 
       <Box marginBottom={10}>
@@ -75,27 +93,17 @@ function Dashboard(props) {
       <br />
 
       <Container maxWidth="sm">
-        <Typography variant="p">
-          Upload a profile picture
-        </Typography>
-        <Button
-          variant="contained"
-          component="label"
-        >
+        <Typography variant="p">Upload a profile picture</Typography>
+        <Button variant="contained" component="label">
           Upload File
-          <input
-            type="file"
-            hidden
-          />
+          <input type="file" hidden />
         </Button>
       </Container>
 
       <br />
 
       <Container maxWidth="sm">
-        <Typography variant="p">
-          Location
-        </Typography>
+        <Typography variant="p">Location</Typography>
         <TextField label="Location" placeholder="e.g. Vancouver"></TextField>
       </Container>
 
@@ -105,29 +113,22 @@ function Dashboard(props) {
         <Typography variant="p">Bio</Typography>
         <TextField
           label="Bio"
-          value = {bio}
-          onChange = {bioUpdater}
+          value={bio}
+          onChange={bioUpdater}
           placeholder="e.g. I love long walks to the fridge"
         ></TextField>
-        <Typography className = {bioLength > 0? "safe" : "danger"} variant="h6">{bioLength}</Typography>
-        
+        <Typography className={bioLength > 0 ? "safe" : "danger"} variant="h6">
+          {bioLength}
+        </Typography>
       </Container>
 
       <br />
 
       <Container maxWidth="sm">
-        <Typography variant="p">
-          Upload a cover banner
-        </Typography>
-        <Button
-          variant="contained"
-          component="label"
-        >
+        <Typography variant="p">Upload a cover banner</Typography>
+        <Button variant="contained" component="label">
           Upload File
-          <input
-            type="file"
-            hidden
-          />
+          <input type="file" hidden />
         </Button>
       </Container>
 
@@ -181,15 +182,12 @@ function Dashboard(props) {
       <br />
 
       <Container maxWidth="sm">
-        <Button variant="contained">
-          Save
-        </Button>
+        <Button variant="contained">Save</Button>
       </Container>
 
-      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
+      <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
         <Copyright />
       </Box>
-
     </div>
   );
 }
