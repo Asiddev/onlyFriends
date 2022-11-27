@@ -18,6 +18,7 @@ function App() {
             path="/"
             element={cookies["access-token"] ? <Dashboard /> : <Register />}
           />
+          <Route path="/dashboard" element={<Dashboard/>}/>
         </Routes>
       </BrowserRouter>
     </>
