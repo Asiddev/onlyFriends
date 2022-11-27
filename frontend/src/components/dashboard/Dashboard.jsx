@@ -46,7 +46,7 @@ function Dashboard(props) {
   const [bioLength, setBioLength] = useState(bioLimit);
   const [profileImage, setProfileImage] = useState(null);
   const [bannerImage, setBannerImage] = useState(null);
-  const [error, setError] = useState("");
+  const [error, setError] = useState("Test");
   const navigate = useNavigate();
 
   //Function to logout and clear cookie and storage
@@ -93,7 +93,14 @@ function Dashboard(props) {
     }
   
     //Render error if any conditions are not met
-    
+    if (userObj.description.length > 100) {
+      setError("Bio exceeds 100 char limit");
+      return;
+    }
+    if (!userObj.location) {
+      setError("Location must be filled");
+      return;
+    }
     //Upload image into firebase and get url link id
     const profilePathway = `profileImages/${v4()}`;
     const bannerPathway = `bannerImages/${v4()}`;
@@ -114,6 +121,7 @@ function Dashboard(props) {
     <div>
       <div><img src= {props.user.profile_picture}/></div>
       <Button onClick ={logOut}> Logout</Button>
+      <div>{error}</div>
       <CssBaseline />
 
       <Box marginBottom={10}>
@@ -216,7 +224,7 @@ function Dashboard(props) {
           onChange={bioUpdater}
           placeholder="e.g. I love long walks to the fridge"
         ></TextField>
-        <Typography className={bioLength > 0 ? "safe" : "danger"} variant="h6">
+        <Typography className={bioLength >= 0 ? "safe" : "danger"} variant="h6">
           {bioLength}
         </Typography>
       </Container>
