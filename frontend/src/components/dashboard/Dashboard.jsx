@@ -1,32 +1,5 @@
-<<<<<<< HEAD
-import React, { useState, useEffect} from "react";
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  Typography,
-  Button,
-  IconButton,
-  Avatar,
-  TextField,
-  Chip,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  CssBaseline,
-  Grid,
-  Stack,
-  Container,
-  Link,
-  createTheme,
-  ThemeProvider,
-} from "@mui/material";
-import { useNavigate } from "react-router-dom";
-=======
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { AppBar, Box, Toolbar, Typography, Button, IconButton, Avatar, TextField, Chip, Card, CardActions, CardContent, CardMedia, CssBaseline, Grid, Stack, Container, Link, createTheme, ThemeProvider, } from '@mui/material';
->>>>>>> 8e0daf736a63ec8ca205ea88a8097acd124f5899
 import "./Dashboard.scss";
 
 function Copyright(props) {
