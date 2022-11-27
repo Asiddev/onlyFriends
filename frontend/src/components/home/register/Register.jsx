@@ -112,7 +112,7 @@ function Register() {
                     <AlertTitle>Error</AlertTitle>
                     {error}
                   </Alert>
-                )}{" "}
+                )}
                 <br />
                 <TextField
                   margin="normal"
