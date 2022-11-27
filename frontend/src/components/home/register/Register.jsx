@@ -117,7 +117,6 @@ function Register() {
                 )}
                 <br />
                 <TextField
-                  className="white-inputs"
                   margin="normal"
                   required
                   fullWidth
@@ -127,7 +126,6 @@ function Register() {
                   autoFocus
                 />
                 <TextField
-                  className="white-inputs"
                   margin="normal"
                   required
                   fullWidth
@@ -136,7 +134,6 @@ function Register() {
                   name="email"
                 />
                 <TextField
-                  className="white-inputs"
                   margin="normal"
                   required
                   fullWidth
@@ -146,7 +143,6 @@ function Register() {
                   id="password"
                 />
                 <TextField
-                  className="white-inputs"
                   margin="normal"
                   required
                   fullWidth
