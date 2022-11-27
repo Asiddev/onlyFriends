@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import Autocomplete from "react-google-autocomplete";
 import {
   AppBar,
+  Alert,
+  AlertTitle,
   Box,
   Toolbar,
   Typography,
@@ -46,7 +48,7 @@ function Dashboard(props) {
   const [bioLength, setBioLength] = useState(bioLimit);
   const [profileImage, setProfileImage] = useState(null);
   const [bannerImage, setBannerImage] = useState(null);
-  const [error, setError] = useState("Test");
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   //Function to logout and clear cookie and storage
@@ -70,9 +72,6 @@ function Dashboard(props) {
 
   //Put function below into another file
   const uploadImage = (pathway, image) => {
-    if (profileImage == null) {
-      return "No image uploaded, cant be null";
-    }
     const imageRef = ref(storage, pathway);
     return (
       uploadBytes(imageRef, image)
@@ -84,6 +83,7 @@ function Dashboard(props) {
   const postProfile = (event) => {
     //Make error message set states here
     event.preventDefault();
+    setError("");
     const newData = new FormData(event.currentTarget);
     const loggedUser = JSON.parse(localStorage.getItem("user"))
     const userObj = {
@@ -101,6 +101,10 @@ function Dashboard(props) {
       setError("Location must be filled");
       return;
     }
+    if (!profileImage || !bannerImage) {
+      setError("Please upload image to express yourself");
+      return;
+    }
     //Upload image into firebase and get url link id
     const profilePathway = `profileImages/${v4()}`;
     const bannerPathway = `bannerImages/${v4()}`;
@@ -112,16 +116,13 @@ function Dashboard(props) {
     .then((url) => userObj.banner_picture = url)
     .then(() => axios.post("/api/users/update", userObj))
     .then(() => {console.log ("Posting was successful in dashboard")})
-    .catch((err)=> {setError(err.rresponse.data)});
-
-     
+    .catch((err)=> {setError(err.response.data)});
   }
 
   return (
     <div>
       <div><img src= {props.user.profile_picture}/></div>
       <Button onClick ={logOut}> Logout</Button>
-      <div>{error}</div>
       <CssBaseline />
 
       <Box marginBottom={10}>
@@ -137,6 +138,7 @@ function Dashboard(props) {
               sx={{ width: 150 }}
               alt="OnlyFriends logo"
               src="https://i.imgur.com/Bgur1Fk.png"
+              
             />
           </Toolbar>
         </AppBar>
@@ -147,6 +149,7 @@ function Dashboard(props) {
       noValidate
       sx={{mt:1}}
     >
+      
       <Container maxWidth="sm">
         <Typography
           variant="h4"
@@ -160,14 +163,19 @@ function Dashboard(props) {
           Provide the necessary information to start finding like-minded people!
         </Typography>
       </Container>
-
+      {error && (
+                  <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {error}
+                  </Alert>
+                )}
       <br />
 
       <Container maxWidth="sm">
         <Typography variant="p">Upload a profile picture</Typography>
         <Button variant="contained" component="label">
           Upload File
-          <input type="file" name="profile_picture" onChange = {(event) => {setProfileImage(event.target.files[0])}} hidden />
+          <input type="file" accept="image/*" name="profile_picture" onChange = {(event) => {setProfileImage(event.target.files[0])}} hidden />
         </Button>
       </Container>
 
@@ -235,7 +243,7 @@ function Dashboard(props) {
         <Typography variant="p">Upload a cover banner</Typography>
         <Button variant="contained" component="label">
           Upload File
-          <input type="file" name="banner_picture" onChange = {(event) => {setBannerImage(event.target.files[0])}} hidden />
+          <input type="file" accept="image/*" name="banner_picture" onChange = {(event) => {setBannerImage(event.target.files[0])}} hidden />
         </Button>
       </Container>
 
