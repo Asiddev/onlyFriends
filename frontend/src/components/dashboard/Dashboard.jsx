@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import {storage} from '../../configAPI/firebase.js';
+import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
+import {v4} from 'uuid'
 import Autocomplete from "react-google-autocomplete";
-import { usePlacesWidget } from "react-google-autocomplete";
 import {
   AppBar,
   Box,
@@ -35,16 +37,30 @@ function Copyright(props) {
 }
 
 function Dashboard(props) {
+
+  //Refactor state like scheduler if time permits
   const [bio, setBio] = useState("");
   let bioLimit = 100;
   const [bioLength, setBioLength] = useState(bioLimit);
+  const [imageUpload, setImageUpload] = useState(null);
 
+ //Put function below into another file
   const bioUpdater = (event) => {
     setBio(event.target.value);
     let wordCount = event.target.value.length;
 
     setBioLength(bioLimit - wordCount);
   };
+
+  //Put function below into another file
+  const uploadImage = () => {
+    if (imageUpload == null) {
+      return "No image uploaded, cant be null";
+    }
+    const imageRef = ref(storage, `profileImages/${v4()}`);
+    uploadBytes(imageRef, imageUpload)
+    .then(() => alert("Image has been uploaded"));
+  }
 
   return (
     <div>
@@ -88,8 +104,10 @@ function Dashboard(props) {
         <Typography variant="p">Upload a profile picture</Typography>
         <Button variant="contained" component="label">
           Upload File
-          <input type="file" hidden />
+          <input type="file" onChange = {(event) => {setImageUpload(event.target.files[0])}} hidden />
         </Button>
+        <button onClick = {uploadImage}>Hello</button>
+        <div>{imageUpload === null? "empty":<img src={URL.createObjectURL(imageUpload[0])}/>}</div>
       </Container>
 
       <br />
