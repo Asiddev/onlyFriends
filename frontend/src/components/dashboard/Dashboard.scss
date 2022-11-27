@@ -21,6 +21,12 @@
   color: black;
 }
 
+.selected {
+  :hover {
+    background-color: red;
+  }
+}
+
 // .MuiTextField-root	{
 //   background-color: aqua;
 // }
