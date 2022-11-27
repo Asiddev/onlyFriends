@@ -85,23 +85,16 @@ function Dashboard(props) {
     const profilePathway = `profileImages/${v4()}`;
     const bannerPathway = `bannerImages/${v4()}`;
     
+    //Axios Post request to backend
     uploadImage(profilePathway, profileImage)
     .then((url) => userObj.profile_picture = url)
-
-    uploadImage(bannerPathway, bannerImage)
+    .then(()=> uploadImage(bannerPathway, bannerImage))
     .then((url) => userObj.banner_picture = url)
-   
-    //Axios Post request to backend
-    axios
-      .post("/api/profiles", userObj)
-      .then((data) => {
-        console.log("success!");
-        return navigator("/login");
-      })
-      .catch((err) => {
-        console.log(err);
-        setError(err.response.data);
-      });
+    .then(() => axios.post("/api/users/update", userObj))
+    .then(() => {console.log ("Posting was successful in dashboard")})
+    .catch((err)=> {setError(err.rresponse.data)});
+
+     
   }
 
   return (
