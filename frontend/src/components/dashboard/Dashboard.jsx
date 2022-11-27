@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {storage} from '../../configAPI/firebase.js';
 import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
 import {v4} from 'uuid'
+import axios from "axios";
 import Autocomplete from "react-google-autocomplete";
 import {
   AppBar,
@@ -42,7 +43,8 @@ function Dashboard(props) {
   const [bio, setBio] = useState("");
   let bioLimit = 100;
   const [bioLength, setBioLength] = useState(bioLimit);
-  const [imageUpload, setImageUpload] = useState(null);
+  const [ProfileImage, setProfileImage] = useState(null);
+  const [error, setError] = useState("");
 
  //Put function below into another file
   const bioUpdater = (event) => {
@@ -53,13 +55,52 @@ function Dashboard(props) {
   };
 
   //Put function below into another file
-  const uploadImage = () => {
-    if (imageUpload == null) {
+  const uploadImage = (pathway, image) => {
+    if (image == null) {
       return "No image uploaded, cant be null";
     }
-    const imageRef = ref(storage, `profileImages/${v4()}`);
-    uploadBytes(imageRef, imageUpload)
-    .then(() => alert("Image has been uploaded"));
+    const imageRef = ref(storage, pathway);
+    return (
+      uploadBytes(imageRef, image)
+    .then(() => (getDownloadURL(imageRef, pathway)))
+    )
+  }
+
+  //Function to post profile info into backend
+  const postProfile = (event) => {
+    //Make error message set states here
+    event.preventDefault();
+    const newData = new FormData(event.currentTarget);
+    const newDataObj = {
+      location: newData.get("Location"),
+      description: newData.get("Bio"),
+    }
+    console.log(newDataObj);
+    //Render error if any conditions are not met
+    
+    //Upload image into firebase and get url link id
+    const profileUUID = v4();
+    const bannerUUID = v4();
+    const profilePathway = `profileImages/${profileUUID}`;
+    const bannerPathway = `bannerImages/${bannerUUID}`;
+    
+    uploadImage(profilePathway, ProfileImage)
+    .then((url) => newDataObj.profile_picture = url)
+    .then(() => console.log(newDataObj))
+
+  
+   
+    //Axios Post request to backend
+    // axios
+    //   .post("/api/profiles", newDataObj)
+    //   .then((data) => {
+    //     console.log("success!");
+    //     return navigator("/login");
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     setError(err.response.data);
+    //   });
   }
 
   return (
@@ -83,7 +124,12 @@ function Dashboard(props) {
           </Toolbar>
         </AppBar>
       </Box>
-
+    <Box
+      component="form"
+      onSubmit={postProfile}
+      noValidate
+      sx={{mt:1}}
+    >
       <Container maxWidth="sm">
         <Typography
           variant="h4"
@@ -104,10 +150,8 @@ function Dashboard(props) {
         <Typography variant="p">Upload a profile picture</Typography>
         <Button variant="contained" component="label">
           Upload File
-          <input type="file" onChange = {(event) => {setImageUpload(event.target.files[0])}} hidden />
+          <input type="file" name="profile_picture" onChange = {(event) => {setProfileImage(event.target.files[0])}} hidden />
         </Button>
-        <button onClick = {uploadImage}>Hello</button>
-        <div>{imageUpload === null? "empty":<img src={URL.createObjectURL(imageUpload[0])}/>}</div>
       </Container>
 
       <br />
@@ -139,6 +183,7 @@ function Dashboard(props) {
         <Typography variant="p">Location for Test with correct texfield look</Typography>
         <Autocomplete
           className="MuiTextField-root"
+          name = "Location"
           apiKey={process.env.REACT_APP_MY_API_KEY}
           style={{ width: "90%" }}
           onPlaceSelected={(place) => {
@@ -157,6 +202,7 @@ function Dashboard(props) {
         <Typography variant="p">Bio</Typography>
         <TextField
           label="Bio"
+          name="Bio"
           value={bio}
           onChange={bioUpdater}
           placeholder="e.g. I love long walks to the fridge"
@@ -226,9 +272,9 @@ function Dashboard(props) {
       <br />
 
       <Container maxWidth="sm">
-        <Button variant="contained">Save</Button>
+        <Button variant="contained" type="submit">Save</Button>
       </Container>
-
+    </Box>
       <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
         <Copyright />
       </Box>
