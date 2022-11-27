@@ -3,6 +3,7 @@ import {storage} from '../../configAPI/firebase.js';
 import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
 import {v4} from 'uuid'
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Autocomplete from "react-google-autocomplete";
 import {
   AppBar,
@@ -46,6 +47,18 @@ function Dashboard(props) {
   const [profileImage, setProfileImage] = useState(null);
   const [bannerImage, setBannerImage] = useState(null);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  //Function to logout and clear cookie and storage
+  const logOut = (event) => {
+    event.preventDefault();
+    axios.get("/api/users/logout")
+    .then(() => {
+      localStorage.removeItem('user');
+      props.setCurrentUser(null);
+      navigate('/login')
+    });
+  }
 
  //Put function below into another file
   const bioUpdater = (event) => {
@@ -57,7 +70,7 @@ function Dashboard(props) {
 
   //Put function below into another file
   const uploadImage = (pathway, image) => {
-    if (image == null) {
+    if (profileImage == null) {
       return "No image uploaded, cant be null";
     }
     const imageRef = ref(storage, pathway);
@@ -99,6 +112,8 @@ function Dashboard(props) {
 
   return (
     <div>
+      <div><img src= {props.user.profile_picture}/></div>
+      <Button onClick ={logOut}> Logout</Button>
       <CssBaseline />
 
       <Box marginBottom={10}>
