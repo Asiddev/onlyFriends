@@ -9,9 +9,7 @@ import { useEffect, useState } from "react";
 function App() {
   const [cookies, setCookie] = useCookies(null);
 
-  useEffect(() => {
-    console.log("ooiooo", cookies);
-  }, [cookies]);
+
 
   return (
     <>
