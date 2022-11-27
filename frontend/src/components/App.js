@@ -21,6 +21,7 @@ function App() {
             path="/"
             element={user.active ? <Dashboard user={user} /> : <Register />}
           />
+          <Route path="/dashboard" element={<Dashboard/>}/>
         </Routes>
       </BrowserRouter>
     </>
