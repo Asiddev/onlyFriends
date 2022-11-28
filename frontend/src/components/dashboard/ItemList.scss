@@ -1,0 +1,17 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: min-content;
+  grid-gap: 30px;
+}
+
+.interest-btn {
+  border-radius: 5px;
+  background-color: lightblue;
+  border: none;
+  padding: 20px;
+}
+
+.selected {
+  background-color: aqua;
+}

@@ -19,10 +19,6 @@
 
 .blockAni {
   position: relative;
-  margin: 300px auto 0;
-  width: 500px;
-  height: 250px;
-  background: linear-gradient(0deg, #000, #272727);
 }
 
 .blockAni:before,
@@ -61,8 +57,4 @@
   100% {
     background-position: 0 0;
   }
-}
-
-.blockAni:after {
-  filter: blur(50px);
 }

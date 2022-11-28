@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { MultiSelect } from "react-multi-select-component";
+import axios from "axios";
+import { useEffect } from "react";
+import "./ItemList.scss";
+import "../../styles/animations.scss";
 
 const options = [
   { label: "Axe-Throwing 🪓", value: "Axe-Throwing", id: 1 },
@@ -13,20 +17,34 @@ const options = [
 ];
 
 const ItemList = () => {
-  const [selected, setSelected] = useState([]);
+  const [interests, setInterests] = useState([]);
 
-  return (
-    <div className="center">
-      <h1>Select Interests / Hobbies</h1>
+  const handleClick = (e) => {
+    e.stopPropagation();
+    console.log(e.target.classList.toggle("blockAni"));
+  };
 
-      <MultiSelect
-        options={options}
-        value={selected}
-        onChange={setSelected}
-        labelledBy="Select"
-      />
-    </div>
-  );
+  useEffect(() => {
+    fetchInterests();
+  }, []);
+
+  function fetchInterests() {
+    axios.get("/api/interests").then((data) => {
+      setInterests(data.data);
+    });
+  }
+
+  console.log(interests);
+
+  const interestList = interests.map((interest) => {
+    return (
+      <button key={interest.id} className="interest-btn" onClick={handleClick}>
+        {interest.name}
+      </button>
+    );
+  });
+
+  return <div className="center grid">{interestList}</div>;
 };
 
 export default ItemList;

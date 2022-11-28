@@ -342,15 +342,12 @@ function Dashboard(props) {
         </Container>
 
         <br />
-
-        <Container maxWidth="sm">
-          <div className="center">
-            <Button variant="contained" type="submit">
-              Save
-            </Button>
-          </div>
-        </Container>
       </Box>
+      <div className="center">
+        <Button variant="contained" type="submit">
+          Save
+        </Button>
+      </div>
 
       <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
         {/* Test for Alex logout */}
