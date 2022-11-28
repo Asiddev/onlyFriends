@@ -67,7 +67,6 @@ function Dashboard(props) {
 
   const navigate = useNavigate();
 
-  console.log(picked);
 
   //Function to logout and clear cookie and storage
   const logOut = (event) => {
@@ -127,6 +126,7 @@ function Dashboard(props) {
       id: loggedUser.id,
       location: newData.get("Location"),
       description: newData.get("Bio"),
+      interests: picked
     };
 
     //Render error if any conditions are not met
@@ -147,17 +147,18 @@ function Dashboard(props) {
     const bannerPathway = `bannerImages/${v4()}`;
 
     //Axios Post request to backend
+    
+    axios.post("/api/user_interests", userObj)
+
     uploadImage(profilePathway, profileImage)
       .then((url) => (userObj.profile_picture = url))
       .then(() => uploadImage(bannerPathway, bannerImage))
       .then((url) => (userObj.banner_picture = url))
       .then(() => axios.post("/api/users/update", userObj))
-      .then(() => {
-        console.log("Posting was successful in dashboard");
-      })
       .catch((err) => {
         setError(err.response.data);
-      });
+      })
+
   };
 
   return (
@@ -349,13 +350,15 @@ function Dashboard(props) {
         </Container>
 
         <br />
-      </Box>
-      <div className="center">
+
+        <div className="center">
         <Button variant="contained" type="submit">
           Save
         </Button>
       </div>
 
+      </Box>
+      
       <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
         {/* Test for Alex logout */}
         <div className="center">
