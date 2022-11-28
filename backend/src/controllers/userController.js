@@ -8,6 +8,11 @@ const getAllUsers = (req, res) => {
   });
 };
 
+const getUserById = (id) => {
+  return userQueries.getUserById(id)
+};
+
+
 const addUser = (req, res) => {
   userQueries.checkUserDB(req.body.email).then((user) => {
     if (user) {
@@ -93,6 +98,7 @@ const Logout = (req, res) => {
 
 module.exports = {
   getAllUsers,
+  getUserById,
   addUser,
   addUserProfileInfo,
   Login,
