@@ -18,16 +18,20 @@ const ItemList = (props) => {
 
   const handleClick = (e) => {
     e.stopPropagation();
-    if (props.picked.includes(e.target.value)) {
+    //ways of making number
+    //+value == makes a number
+    //parseInt(value) == makes number
+    //Number(value) == makes number
+    //
+    const interestId = parseInt(e.target.value)
+    if (props.picked.includes(interestId)) {
       e.target.classList.remove("blockAni");
       props.setPicked((prevPicked) => {
-        return prevPicked.filter((name) => e.target.value !== name);
+        return prevPicked.filter((name) => interestId !== name);
       });
-
-      // const withoutArray = myArray.splice(index, 1);
     } else {
       e.target.classList.add("blockAni");
-      props.setPicked((prev) => [...prev, e.target.value]);
+      props.setPicked((prev) => [...prev, interestId]);
     }
   };
 
