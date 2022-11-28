@@ -53,13 +53,10 @@ function Dashboard(props) {
   const [bio, setBio] = useState("");
   let bioLimit = 100;
   const [bioLength, setBioLength] = useState(bioLimit);
-<<<<<<< HEAD
   
   const [profileImage, setProfileImage] = useState(null);
   const [bannerImage, setBannerImage] = useState(null);
-=======
   const [active, setActive] = useState(false);
->>>>>>> 3d18178 (interests list rendering)
 
   const [profilePreview, setProfilePreview] = useState(null);
   const [bannerPreview, setBannerPreview] = useState(null);
@@ -86,8 +83,7 @@ function Dashboard(props) {
     setBioLength(bioLimit - wordCount);
   };
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
   //Put function below into another file
   const uploadImage = (pathway, image) => {
     const imageRef = ref(storage, pathway);
@@ -157,12 +153,7 @@ function Dashboard(props) {
     .then(() => {console.log ("Posting was successful in dashboard")})
     .catch((err)=> {setError(err.response.data)});
   }
-=======
-  const [variant, setVariant] = useState(false);
->>>>>>> 5b23119 (highlighted conditional toggle)
 
-=======
->>>>>>> 3d18178 (interests list rendering)
   return (
     <div>
       <div><img src= {props.user.profile_picture}/></div>
@@ -314,13 +305,12 @@ function Dashboard(props) {
 
       <br />
 
-<<<<<<< HEAD
+
       <Container maxWidth="sm">
         <Button variant="contained" type="submit">Save</Button>
       </Container>
     </Box>
-=======
->>>>>>> 3d18178 (interests list rendering)
+
       <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
         <Copyright />
       </Box>
