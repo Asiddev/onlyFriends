@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import "./ItemList.scss";
 import "../../styles/animations.scss";
+import { Button, Typography, Grid, Container, Card, CardContent } from '@mui/material';
 
 const options = [
   { label: "Axe-Throwing 🪓", value: "Axe-Throwing", id: 1 },
@@ -16,12 +17,15 @@ const options = [
   { label: "Reading Circle 📕", value: "Reading-Circle", id: 8 },
 ];
 
+const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
 const ItemList = () => {
   const [interests, setInterests] = useState([]);
 
   const handleClick = (e) => {
     e.stopPropagation();
-    console.log(e.target.classList.toggle("blockAni"));
+    console.log("target", e.target.classList);
+    e.target.classList.toggle("blockAni");
   };
 
   useEffect(() => {
@@ -34,17 +38,40 @@ const ItemList = () => {
     });
   }
 
-  console.log(interests);
+  console.log("interests:", interests);
 
   const interestList = interests.map((interest) => {
     return (
-      <button key={interest.id} className="interest-btn" onClick={handleClick}>
+      <Button key={interest.id} variant="contained" onClick={handleClick} sx={{ marginRight: 1}}>
         {interest.name}
-      </button>
+      </Button>
     );
   });
 
-  return <div className="center grid">{interestList}</div>;
+  return (
+    // <div>
+    //   {interestList}
+    // </div>
+
+
+    // <Container>
+    //   <Grid container spacing={4}>
+    //     {interests.map((interest) => (
+    //       <Button item key={interest.id} xs={12} sm={6} md={4} onClick={handleClick} variant="contained" spacing="20">
+    //         <Typography>
+    //           {interest.name}
+    //         </Typography>
+    //       </Button>
+    //     ))}
+    //   </Grid>
+    // </Container>
+
+    <Grid container>
+      <Grid item >
+        {interestList}
+      </Grid>
+    </Grid>
+  );
 };
 
 export default ItemList;
