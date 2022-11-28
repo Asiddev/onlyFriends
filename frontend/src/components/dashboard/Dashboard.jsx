@@ -62,7 +62,12 @@ function Dashboard(props) {
   const [bannerPreview, setBannerPreview] = useState(null);
 
   const [error, setError] = useState(null);
+
+  const [picked, setPicked] = useState([]);
+
   const navigate = useNavigate();
+
+  console.log(picked);
 
   //Function to logout and clear cookie and storage
   const logOut = (event) => {
@@ -336,7 +341,7 @@ function Dashboard(props) {
                 console.log(e);
               }}
             >
-              <ItemList />
+              <ItemList picked={picked} setPicked={setPicked} />
             </FormControl>
           </div>
         </Container>

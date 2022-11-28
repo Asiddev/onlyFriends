@@ -45,6 +45,7 @@
   height: calc(100% + 4px);
   z-index: -1;
   animation: steam 20s linear infinite;
+  border-radius: 20px;
 }
 
 @keyframes steam {
