@@ -2,6 +2,7 @@ import "./App.scss";
 import LoginPage from "./home/login/Login";
 import Register from "./home/register/Register";
 import Dashboard from "./dashboard/Dashboard";
+import Browse from "./browse/Browse";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useState } from "react";
@@ -40,6 +41,12 @@ function App() {
               ) : (
                 <Register />
               )
+            }
+          />
+          <Route
+            path="/browse"
+            element={
+              <Browse />
             }
           />
         </Routes>
