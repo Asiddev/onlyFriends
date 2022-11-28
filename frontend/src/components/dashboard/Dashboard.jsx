@@ -49,7 +49,10 @@ function Copyright(props) {
 }
 
 function Dashboard(props) {
+ 
   //Refactor state like scheduler if time permits
+  const [loggedUser, setLoggedUser] = useState(null);
+
   const [bio, setBio] = useState("");
   let bioLimit = 100;
   const [bioLength, setBioLength] = useState(bioLimit);
@@ -66,6 +69,7 @@ function Dashboard(props) {
   const [picked, setPicked] = useState([]);
 
   const navigate = useNavigate();
+
 
 
   //Function to logout and clear cookie and storage
@@ -125,7 +129,7 @@ function Dashboard(props) {
     const userObj = {
       id: loggedUser.id,
       location: newData.get("Location"),
-      description: newData.get("Bio"),
+      description: bio,
       interests: picked
     };
 
