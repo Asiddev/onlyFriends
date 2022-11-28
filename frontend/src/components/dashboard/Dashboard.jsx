@@ -76,6 +76,7 @@ function Dashboard(props) {
     setBioLength(bioLimit - wordCount);
   };
 
+<<<<<<< HEAD
   //Put function below into another file
   const uploadImage = (pathway, image) => {
     const imageRef = ref(storage, pathway);
@@ -145,6 +146,9 @@ function Dashboard(props) {
     .then(() => {console.log ("Posting was successful in dashboard")})
     .catch((err)=> {setError(err.response.data)});
   }
+=======
+  const [variant, setVariant] = useState(false);
+>>>>>>> 5b23119 (highlighted conditional toggle)
 
   return (
     <div>
@@ -214,7 +218,6 @@ function Dashboard(props) {
         <TextField label="Location" placeholder="e.g. Narnia"></TextField>
       </Container>
 
-
       {/* Test for Kevin location */}
       {/* <Container maxWidth="sm">
         <Typography variant="p">Location for Test</Typography>
@@ -233,19 +236,19 @@ function Dashboard(props) {
 
       {/* Test with proper textfield look */}
       <Container maxWidth="sm">
-        <Typography variant="p">Location for Test with correct texfield look</Typography>
+        <Typography variant="p">
+          Location for Test with correct texfield look
+        </Typography>
         <Autocomplete
           className="MuiTextField-root"
           name = "Location"
           apiKey={process.env.REACT_APP_MY_API_KEY}
           style={{ width: "90%" }}
-          onPlaceSelected={(place) => {
-          }}
+          onPlaceSelected={(place) => {}}
           options={{
             types: ["(regions)"],
             componentRestrictions: { country: "ca" },
           }}
-
         />
       </Container>
 
@@ -285,7 +288,12 @@ function Dashboard(props) {
 
         <br />
 
-        <Chip label="Archery" variant="outlined" color="primary" />
+        <Chip
+          variant={variant ? "outlined" : "filled"}
+          label="Archery"
+          color="primary"
+          onClick={() => setVariant(!variant)}
+        />
         <Chip label="Axe-throwing" variant="filled" color="primary" />
         <Chip label="Climbing" variant="filled" color="primary" />
         <Chip label="Fencing" variant="filled" color="primary" />
