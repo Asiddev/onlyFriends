@@ -268,7 +268,7 @@ function Dashboard(props) {
                 name="Location"
                 apiKey={process.env.REACT_APP_MY_API_KEY}
                 style={{ width: "300px", height: "55px" }}
-                onPlaceSelected={(place) => {}}
+                onPlaceSelected={(place) => { }}
                 options={{
                   types: ["(regions)"],
                   componentRestrictions: { country: "ca" },
@@ -330,19 +330,21 @@ function Dashboard(props) {
         <br />
 
         <Container maxWidth="md" className="chip-spacing">
-          <div>
+          <div className="center">
             <Typography variant="p">
               Select all interests/hobbies that apply
             </Typography>
 
-            <br />
-            <FormControl
-              onSubmit={(e) => {
-                console.log(e);
-              }}
-            >
-              <ItemList picked={picked} setPicked={setPicked} />
-            </FormControl>
+            <div className="formControl">
+              <FormControl
+                onSubmit={(e) => {
+                  console.log(e);
+                }}
+              >
+                <ItemList picked={picked} setPicked={setPicked} />
+              </FormControl>
+            </div>
+
           </div>
         </Container>
 
