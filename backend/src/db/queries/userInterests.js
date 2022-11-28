@@ -25,5 +25,16 @@ const addUserInterest = (userId, interestId) => {
 	})
 }
 
-module.exports = { getAllUserInterests, getUserInterestById, addUserInterest }
+const getUserInterestsById = (id) => {
+  return db.query(`
+    SELECT * FROM interests
+    JOIN user_interests 
+    ON interests.id = interest_id 
+    WHERE user_id = $1  
+  `, [id]).then((data) => {
+    return data.rows;
+  })
+}
+
+module.exports = { getAllUserInterests, getUserInterestById, addUserInterest, getUserInterestsById }
 

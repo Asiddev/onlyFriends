@@ -8,10 +8,7 @@ const getAllUserInterests = (req, res) => {
 };
 
 const addUserInterests = (req, res) => {
-  //req.body.interest = [Array of interest]
-  // Db query takes only 1 interest and puts into db.
 
-  //with each interest use query.
   const body = req.body
   
   for (let interest of body.interests) {
@@ -19,7 +16,15 @@ const addUserInterests = (req, res) => {
   }
 }
 
+const getUserInterestsById = (id) => {
+  return userInterestQueries.getUserInterestsById(id)
+};
+
 module.exports = {
   getAllUserInterests,
-  addUserInterests
+  addUserInterests,
+  getUserInterestsById
 };
+
+
+

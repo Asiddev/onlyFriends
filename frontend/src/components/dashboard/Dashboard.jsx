@@ -147,7 +147,7 @@ function Dashboard(props) {
     const bannerPathway = `bannerImages/${v4()}`;
 
     //Axios Post request to backend
-    
+
     axios.post("/api/user_interests", userObj)
 
     uploadImage(profilePathway, profileImage)
@@ -339,7 +339,6 @@ function Dashboard(props) {
             <div className="formControl">
               <FormControl
                 onSubmit={(e) => {
-                  console.log(e);
                 }}
               >
                 <ItemList picked={picked} setPicked={setPicked} />

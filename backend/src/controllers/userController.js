@@ -49,15 +49,10 @@ const addUserProfileInfo = (req, res) => {
   const body = req.body;
   userQueries
   .addUserProfileInfo(body.id, body.profile_picture, body.banner_picture, body.description, body.location)
-  .then((data) => {
-    console.log(data.rows[0]);
-    return data.rows[0];
-  })
 }
 
 const Login = (req, res) => {
   userQueries.checkUserDB(req.body.email).then((user) => {
-    console.log(user);
     if (!user) {
       return res.status(401).json("No account with that email");
     }
