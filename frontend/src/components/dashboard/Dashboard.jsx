@@ -226,13 +226,13 @@ function Dashboard(props) {
               />
             </Button>
             <br />
-            {profileImage && (
+            
               <img
                 className="circle-img"
-                src={profilePreview}
+                src={profilePreview ||"https://firebasestorage.googleapis.com/v0/b/lhl-finals-41149.appspot.com/o/Default%20Pictures%2Fdefault_profile_picture.jpg?alt=media&token=c2fd132d-9146-4e52-948b-a7b8b077b9e0"}
                 alt="profile pic"
               />
-            )}
+            
           </div>
         </Container>
 
@@ -316,13 +316,13 @@ function Dashboard(props) {
               />
             </Button>
             <div>
-              {bannerImage && (
+             
                 <img
                   className="rectangle-img"
-                  src={bannerPreview}
+                  src={bannerPreview ||"https://firebasestorage.googleapis.com/v0/b/lhl-finals-41149.appspot.com/o/Default%20Pictures%2Fdefault_banner_picture.jpg?alt=media&token=9c9d2102-9d81-411e-8ffc-0d31d9988af4"}
                   alt="banner pic"
                 />
-              )}
+             
             </div>
           </div>
         </Container>
