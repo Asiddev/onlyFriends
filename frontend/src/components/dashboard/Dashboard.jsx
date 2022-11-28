@@ -20,8 +20,14 @@ import {
   CssBaseline,
   Container,
   Link,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
 } from "@mui/material";
 import "./Dashboard.scss";
+import ItemList from "../../components/dashboard/ItemList";
 
 function Copyright(props) {
   return (
@@ -47,9 +53,13 @@ function Dashboard(props) {
   const [bio, setBio] = useState("");
   let bioLimit = 100;
   const [bioLength, setBioLength] = useState(bioLimit);
+<<<<<<< HEAD
   
   const [profileImage, setProfileImage] = useState(null);
   const [bannerImage, setBannerImage] = useState(null);
+=======
+  const [active, setActive] = useState(false);
+>>>>>>> 3d18178 (interests list rendering)
 
   const [profilePreview, setProfilePreview] = useState(null);
   const [bannerPreview, setBannerPreview] = useState(null);
@@ -76,6 +86,7 @@ function Dashboard(props) {
     setBioLength(bioLimit - wordCount);
   };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   //Put function below into another file
   const uploadImage = (pathway, image) => {
@@ -150,6 +161,8 @@ function Dashboard(props) {
   const [variant, setVariant] = useState(false);
 >>>>>>> 5b23119 (highlighted conditional toggle)
 
+=======
+>>>>>>> 3d18178 (interests list rendering)
   return (
     <div>
       <div><img src= {props.user.profile_picture}/></div>
@@ -287,56 +300,27 @@ function Dashboard(props) {
         </Typography>
 
         <br />
-
-        <Chip
-          variant={variant ? "outlined" : "filled"}
-          label="Archery"
-          color="primary"
-          onClick={() => setVariant(!variant)}
-        />
-        <Chip label="Axe-throwing" variant="filled" color="primary" />
-        <Chip label="Climbing" variant="filled" color="primary" />
-        <Chip label="Fencing" variant="filled" color="primary" />
-        <Chip label="Kayaking" variant="outlined" color="primary" />
-        <Chip label="Polevaulting" variant="outlined" color="primary" />
-        <Chip label="Archery" variant="filled" color="primary" />
-        <Chip label="Axe-throwing" variant="outlined" color="primary" />
-        <Chip label="Climbing" variant="outlined" color="primary" />
-        <Chip label="Fencing" variant="filled" color="primary" />
-        <Chip label="Kayaking" variant="filled" color="primary" />
-        <Chip label="Polevaulting" variant="outlined" color="primary" />
-        <Chip label="Archery" variant="outlined" color="primary" />
-        <Chip label="Axe-throwing" variant="filled" color="primary" />
-        <Chip label="Climbing" variant="filled" color="primary" />
-        <Chip label="Fencing" variant="filled" color="primary" />
-        <Chip label="Kayaking" variant="outlined" color="primary" />
-        <Chip label="Polevaulting" variant="outlined" color="primary" />
-        <Chip label="Archery" variant="filled" color="primary" />
-        <Chip label="Axe-throwing" variant="outlined" color="primary" />
-        <Chip label="Climbing" variant="outlined" color="primary" />
-        <Chip label="Fencing" variant="filled" color="primary" />
-        <Chip label="Kayaking" variant="filled" color="primary" />
-        <Chip label="Polevaulting" variant="outlined" color="primary" />
-        <Chip label="Archery" variant="outlined" color="primary" />
-        <Chip label="Axe-throwing" variant="filled" color="primary" />
-        <Chip label="Climbing" variant="filled" color="primary" />
-        <Chip label="Fencing" variant="filled" color="primary" />
-        <Chip label="Kayaking" variant="outlined" color="primary" />
-        <Chip label="Polevaulting" variant="outlined" color="primary" />
-        <Chip label="Archery" variant="filled" color="primary" />
-        <Chip label="Axe-throwing" variant="outlined" color="primary" />
-        <Chip label="Climbing" variant="outlined" color="primary" />
-        <Chip label="Fencing" variant="filled" color="primary" />
-        <Chip label="Kayaking" variant="filled" color="primary" />
-        <Chip label="Polevaulting" variant="outlined" color="primary" />
+        <FormControl
+          onSubmit={(e) => {
+            console.log(e);
+          }}
+        >
+          <ItemList />
+        </FormControl>
+        <Container maxWidth="sm">
+          <Button variant="contained">Save</Button>
+        </Container>
       </Container>
 
       <br />
 
+<<<<<<< HEAD
       <Container maxWidth="sm">
         <Button variant="contained" type="submit">Save</Button>
       </Container>
     </Box>
+=======
+>>>>>>> 3d18178 (interests list rendering)
       <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
         <Copyright />
       </Box>
