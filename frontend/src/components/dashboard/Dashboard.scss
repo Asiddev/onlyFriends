@@ -21,10 +21,13 @@
   color: black;
 }
 
-.selected {
-  :hover {
-    background-color: red;
-  }
+.btn-key {
+  width: 200px;
+  border-radius: 20px;
+  height: 20px;
+  margin: 20px;
+  padding: 20px;
+  background-color: lightblue;
 }
 
 // .MuiTextField-root	{
