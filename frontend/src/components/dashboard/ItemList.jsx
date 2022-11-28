@@ -4,24 +4,31 @@ import axios from "axios";
 import { useEffect } from "react";
 import "./ItemList.scss";
 import "../../styles/animations.scss";
+import {
+  Button,
+  Typography,
+  Grid,
+  Container,
+  Card,
+  CardContent,
+} from "@mui/material";
 
-const options = [
-  { label: "Axe-Throwing 🪓", value: "Axe-Throwing", id: 1 },
-  { label: "Climbing 🧗‍♀️", value: "Climbing", id: 2 },
-  { label: "Fencing 🤺", value: "Fencing", id: 3 },
-  { label: "Polevaulting 𐃆", value: "Polevaulting", id: 4 },
-  { label: "Hiking 🥾", value: "Hiking", id: 5 },
-  { label: "Sking ⛷", value: "Sking", id: 6 },
-  { label: "Snowboarding 🏂", value: "Snowboarding", id: 7 },
-  { label: "Reading Circle 📕", value: "Reading-Circle", id: 8 },
-];
-
-const ItemList = () => {
+const ItemList = (props) => {
   const [interests, setInterests] = useState([]);
 
   const handleClick = (e) => {
     e.stopPropagation();
-    console.log(e.target.classList.toggle("blockAni"));
+    if (props.picked.includes(e.target.value)) {
+      e.target.classList.remove("blockAni");
+      props.setPicked((prevPicked) => {
+        return prevPicked.filter((name) => e.target.value !== name);
+      });
+
+      // const withoutArray = myArray.splice(index, 1);
+    } else {
+      e.target.classList.add("blockAni");
+      props.setPicked((prev) => [...prev, e.target.value]);
+    }
   };
 
   useEffect(() => {
@@ -34,17 +41,41 @@ const ItemList = () => {
     });
   }
 
-  console.log(interests);
-
   const interestList = interests.map((interest) => {
     return (
-      <button key={interest.id} className="interest-btn" onClick={handleClick}>
+      <Button
+        key={interest.id}
+        variant="contained"
+        onClick={handleClick}
+        sx={{ marginRight: 1 }}
+        value={interest.id}
+      >
         {interest.name}
-      </button>
+      </Button>
     );
   });
 
-  return <div className="center grid">{interestList}</div>;
+  return (
+    // <div>
+    //   {interestList}
+    // </div>
+
+    // <Container>
+    //   <Grid container spacing={4}>
+    //     {interests.map((interest) => (
+    //       <Button item key={interest.id} xs={12} sm={6} md={4} onClick={handleClick} variant="contained" spacing="20">
+    //         <Typography>
+    //           {interest.name}
+    //         </Typography>
+    //       </Button>
+    //     ))}
+    //   </Grid>
+    // </Container>
+
+    <Grid container>
+      <Grid item>{interestList}</Grid>
+    </Grid>
+  );
 };
 
 export default ItemList;
