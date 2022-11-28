@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import ReactFileReader from 'react-file-reader';
 import {storage} from '../../configAPI/firebase.js';
 import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
 import {v4} from 'uuid'
@@ -46,8 +47,13 @@ function Dashboard(props) {
   const [bio, setBio] = useState("");
   let bioLimit = 100;
   const [bioLength, setBioLength] = useState(bioLimit);
+  
   const [profileImage, setProfileImage] = useState(null);
   const [bannerImage, setBannerImage] = useState(null);
+
+  const [profilePreview, setProfilePreview] = useState(null);
+  const [bannerPreview, setBannerPreview] = useState(null);
+
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -77,6 +83,27 @@ function Dashboard(props) {
       uploadBytes(imageRef, image)
     .then(() => (getDownloadURL(imageRef, pathway)))
     )
+  }
+  
+  //Function to read changed image and preview it
+  const profileImageChange = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    setProfileImage(file);
+    reader.onload = (event) => {
+      setProfilePreview(event.target.result)
+    }
+    reader.readAsDataURL(file);
+  }
+
+  const bannerImageChange = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    setBannerImage(file);
+    reader.onload = (event) => {
+      setBannerPreview(event.target.result)
+    }
+    reader.readAsDataURL(file);
   }
 
   //Function to post profile info into backend
@@ -175,8 +202,9 @@ function Dashboard(props) {
         <Typography variant="p">Upload a profile picture</Typography>
         <Button variant="contained" component="label">
           Upload File
-          <input type="file" accept="image/*" name="profile_picture" onChange = {(event) => {setProfileImage(event.target.files[0])}} hidden />
+          <input type="file" accept="image/*" name="profile_picture" onChange = {profileImageChange} hidden />
         </Button>
+        <div>{profileImage && <img src={profilePreview} alt = "profile pic"/>}</div>
       </Container>
 
       <br />
@@ -243,8 +271,9 @@ function Dashboard(props) {
         <Typography variant="p">Upload a cover banner</Typography>
         <Button variant="contained" component="label">
           Upload File
-          <input type="file" accept="image/*" name="banner_picture" onChange = {(event) => {setBannerImage(event.target.files[0])}} hidden />
+          <input type="file" accept="image/*" name="banner_picture" onChange = {bannerImageChange} hidden />
         </Button>
+        <div>{bannerImage && <img src={bannerPreview} alt = "banner pic"/>}</div>
       </Container>
 
       <br />
