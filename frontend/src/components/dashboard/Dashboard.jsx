@@ -68,6 +68,19 @@ function Dashboard(props) {
   const navigate = useNavigate();
 
 
+  //Retrieve users data
+  useEffect(() => {
+    axios.get(`api/users/${JSON.parse(localStorage.getItem("user")).id}`)
+    .then((result)=> {
+      console.log(result.data[0])
+      const user = result.data[0]
+      !user.description? setBio("") : setBio(user.description);
+      setProfilePreview(user.profile_picture);
+      setBannerPreview(user.banner_picture);
+    })
+  },[])
+
+
   //Function to logout and clear cookie and storage
   const logOut = (event) => {
     event.preventDefault();
@@ -229,7 +242,7 @@ function Dashboard(props) {
             
               <img
                 className="circle-img"
-                src={profilePreview ||"https://firebasestorage.googleapis.com/v0/b/lhl-finals-41149.appspot.com/o/Default%20Pictures%2Fdefault_profile_picture.jpg?alt=media&token=c2fd132d-9146-4e52-948b-a7b8b077b9e0"}
+                src={profilePreview}
                 alt="profile pic"
               />
             
@@ -319,7 +332,7 @@ function Dashboard(props) {
              
                 <img
                   className="rectangle-img"
-                  src={bannerPreview ||"https://firebasestorage.googleapis.com/v0/b/lhl-finals-41149.appspot.com/o/Default%20Pictures%2Fdefault_banner_picture.jpg?alt=media&token=9c9d2102-9d81-411e-8ffc-0d31d9988af4"}
+                  src={bannerPreview}
                   alt="banner pic"
                 />
              
