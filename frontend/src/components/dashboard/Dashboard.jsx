@@ -54,6 +54,8 @@ function Dashboard(props) {
   let bioLimit = 100;
   const [bioLength, setBioLength] = useState(bioLimit);
 
+  const [location, setLocation] = useState('')
+
   const [profileImage, setProfileImage] = useState(null);
   const [bannerImage, setBannerImage] = useState(null);
   const [active, setActive] = useState(false);
@@ -77,6 +79,7 @@ function Dashboard(props) {
       !user.description? setBio("") : setBio(user.description);
       setProfilePreview(user.profile_picture);
       setBannerPreview(user.banner_picture);
+      setLocation(user.location)
     })
   },[])
 
@@ -281,11 +284,12 @@ function Dashboard(props) {
                 name="Location"
                 apiKey={process.env.REACT_APP_MY_API_KEY}
                 style={{ width: "300px", height: "55px" }}
-                onPlaceSelected={(place) => { }}
+                onPlaceSelected={(place) => {setLocation(place['formatted_address'])}}
                 options={{
                   types: ["(regions)"],
                   componentRestrictions: { country: "ca" },
                 }}
+                defaultValue = {location}
               />
             </Typography>
           </div>
