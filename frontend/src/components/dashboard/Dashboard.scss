@@ -30,6 +30,30 @@
   background-color: lightblue;
 }
 
+.circle-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 30px #008ccf;
+}
+.rectangle-img {
+  width: 400px;
+  height: 200px;
+  box-shadow: 0px 0px 30px #008ccf;
+  margin-top: 20px;
+}
+
+.textFieldDescription {
+  height: 200px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 // .MuiTextField-root	{
 //   background-color: aqua;
 // }

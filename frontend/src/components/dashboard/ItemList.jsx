@@ -16,22 +16,15 @@ const ItemList = () => {
   const [selected, setSelected] = useState([]);
 
   return (
-    <div>
+    <div className="center">
       <h1>Select Interests / Hobbies</h1>
-      <pre>{JSON.stringify(selected)}</pre>
+
       <MultiSelect
         options={options}
         value={selected}
         onChange={setSelected}
         labelledBy="Select"
       />
-      <button
-        onSubmit={(e) => {
-          console.log(e.target.textContent);
-        }}
-      >
-        Save
-      </button>
     </div>
   );
 };

@@ -190,7 +190,7 @@ function Register() {
           alt=""
         />
         <br />
-        <br />
+
         <p>
           <span className="light-blue">Only</span>
           <span className="dark-blue">Friends</span> allows people with similar

@@ -17,6 +17,7 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import axios from "axios";
+import "../../../styles/animations.scss";
 
 // import "./Login.scss";
 
@@ -84,6 +85,7 @@ function Login(props) {
               }}
             >
               <img
+                className="bounce2"
                 src="https://i.imgur.com/Bgur1Fk.png"
                 alt="OnlyFriends logo"
                 style={{ width: "15rem", paddingBottom: "1rem" }}
@@ -159,6 +161,13 @@ function Login(props) {
       </div>
 
       <div className="right-half">
+        <img
+          className="picture-size"
+          src="https://i.imgur.com/8T2x8sm.png"
+          alt=""
+        />
+        <br />
+
         <p>
           <span className="light-blue">Only</span>
           <span className="dark-blue">Friends</span> allows people with similar
