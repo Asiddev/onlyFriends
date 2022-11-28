@@ -329,8 +329,8 @@ function Dashboard(props) {
 
         <br />
 
-        <Container maxWidth="sm" className="chip-spacing">
-          <div className="center">
+        <Container maxWidth="md" className="chip-spacing">
+          <div>
             <Typography variant="p">
               Select all interests/hobbies that apply
             </Typography>
