@@ -9,9 +9,8 @@ const getAllUsers = (req, res) => {
 };
 
 const getUserById = (id) => {
-  return userQueries.getUserById(id)
+  return userQueries.getUserById(id);
 };
-
 
 const addUser = (req, res) => {
   userQueries.checkUserDB(req.body.email).then((user) => {
@@ -51,19 +50,19 @@ const addUserProfileInfo = (req, res) => {
   if (req.body.profile_picture && req.body.banner_picture) {
     inputs.push(req.body.profile_picture);
     inputs.push(req.body.banner_picture);
-    query += `,profile_picture = $3, banner_picture = $4 `
+    query += `,profile_picture = $3, banner_picture = $4 `;
   }
   if (req.body.profile_picture && !req.body.banner_picture) {
     inputs.push(req.body.profile_picture);
-    query += `, profile_picture = $3 `
+    query += `, profile_picture = $3 `;
   }
   if (!req.body.profile_picture && req.body.banner_picture) {
     inputs.push(req.body.banner_picture);
-    query += `, banner_picture = $3 `
+    query += `, banner_picture = $3 `;
   }
-  query += `WHERE id = ${req.body.id};`
-  userQueries.addUserProfileInfo(query, inputs)
-}
+  query += `WHERE id = ${req.body.id};`;
+  userQueries.addUserProfileInfo(query, inputs);
+};
 
 const Login = (req, res) => {
   userQueries.checkUserDB(req.body.email).then((user) => {

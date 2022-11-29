@@ -5,7 +5,7 @@ import Dashboard from "./dashboard/Dashboard";
 import Browse from "./browse/Browse";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [cookies, setCookie] = useCookies(null);
@@ -24,7 +24,7 @@ function App() {
             path="/login"
             element={
               user ? (
-                <Browse user={user} />
+                <Browse user={user} setCurrentUser={setCurrentUser} />
               ) : (
                 <LoginPage
                   setCookie={setCookie}
@@ -36,7 +36,11 @@ function App() {
           <Route
             path="/"
             element={
-              cookies["access-token"] ? <Browse user={user} /> : <Register />
+              cookies["access-token"] ? (
+                <Browse user={user} setCurrentUser={setCurrentUser} />
+              ) : (
+                <Register />
+              )
             }
           />
           <Route

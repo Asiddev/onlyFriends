@@ -74,8 +74,8 @@ function Dashboard(props) {
     axios
       .get(`api/users/${JSON.parse(localStorage.getItem("user")).id}`)
       .then((result) => {
-        console.log(result.data[0]);
         const user = result.data[0];
+        props.setCurrentUser(user);
         !user.description ? setBio("") : setBio(user.description);
         setProfilePreview(user.profile_picture);
         setBannerPreview(user.banner_picture);
@@ -164,35 +164,55 @@ function Dashboard(props) {
 
     //Axios Post request to backend
 
-    axios.post("/api/user_interests", userObj)
-    
+    axios.post("/api/user_interests", userObj);
+
     Promise.all([
-     uploadImage(profilePathway, profileImage),
-     uploadImage(bannerPathway, bannerImage) 
-    ]).then((imgUrl) => {
-      userObj.profile_picture = null;
-      userObj.banner_picture = null;
-      if (imgUrl[0] !== null) {
-        userObj.profile_picture = imgUrl[0];
-      }
-      if (imgUrl[1] !== null) {
-        userObj.banner_picture = imgUrl[1];
-      }
-    }).then(() => {
-      axios.post('/api/users/update', userObj);
-    }).catch((err) => {
-      setError(err.response.data)
-    });
+      uploadImage(profilePathway, profileImage),
+      uploadImage(bannerPathway, bannerImage),
+    ])
+      .then((imgUrl) => {
+        userObj.profile_picture = null;
+        userObj.banner_picture = null;
+        if (imgUrl[0] !== null) {
+          userObj.profile_picture = imgUrl[0];
+        }
+        if (imgUrl[1] !== null) {
+          userObj.banner_picture = imgUrl[1];
+        }
+      })
+      .then(() => {
+        axios.post("/api/users/update", userObj);
+      })
+      .catch((err) => {
+        setError(err.response.data);
+      });
 
     setTimeout(() => {
       setLoading(false);
       navigate("/");
-    }, 2000);
-  }
+    }, 2500);
+  };
   return (
     <>
       {loading ? (
         <>
+          <Box marginBottom={10}>
+            <AppBar>
+              <Toolbar className="navbar-logo">
+                {/* <img
+          src="https://i.imgur.com/Bgur1Fk.png"
+          alt="OnlyFriends logo"
+          style={{ width: "10rem", alignItems: "center", justifyContent: "center" }}
+        /> */}
+                <Box
+                  component="img"
+                  sx={{ width: 150 }}
+                  alt="OnlyFriends logo"
+                  src="https://i.imgur.com/Bgur1Fk.png"
+                />
+              </Toolbar>
+            </AppBar>
+          </Box>
           <span className="center" color="primary">
             Saving...
           </span>
@@ -259,108 +279,77 @@ function Dashboard(props) {
                 </Alert>
               )}
             </div>
-            <br />
 
-            <Container maxWidth="sm">
-              <div className="center img-button-container-row">
-                <div className="img-button-container-column">
-                  <Typography variant="p">Upload a profile picture</Typography>
-                  <Button
-                    variant="outlined"
-                    component="label"
-                    color="secondary"
-                  >
-                    Upload File
-                    <input
-                      type="file"
-                      accept="image/*"
-                      name="profile_picture"
-                      onChange={profileImageChange}
-                      hidden
+            <Container maxWidth="sm" className="text-center">
+              <div className="d-flex">
+                <Button variant="outlined" component="label" color="secondary">
+                  Upload Photo
+                  <input
+                    type="file"
+                    accept="image/*"
+                    name="profile_picture"
+                    onChange={profileImageChange}
+                    hidden
+                  />
+                </Button>
+
+                <img
+                  className="circle-img"
+                  src={profilePreview}
+                  alt="profile pic"
+                />
+              </div>
+            </Container>
+
+            <div>
+              <Container maxWidth="sm">
+                <div className="center">
+                  <Typography variant="p">
+                    Location <br />
+                    <Autocomplete
+                      className="MuiTextField-root"
+                      name="Location"
+                      apiKey={process.env.REACT_APP_MY_API_KEY}
+                      style={{ width: "350px", height: "55px" }}
+                      onPlaceSelected={(place) => {
+                        setLocation(place["formatted_address"]);
+                      }}
+                      options={{
+                        types: ["(regions)"],
+                        componentRestrictions: { country: "ca" },
+                      }}
+                      defaultValue={location}
                     />
-                  </Button>
-                  <br />
+                  </Typography>
                 </div>
-                <div>
-                  <img
-                    className="circle-img"
-                    src={profilePreview}
-                    alt="profile pic"
-                  />
-                </div>
-              </div>
-            </Container>
+              </Container>
 
-            <br />
+              <br />
 
-            <Container maxWidth="sm">
-              <div className="center">
-                <Typography variant="p">Location</Typography>
-              </div>
-            </Container>
-
-            {/* Test for Kevin location */}
-            {/* <Container maxWidth="sm">
-    <Typography variant="p">Location for Test</Typography>
-    <Autocomplete
-      apiKey={process.env.REACT_APP_MY_API_KEY}
-      style={{ width: "90%" }}
-      onPlaceSelected={(place) => {
-      }}
-      options={{
-        types: ["(regions)"],
-        componentRestrictions: { country: "ca" },
-      }}
-    />
-  </Container> */}
-
-            {/* Test with proper textfield look */}
-            <Container maxWidth="sm">
-              <div className="center">
-                <Typography variant="p">
-                  <Autocomplete
-                    className="MuiTextField-root"
-                    name="Location"
-                    apiKey={process.env.REACT_APP_MY_API_KEY}
+              <Container maxWidth="sm">
+                <div className="center">
+                  <Typography variant="p">Bio</Typography>
+                  <TextField
                     style={{ width: "350px", height: "55px" }}
-                    onPlaceSelected={(place) => {
-                      setLocation(place["formatted_address"]);
-                    }}
-                    options={{
-                      types: ["(regions)"],
-                      componentRestrictions: { country: "ca" },
-                    }}
-                    defaultValue={location}
-                  />
-                </Typography>
-              </div>
-            </Container>
-
-            <br />
-
-            <Container maxWidth="sm">
-              <div className="center">
-                <Typography variant="p">Bio</Typography>
-                <TextField
-                  style={{ width: "350px", height: "55px" }}
-                  multiline={true}
-                  rows={3}
-                  label="Bio"
-                  name="Bio"
-                  value={bio}
-                  onChange={bioUpdater}
-                  placeholder="e.g. I love long walks to the fridge"
-                ></TextField>
-                <br />
-                <br />
-                <Typography
-                  className={bioLength >= 0 ? "safe" : "danger"}
-                  variant="h6"
-                >
-                  {bioLength}
-                </Typography>
-              </div>
-            </Container>
+                    multiline={true}
+                    rows={3}
+                    label="Bio"
+                    name="Bio"
+                    value={bio}
+                    onChange={bioUpdater}
+                    placeholder="e.g. I love long walks to the fridge"
+                  ></TextField>
+                  <br />
+                  <br />
+                  <Typography
+                    className={bioLength >= 0 ? "safe" : "danger"}
+                    variant="h6"
+                  >
+                    {bioLength}
+                  </Typography>
+                </div>
+              </Container>
+            </div>
 
             <br />
 
@@ -409,7 +398,6 @@ function Dashboard(props) {
               <Button variant="outlined" type="submit" color="secondary">
                 Save
               </Button>
-              {loading && <h1>LOADING!</h1>}
             </div>
           </Box>
 

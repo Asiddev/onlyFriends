@@ -67,7 +67,7 @@ function Register() {
       .post("/api/users", newDataObj)
       .then((data) => {
         console.log("success!");
-        return navigator("/login");
+        navigator("/login");
       })
       .catch((err) => {
         console.log(err);

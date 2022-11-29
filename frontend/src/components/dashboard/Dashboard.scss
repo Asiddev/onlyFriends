@@ -47,6 +47,13 @@
   height: 200px;
 }
 
+.d-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -76,9 +83,8 @@
   flex-direction: column;
   justify-content: space-between;
 }
-
 body {
-  background-color: var(--bg);
+  background-color: #92d3f1;
   color: var(--fg);
   font: 1em/1.5 sans-serif;
   height: 100vh;
@@ -94,10 +100,11 @@ body {
   --white-d: hsl(var(--hue), 10%, 45%);
   font-size: calc(16px + (24 - 16) * (100vw - 320px) / (1280 - 320));
 }
+
 .book,
 .book__pg-shadow,
 .book__pg {
-  animation: cover 7s ease-in-out infinite;
+  animation: cover 4s ease-in-out infinite;
 }
 .book {
   background-color: var(--primary-l);
@@ -166,6 +173,9 @@ body {
 }
 .book__pg--4 {
   animation-name: pg4;
+}
+.book__pg--5 {
+  animation-name: pg5;
 }
 .book__pg--5 {
   animation-name: pg5;

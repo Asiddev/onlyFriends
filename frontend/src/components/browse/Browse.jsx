@@ -30,6 +30,7 @@ import { MoreVert, ShareIcon } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import RestoreIcon from "@mui/icons-material/Restore";
 import ArchiveIcon from "@mui/icons-material/Archive";
+import "./Browse.scss";
 
 import HomeIcon from "@mui/icons-material/Home";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
@@ -39,6 +40,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -61,6 +63,16 @@ function Copyright(props) {
 function Browse(props) {
   const [value, setValue] = React.useState(0);
   const [profileInterests, setProfileInterest] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get(`api/users/${JSON.parse(localStorage.getItem("user")).id}`)
+      .then((result) => {
+        const user = result.data[0];
+        props.setCurrentUser(user);
+      });
+  }, []);
 
   useEffect(() => {
     axios.get(`/api/user_interests/${props.user.id}`).then((data) => {
@@ -69,9 +81,23 @@ function Browse(props) {
     });
   }, []);
 
+  const logOut = (event) => {
+    event.preventDefault();
+    axios.get("/api/users/logout").then(() => {
+      localStorage.removeItem("user");
+      props.setCurrentUser(null);
+      navigate("/login");
+    });
+  };
+
   const renderInterestList = profileInterests.map((interest) => {
     return (
-      <Button key={interest.id} variant="contained" sx={{ marginRight: 1 }}>
+      <Button
+        className="btn"
+        key={interest.id}
+        variant="contained"
+        sx={{ margin: 0.5 }}
+      >
         {interest.name}
       </Button>
     );
@@ -81,78 +107,108 @@ function Browse(props) {
 
   return (
     <div>
-      <CssBaseline />
+      <section class="sticky">
+        <div class="bubbles">
+          <div class="bubble"></div>
+          <div class="bubble"></div>
+          <div class="bubble"></div>
+          <div class="bubble"></div>
+          <div class="bubble"></div>
+          <div class="bubble"></div>
+          <div class="bubble"></div>
+          <div class="bubble"></div>
+          <div class="bubble"></div>
+          <div class="bubble"></div>
 
-      <Box marginBottom={10}>
-        <AppBar>
-          <Toolbar className="navbar-logo">
-            <Box
-              component="img"
-              sx={{ width: 150 }}
-              alt="OnlyFriends logo"
-              src="https://i.imgur.com/Bgur1Fk.png"
-            />
-          </Toolbar>
-        </AppBar>
-      </Box>
+          <CssBaseline />
+          <Box marginBottom={10}>
+            <AppBar>
+              <Toolbar className="navbar-logo">
+                <Box
+                  component="img"
+                  sx={{ width: 150 }}
+                  alt="OnlyFriends logo"
+                  src="https://i.imgur.com/Bgur1Fk.png"
+                />
+              </Toolbar>
+            </AppBar>
+          </Box>
 
-      {/* this is the side nav */}
-      {/* <List>
-        {['Profile', 'Home', 'Matches', 'Messages', 'Logout'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List> */}
+          <Container maxWidth="sm" className="relative">
+            <div className="shadow">
+              <Card sx={{ maxWidth: "100%" }} className="block padding">
+                <Button class="noselect" id="button-left">
+                  <span class="text"></span>
+                  <span class="icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-arrow-down-left-circle-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-5.904-2.803a.5.5 0 1 1 .707.707L6.707 10h2.768a.5.5 0 0 1 0 1H5.5a.5.5 0 0 1-.5-.5V6.525a.5.5 0 0 1 1 0v2.768l4.096-4.096z" />
+                    </svg>
+                  </span>
+                </Button>
+                <Button class="noselect" id="button-right">
+                  <span class="icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-arrow-up-right-circle-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M0 8a8 8 0 1 0 16 0A8 8 0 0 0 0 8zm5.904 2.803a.5.5 0 1 1-.707-.707L9.293 6H6.525a.5.5 0 1 1 0-1H10.5a.5.5 0 0 1 .5.5v3.975a.5.5 0 0 1-1 0V6.707l-4.096 4.096z" />
+                    </svg>
+                  </span>
+                </Button>
 
-      {/* this is the card */}
-      <Container maxWidth="sm">
-        <img src={props.profilePicture} alt="" />
-        <Card sx={{ maxWidth: "100%" }}>
-          <CardHeader
-            avatar={
-              <Avatar sx={{ bgcolor: red[300] }}>
-                <img src={props.profileImage} alt="" />
-              </Avatar>
-            }
-            action={
-              <IconButton aria-label="settings">
-                <MoreVert />
-              </IconButton>
-            }
-            title={props.user.name}
-            subheader={props.user.location}
-          />
-          <CardMedia
-            component="img"
-            image={props.user.banner_picture}
-            alt="Max"
-          />
-          <CardContent className="center">
-            <Typography variant="body2" color="text.secondary">
-              {props.user.description}
-            </Typography>
-
-            {/* their selected interests */}
+                <CardHeader
+                  className="top-container"
+                  avatar={
+                    <Avatar
+                      src={props.user.profile_picture}
+                      sx={{ bgcolor: red[300] }}
+                    ></Avatar>
+                  }
+                  action={
+                    <IconButton aria-label="settings">
+                      <MoreVert />
+                    </IconButton>
+                  }
+                  title={props.user.name}
+                  subheader={props.user.location}
+                />
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  className="center"
+                >
+                  {props.user.description}
+                </Typography>
+                <CardMedia
+                  sx={{ mx: "auto", width: 450, height: 300 }}
+                  className="border-img"
+                  component="img"
+                  image={props.user.banner_picture}
+                  alt="banner_picture"
+                />
+                <CardContent className="center">
+                  <Grid container className="interests-container">
+                    <Grid item>{profileInterests && renderInterestList}</Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </div>
+            <Copyright />
             <br />
-
-            <Grid container>
-              <Grid item>{profileInterests && renderInterestList}</Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-
-        <br />
-        <br />
-
-        <Button variant="contained">Yes</Button>
-
-        <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
-          <Copyright />
-        </Box>
-      </Container>
+          </Container>
+        </div>
+      </section>
 
       <Paper
         sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
@@ -174,7 +230,11 @@ function Browse(props) {
           />
           <BottomNavigationAction label="Matches" icon={<PeopleAltIcon />} />
           <BottomNavigationAction label="Messages" icon={<MessageIcon />} />
-          <BottomNavigationAction label="Logout" icon={<LogoutIcon />} />
+          <BottomNavigationAction
+            label="Logout"
+            icon={<LogoutIcon />}
+            onClick={logOut}
+          />
         </BottomNavigation>
       </Paper>
     </div>
