@@ -160,7 +160,7 @@ function Dashboard(props) {
     };
 
     //Render error if any conditions are not met
-    if (userObj.description.length > 100) {
+    if (bio.length > 100) {
       setError("Bio exceeds 100 char limit");
       return;
     }
