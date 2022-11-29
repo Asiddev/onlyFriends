@@ -214,7 +214,7 @@ function Dashboard(props) {
           <div className="center img-button-container-row">
             <div className="img-button-container-column">
               <Typography variant="p">Upload a profile picture</Typography>
-              <Button variant="contained" component="label" color="secondary">
+              <Button variant="outlined" component="label" color="secondary">
                 Upload File
                 <input
                   type="file"
@@ -312,7 +312,7 @@ function Dashboard(props) {
         <Container maxWidth="sm">
           <div className="center">
             <Typography variant="p">Upload a cover banner</Typography>
-            <Button variant="contained" component="label" color="secondary">
+            <Button variant="outlined" component="label" color="secondary">
               Upload File
               <input
                 type="file"
@@ -354,7 +354,7 @@ function Dashboard(props) {
         <br />
 
         <div className="center">
-          <Button variant="contained" type="submit" color="secondary">
+          <Button variant="outlined" type="submit" color="secondary">
             Save
           </Button>
         </div>
