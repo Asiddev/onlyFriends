@@ -67,7 +67,6 @@ function Dashboard(props) {
 
   const navigate = useNavigate();
 
-
   //Function to logout and clear cookie and storage
   const logOut = (event) => {
     event.preventDefault();
@@ -126,7 +125,7 @@ function Dashboard(props) {
       id: loggedUser.id,
       location: newData.get("Location"),
       description: newData.get("Bio"),
-      interests: picked
+      interests: picked,
     };
 
     //Render error if any conditions are not met
@@ -148,7 +147,7 @@ function Dashboard(props) {
 
     //Axios Post request to backend
 
-    axios.post("/api/user_interests", userObj)
+    axios.post("/api/user_interests", userObj);
 
     uploadImage(profilePathway, profileImage)
       .then((url) => (userObj.profile_picture = url))
@@ -157,8 +156,7 @@ function Dashboard(props) {
       .then(() => axios.post("/api/users/update", userObj))
       .catch((err) => {
         setError(err.response.data);
-      })
-
+      });
   };
 
   return (
@@ -212,27 +210,32 @@ function Dashboard(props) {
         </div>
         <br />
 
-        <Container maxWidth="sm" className="center">
-          <div className="center">
-            <Typography variant="p">Upload a profile picture</Typography>
-            <Button variant="contained" component="label">
-              Upload File
-              <input
-                type="file"
-                accept="image/*"
-                name="profile_picture"
-                onChange={profileImageChange}
-                hidden
-              />
-            </Button>
-            <br />
-            
+        <Container maxWidth="sm">
+          <div className="center img-button-container-row">
+            <div className="img-button-container-column">
+              <Typography variant="p">Upload a profile picture</Typography>
+              <Button variant="contained" component="label">
+                Upload File
+                <input
+                  type="file"
+                  accept="image/*"
+                  name="profile_picture"
+                  onChange={profileImageChange}
+                  hidden
+                />
+              </Button>
+              <br />
+            </div>
+            <div>
               <img
                 className="circle-img"
-                src={profilePreview ||"https://firebasestorage.googleapis.com/v0/b/lhl-finals-41149.appspot.com/o/Default%20Pictures%2Fdefault_profile_picture.jpg?alt=media&token=c2fd132d-9146-4e52-948b-a7b8b077b9e0"}
+                src={
+                  profilePreview ||
+                  "https://firebasestorage.googleapis.com/v0/b/lhl-finals-41149.appspot.com/o/Default%20Pictures%2Fdefault_profile_picture.jpg?alt=media&token=c2fd132d-9146-4e52-948b-a7b8b077b9e0"
+                }
                 alt="profile pic"
               />
-            
+            </div>
           </div>
         </Container>
 
@@ -268,7 +271,7 @@ function Dashboard(props) {
                 name="Location"
                 apiKey={process.env.REACT_APP_MY_API_KEY}
                 style={{ width: "300px", height: "55px" }}
-                onPlaceSelected={(place) => { }}
+                onPlaceSelected={(place) => {}}
                 options={{
                   types: ["(regions)"],
                   componentRestrictions: { country: "ca" },
@@ -305,24 +308,27 @@ function Dashboard(props) {
         <Container maxWidth="sm">
           <div className="center">
             <Typography variant="p">Upload a cover banner</Typography>
-            <Button variant="contained" component="label">
-              Upload File
-              <input
-                type="file"
-                accept="image/*"
-                name="banner_picture"
-                onChange={bannerImageChange}
-                hidden
-              />
-            </Button>
             <div>
-             
-                <img
-                  className="rectangle-img"
-                  src={bannerPreview ||"https://firebasestorage.googleapis.com/v0/b/lhl-finals-41149.appspot.com/o/Default%20Pictures%2Fdefault_banner_picture.jpg?alt=media&token=9c9d2102-9d81-411e-8ffc-0d31d9988af4"}
-                  alt="banner pic"
+              <Button variant="contained" component="label">
+                Upload File
+                <input
+                  type="file"
+                  accept="image/*"
+                  name="banner_picture"
+                  onChange={bannerImageChange}
+                  hidden
                 />
-             
+              </Button>
+            </div>
+            <div>
+              <img
+                className="rectangle-img"
+                src={
+                  bannerPreview ||
+                  "https://firebasestorage.googleapis.com/v0/b/lhl-finals-41149.appspot.com/o/Default%20Pictures%2Fdefault_banner_picture.jpg?alt=media&token=9c9d2102-9d81-411e-8ffc-0d31d9988af4"
+                }
+                alt="banner pic"
+              />
             </div>
           </div>
         </Container>
@@ -336,27 +342,22 @@ function Dashboard(props) {
             </Typography>
 
             <div className="formControl">
-              <FormControl
-                onSubmit={(e) => {
-                }}
-              >
+              <FormControl onSubmit={(e) => {}}>
                 <ItemList picked={picked} setPicked={setPicked} />
               </FormControl>
             </div>
-
           </div>
         </Container>
 
         <br />
 
         <div className="center">
-        <Button variant="contained" type="submit">
-          Save
-        </Button>
-      </div>
-
+          <Button variant="contained" type="submit">
+            Save
+          </Button>
+        </div>
       </Box>
-      
+
       <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
         {/* Test for Alex logout */}
         <div className="center">

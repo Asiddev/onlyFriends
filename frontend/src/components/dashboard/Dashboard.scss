@@ -58,9 +58,21 @@
 //   background-color: aqua;
 // }
 
-.formControl{
+.formControl {
   // background-color: #00AFF0;
   // border-radius: 2rem;
   // padding: 1rem;
   text-align: center;
+}
+
+.img-button-container-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.img-button-container-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
