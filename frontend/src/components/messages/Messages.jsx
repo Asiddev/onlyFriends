@@ -25,12 +25,15 @@ import {
   Paper,
   BottomNavigationAction,
   BottomNavigation,
+  TextField,
+  Input,
 } from "@mui/material";
+import SignalWifiStatusbar4BarIcon from "@mui/icons-material/SignalWifiStatusbar4Bar";
 import { MoreVert, ShareIcon } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import RestoreIcon from "@mui/icons-material/Restore";
 import ArchiveIcon from "@mui/icons-material/Archive";
-import "./Browse.scss";
+import "./Messages.scss";
 
 import HomeIcon from "@mui/icons-material/Home";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
@@ -60,8 +63,8 @@ function Copyright(props) {
   );
 }
 
-function Browse(props) {
-  const [value, setValue] = React.useState("home");
+function Matches(props) {
+  const [value, setValue] = React.useState(0);
   const [profileInterests, setProfileInterest] = useState([]);
   const navigate = useNavigate();
 
@@ -88,10 +91,6 @@ function Browse(props) {
       props.setCurrentUser(null);
       navigate("/login");
     });
-  };
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
   };
 
   const renderInterestList = profileInterests.map((interest) => {
@@ -125,6 +124,7 @@ function Browse(props) {
           <div class="bubble"></div>
 
           <CssBaseline />
+
           <Box marginBottom={10}>
             <AppBar>
               <Toolbar className="navbar-logo">
@@ -139,38 +139,21 @@ function Browse(props) {
           </Box>
 
           <Container maxWidth="sm" className="relative">
-            <div className="shadow">
+            <div className="shadow ">
               <Card sx={{ maxWidth: "100%" }} className="block padding">
-                <Button class="noselect" id="button-left">
-                  <span class="text"></span>
-                  <span class="icon">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-arrow-down-left-circle-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-5.904-2.803a.5.5 0 1 1 .707.707L6.707 10h2.768a.5.5 0 0 1 0 1H5.5a.5.5 0 0 1-.5-.5V6.525a.5.5 0 0 1 1 0v2.768l4.096-4.096z" />
-                    </svg>
-                  </span>
-                </Button>
-                <Button class="noselect" id="button-right">
-                  <span class="icon">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-arrow-up-right-circle-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M0 8a8 8 0 1 0 16 0A8 8 0 0 0 0 8zm5.904 2.803a.5.5 0 1 1-.707-.707L9.293 6H6.525a.5.5 0 1 1 0-1H10.5a.5.5 0 0 1 .5.5v3.975a.5.5 0 0 1-1 0V6.707l-4.096 4.096z" />
-                    </svg>
-                  </span>
-                </Button>
-
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  className="center"
+                >
+                  Status
+                </Typography>
+                <TextField
+                  style={{ width: "500px" }}
+                  placeholder="Whats on your mind?"
+                ></TextField>
+                <br />
+                <br />
                 <CardHeader
                   className="top-container"
                   avatar={
@@ -184,31 +167,76 @@ function Browse(props) {
                       <MoreVert />
                     </IconButton>
                   }
-                  title={props.user.name}
-                  subheader={props.user.location}
+                  title="Online"
+                  subheader={
+                    <SignalWifiStatusbar4BarIcon style={{ fill: "green" }} />
+                  }
                 />
+
                 <Typography
                   variant="body2"
                   color="text.secondary"
                   className="center"
-                >
-                  {props.user.description}
-                </Typography>
-                <CardMedia
-                  sx={{ mx: "auto", width: 450, height: 300 }}
-                  className="border-img"
-                  component="img"
-                  image={props.user.banner_picture}
-                  alt="banner_picture"
-                />
-                <CardContent className="center">
-                  <Grid container className="interests-container">
-                    <Grid item>{profileInterests && renderInterestList}</Grid>
-                  </Grid>
-                </CardContent>
+                ></Typography>
+                <Container maxWidth="sm">
+                  <Box bgcolor="white" height="50vh" mb={2} pt={2}>
+                    <Box bgcolor="white" height="50vh" mb={2} pt={2}>
+                      <Box
+                        bgcolor="light-grey"
+                        marginBottom={1}
+                        height="70px"
+                        p={3}
+                        boxShadow={1}
+                      >
+                        <Typography variant="body2" color="text.secondary">
+                          Jason
+                        </Typography>
+                      </Box>
+                      <Box
+                        bgcolor="light-grey"
+                        marginBottom={1}
+                        height="70px"
+                        p={3}
+                        boxShadow={1}
+                      >
+                        <Typography variant="body2" color="text.secondary">
+                          Jason
+                        </Typography>
+                      </Box>
+                      <Box marginBottom={1} height="70px" p={3} boxShadow={1}>
+                        <Typography variant="body2" color="text.secondary">
+                          Jason
+                        </Typography>
+                      </Box>
+                      <Box
+                        bgcolor="light-grey"
+                        marginBottom={1}
+                        height="70px"
+                        p={3}
+                        boxShadow={1}
+                      >
+                        <Typography variant="body2" color="text.secondary">
+                          Jason
+                        </Typography>
+                      </Box>
+                      <Box
+                        bgcolor="light-grey"
+                        marginBottom={1}
+                        height="70px"
+                        p={3}
+                        boxShadow={1}
+                      >
+                        <Typography variant="body2" color="text.secondary">
+                          Jason
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Container>
+                <CardContent className="center"></CardContent>
               </Card>
             </div>
-            <Copyright />
+
             <br />
           </Container>
         </div>
@@ -218,27 +246,22 @@ function Browse(props) {
         sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
         elevation={3}
       >
-        <BottomNavigation showLabels value={value} onChange={handleChange}>
-          <BottomNavigationAction
-            href="/"
-            label="Home"
-            icon={<HomeIcon />}
-            value="home"
-          />
+        <BottomNavigation
+          showLabels
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+        >
+          <BottomNavigationAction href="/" label="Home" icon={<HomeIcon />} />
 
           <BottomNavigationAction
             href="/profile"
             label="Profile"
-            value="profile"
             icon={<AccountBoxIcon />}
           />
           <BottomNavigationAction label="Matches" icon={<PeopleAltIcon />} />
-          <BottomNavigationAction
-            href="/messages"
-            label="Messages"
-            value="messages"
-            icon={<MessageIcon />}
-          />
+          <BottomNavigationAction label="Messages" icon={<MessageIcon />} />
           <BottomNavigationAction
             label="Logout"
             icon={<LogoutIcon />}
@@ -249,4 +272,4 @@ function Browse(props) {
     </div>
   );
 }
-export default Browse;
+export default Matches;

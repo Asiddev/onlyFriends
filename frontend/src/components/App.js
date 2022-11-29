@@ -2,6 +2,7 @@ import "./App.scss";
 import LoginPage from "./home/login/Login";
 import Register from "./home/register/Register";
 import Dashboard from "./dashboard/Dashboard";
+import Messages from "./messages/Messages";
 import Browse from "./browse/Browse";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useCookies } from "react-cookie";
@@ -20,6 +21,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="/messages" element={<Messages user={user} />} />
           <Route
             path="/login"
             element={
