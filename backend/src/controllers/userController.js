@@ -51,18 +51,17 @@ const addUserProfileInfo = (req, res) => {
   if (req.body.profile_picture && req.body.banner_picture) {
     inputs.push(req.body.profile_picture);
     inputs.push(req.body.banner_picture);
-    query += `,profile_picture = $3, banner_picture = $4`
+    query += `,profile_picture = $3, banner_picture = $4 `
   }
   if (req.body.profile_picture && !req.body.banner_picture) {
     inputs.push(req.body.profile_picture);
-    query += `, profile_picture = $3`
+    query += `, profile_picture = $3 `
   }
   if (!req.body.profile_picture && req.body.banner_picture) {
     inputs.push(req.body.banner_picture);
-    query += `, banner_picture = $3`
+    query += `, banner_picture = $3 `
   }
   query += `WHERE id = ${req.body.id};`
-  console.log(query);
   userQueries.addUserProfileInfo(query, inputs)
 }
 
