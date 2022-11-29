@@ -79,19 +79,19 @@ function Dashboard(props) {
       const userInterests = all[1].data; // This returns an array
 
       //Set user info 
-      props.setCurrentUser(user)
+      props.setCurrentUser(user);
       !user.description ? setBio("") : setBio(user.description);
       setProfilePreview(user.profile_picture);
       setBannerPreview(user.banner_picture);
       setLocation(user.location);
-      
+
       //Set user interest to render.
       let interestArray = [];
       for (const interest of userInterests) {
-        interestArray.push(interest.interest_id)
+        interestArray.push(interest.interest_id);
       }
       setPicked(interestArray);
-    })
+    });
   }, []);
 
 
@@ -197,13 +197,13 @@ function Dashboard(props) {
       .catch((err) => {
         console.log(err.message);
         setError(err.response.data);
-      })
+      });
 
-        setLoading(true)
-        setTimeout(() => {
-          setLoading(false);
-          navigate("/");
-        }, 2500);
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      navigate("/");
+    }, 2500);
 
   };
   return (
@@ -296,24 +296,22 @@ function Dashboard(props) {
 
             <Container maxWidth="sm" className="text-center">
               <div className="d-flex">
-                <span>
-                  <Button variant="outlined" component="label" color="secondary">
-                    Upload Photo
-                    <input
-                      type="file"
-                      accept="image/*"
-                      name="profile_picture"
-                      onChange={profileImageChange}
-                      hidden
-                    />
-                  </Button>
-
-                  <img
-                    className="circle-img"
-                    src={profilePreview}
-                    alt="profile pic"
+                <Typography variant="p">Upload a profile picture</Typography>
+                <img
+                  className="circle-img"
+                  src={profilePreview}
+                  alt="profile pic"
+                />
+                <Button variant="outlined" component="label" color="secondary">
+                  Upload Photo
+                  <input
+                    type="file"
+                    accept="image/*"
+                    name="profile_picture"
+                    onChange={profileImageChange}
+                    hidden
                   />
-                </span>
+                </Button>
               </div>
             </Container>
 
@@ -345,17 +343,19 @@ function Dashboard(props) {
 
               <Container maxWidth="sm">
                 <div className="center">
-                  <Typography variant="p">Bio</Typography>
-                  <TextField
-                    style={{ width: "350px", height: "55px" }}
-                    multiline={true}
-                    rows={3}
-                    label="Bio"
-                    name="Bio"
-                    value={bio}
-                    onChange={bioUpdater}
-                    placeholder="e.g. I love long walks to the fridge"
-                  ></TextField>
+                  <span>
+                    <Typography variant="p">Bio</Typography> &nbsp;&nbsp;
+                    <TextField
+                      style={{ width: "350px", height: "55px" }}
+                      multiline={true}
+                      rows={3}
+                      label="Bio"
+                      name="Bio"
+                      value={bio}
+                      onChange={bioUpdater}
+                      placeholder="e.g. I love long walks to the fridge"
+                    ></TextField>
+                  </span>
                   <br />
                   <br />
                   <Typography
@@ -373,6 +373,14 @@ function Dashboard(props) {
             <Container maxWidth="sm">
               <div className="center">
                 <Typography variant="p">Upload a cover banner</Typography>
+                <div>
+                  <img
+                    className="rectangle-img"
+                    src={bannerPreview}
+                    alt="banner pic"
+                  />
+                </div>
+                <br />
                 <Button variant="outlined" component="label" color="secondary">
                   Upload File
                   <input
@@ -383,13 +391,6 @@ function Dashboard(props) {
                     hidden
                   />
                 </Button>
-                <div>
-                  <img
-                    className="rectangle-img"
-                    src={bannerPreview}
-                    alt="banner pic"
-                  />
-                </div>
               </div>
             </Container>
 
