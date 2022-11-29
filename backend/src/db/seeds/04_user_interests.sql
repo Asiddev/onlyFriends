@@ -15,3 +15,7 @@ INSERT INTO user_interests (user_id, interest_id, created_at) VALUES (4, 45, '20
 INSERT INTO user_interests (user_id, interest_id, created_at) VALUES (4, 23, '2022-11-25');
 INSERT INTO user_interests (user_id, interest_id, created_at) VALUES (4, 58, '2022-11-25');
 INSERT INTO user_interests (user_id, interest_id, created_at) VALUES (4, 1, '2022-11-25');
+INSERT INTO user_interests (user_id, interest_id, created_at) VALUES (5, 1, '2022-11-25');
+INSERT INTO user_interests (user_id, interest_id, created_at) VALUES (6, 1, '2022-11-25');
+INSERT INTO user_interests (user_id, interest_id, created_at) VALUES (7, 1, '2022-11-25');
+INSERT INTO user_interests (user_id, interest_id, created_at) VALUES (8, 1, '2022-11-25');

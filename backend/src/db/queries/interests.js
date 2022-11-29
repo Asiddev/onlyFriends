@@ -1,7 +1,7 @@
 const db = require('../../configs/db.config');
 
 const getAllInterests = () => {
-	return db.query("SELECT * FROM interests;").then(data => {
+	return db.query("SELECT * FROM interests ORDER BY name;").then(data => {
 		return data.rows;
 	})
 }
