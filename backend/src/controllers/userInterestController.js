@@ -7,13 +7,17 @@ const getAllUserInterests = (req, res) => {
     })
 };
 
-const addUserInterests = (req, res) => {
+const updateUserInterests = (req, res) => {
 
   const body = req.body
-  
-  for (let interest of body.interests) {
-    userInterestQueries.addUserInterest(body.id, interest)
-  }
+  //Initially clear interest
+  userInterestQueries.clearUserInterests(body.id)
+  .then(() => {
+    //Reupdate interest based on updates
+    for (let interest of body.interests) {
+      userInterestQueries.addUserInterest(body.id, interest)
+    }
+  })
 }
 
 const getUserInterestsById = (id) => {
@@ -22,7 +26,7 @@ const getUserInterestsById = (id) => {
 
 module.exports = {
   getAllUserInterests,
-  addUserInterests,
+  updateUserInterests,
   getUserInterestsById
 };
 

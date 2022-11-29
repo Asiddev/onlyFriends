@@ -24,7 +24,6 @@ const ItemList = (props) => {
     //Number(value) == makes number
 
     const interestId = Number(e.target.value)
-
     if (props.picked.includes(interestId)) {
       e.target.classList.remove("blockAni");
       props.setPicked((prevPicked) => {
