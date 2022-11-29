@@ -270,8 +270,8 @@ function Dashboard(props) {
                 className="MuiTextField-root"
                 name="Location"
                 apiKey={process.env.REACT_APP_MY_API_KEY}
-                style={{ width: "300px", height: "55px" }}
-                onPlaceSelected={(place) => {}}
+                style={{ width: "350px", height: "55px" }}
+                onPlaceSelected={(place) => { }}
                 options={{
                   types: ["(regions)"],
                   componentRestrictions: { country: "ca" },
@@ -287,13 +287,16 @@ function Dashboard(props) {
           <div className="center">
             <Typography variant="p">Bio</Typography>
             <TextField
-              style={{ width: "755px", height: "55px" }}
+              style={{ width: "350px", height: "55px" }}
+              multiline={true}
+              rows={3}
               label="Bio"
               name="Bio"
               value={bio}
               onChange={bioUpdater}
               placeholder="e.g. I love long walks to the fridge"
             ></TextField>
+            <br /><br />
             <Typography
               className={bioLength >= 0 ? "safe" : "danger"}
               variant="h6"
@@ -308,18 +311,16 @@ function Dashboard(props) {
         <Container maxWidth="sm">
           <div className="center">
             <Typography variant="p">Upload a cover banner</Typography>
-            <div>
-              <Button variant="contained" component="label">
-                Upload File
-                <input
-                  type="file"
-                  accept="image/*"
-                  name="banner_picture"
-                  onChange={bannerImageChange}
-                  hidden
-                />
-              </Button>
-            </div>
+            <Button variant="contained" component="label" color="secondary">
+              Upload File
+              <input
+                type="file"
+                accept="image/*"
+                name="banner_picture"
+                onChange={bannerImageChange}
+                hidden
+              />
+            </Button>
             <div>
               <img
                 className="rectangle-img"
@@ -352,10 +353,11 @@ function Dashboard(props) {
         <br />
 
         <div className="center">
-          <Button variant="contained" type="submit">
-            Save
-          </Button>
-        </div>
+        <Button variant="contained" type="submit" color="secondary">
+          Save
+        </Button>
+      </div>
+
       </Box>
 
       <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
