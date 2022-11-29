@@ -66,22 +66,34 @@ function Dashboard(props) {
   const [error, setError] = useState(null);
 
   const [picked, setPicked] = useState([]);
+  const [userInterest, loadUserInterest] = useState([]);
 
   const navigate = useNavigate();
 
-  //Retrieve users data
   useEffect(() => {
-    axios
-      .get(`api/users/${JSON.parse(localStorage.getItem("user")).id}`)
-      .then((result) => {
-        const user = result.data[0];
-        props.setCurrentUser(user);
-        !user.description ? setBio("") : setBio(user.description);
-        setProfilePreview(user.profile_picture);
-        setBannerPreview(user.banner_picture);
-        setLocation(user.location);
-      });
+    Promise.all([
+      axios.get(`api/users/${JSON.parse(localStorage.getItem("user")).id}`),
+      axios.get(`api/user_interests/${JSON.parse(localStorage.getItem("user")).id}`)
+    ]).then((all) => {
+      const user = all[0].data[0]; // This returns an object
+      const userInterests = all[1].data; // This returns an array
+
+      //Set user info 
+      props.setCurrentUser(user)
+      !user.description ? setBio("") : setBio(user.description);
+      setProfilePreview(user.profile_picture);
+      setBannerPreview(user.banner_picture);
+      setLocation(user.location);
+      
+      //Set user interest to render.
+      let interestArray = [];
+      for (const interest of userInterests) {
+        interestArray.push(interest.interest_id)
+      }
+      setPicked(interestArray);
+    })
   }, []);
+
 
   //Function to logout and clear cookie and storage
   const logOut = (event) => {
@@ -135,7 +147,6 @@ function Dashboard(props) {
 
   //Function to post profile info into backend
   const postProfile = (event) => {
-    setLoading(true);
     //Make error message set states here
     event.preventDefault();
     setError("");
@@ -149,7 +160,7 @@ function Dashboard(props) {
     };
 
     //Render error if any conditions are not met
-    if (userObj.description.length > 100) {
+    if (bio.length > 100) {
       setError("Bio exceeds 100 char limit");
       return;
     }
@@ -184,13 +195,16 @@ function Dashboard(props) {
         axios.post("/api/users/update", userObj);
       })
       .catch((err) => {
+        console.log(err.message);
         setError(err.response.data);
-      });
+      })
 
-    setTimeout(() => {
-      setLoading(false);
-      navigate("/");
-    }, 2500);
+        setLoading(true)
+        setTimeout(() => {
+          setLoading(false);
+          navigate("/");
+        }, 2500);
+
   };
   return (
     <>
@@ -216,13 +230,13 @@ function Dashboard(props) {
           <span className="center" color="primary">
             Saving...
           </span>
-          <div class="book">
-            <div class="book__pg-shadow"></div>
-            <div class="book__pg"></div>
-            <div class="book__pg book__pg--2"></div>
-            <div class="book__pg book__pg--3"></div>
-            <div class="book__pg book__pg--4"></div>
-            <div class="book__pg book__pg--5"></div>
+          <div className="book">
+            <div className="book__pg-shadow"></div>
+            <div className="book__pg"></div>
+            <div className="book__pg book__pg--2"></div>
+            <div className="book__pg book__pg--3"></div>
+            <div className="book__pg book__pg--4"></div>
+            <div className="book__pg book__pg--5"></div>
           </div>
         </>
       ) : (
