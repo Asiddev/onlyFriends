@@ -78,222 +78,341 @@
 }
 
 body {
-  margin: 0;
-  background: #333;
-}
-
-.loader {
-  /* Loader must to be modal/fullpage */
-  width: 100vw;
+  background-color: var(--bg);
+  color: var(--fg);
+  font: 1em/1.5 sans-serif;
   height: 100vh;
   display: grid;
   place-items: center;
-  /* Overall size of all boxes */
-  --f-w: 5vmin;
-  --f-g: 0.5vmin;
-  /* Columns offsets: --x-$col */
-  --x-1: calc(-2.5 * (var(--f-w) + var(--f-g)));
-  --x-2: calc(-1.5 * (var(--f-w) + var(--f-g)));
-  --x-3: calc(-0.5 * (var(--f-w) + var(--f-g)));
-  --x-4: calc(0.5 * (var(--f-w) + var(--f-g)));
-  --x-5: calc(1.5 * (var(--f-w) + var(--f-g)));
-  --x-6: calc(2.5 * (var(--f-w) + var(--f-g)));
-  /* Rows offsets: --y-$row */
-  --y-1: calc(1 * (var(--f-w) + var(--f-g)));
-  --y-2: calc(2 * (var(--f-w) + var(--f-g)));
-  --y-3: calc(3 * (var(--f-w) + var(--f-g)));
-  /* Colors: --c-$col-$row */
-  /* Colors were taken from Material Colors (c) */
-  --c-1-1: #ffcdd2;
-  --c-1-2: #ef9a9a;
-  --c-1-3: #e57373;
-  --c-2-1: #d1c4e9;
-  --c-2-2: #b39ddb;
-  --c-2-3: #9575cd;
-  --c-3-1: #b3e5fc;
-  --c-3-2: #81d4fa;
-  --c-3-3: #4fc3f7;
-  --c-4-1: #c8e6c9;
-  --c-4-2: #a5d6a7;
-  --c-4-3: #81c784;
-  --c-5-1: #fff9c4;
-  --c-5-2: #fff59d;
-  --c-5-3: #fff176;
-  --c-6-1: #ffccbc;
-  --c-6-2: #ffab91;
-  --c-6-3: #ff8a65;
-  box-sizing: border-box;
-  /* Box size */
-  font-size: 10vmin;
+  --hue: 223;
+  --bg: hsl(var(--hue), 10%, 90%);
+  --fg: hsl(var(--hue), 10%, 10%);
+  --primary: hsl(var(--hue), 90%, 55%);
+  --primary-l: hsl(var(--hue), 90%, 65%);
+  --primary-d: hsl(var(--hue), 90%, 45%);
+  --white: hsl(var(--hue), 10%, 100%);
+  --white-d: hsl(var(--hue), 10%, 45%);
+  font-size: calc(16px + (24 - 16) * (100vw - 320px) / (1280 - 320));
 }
-.loader:before {
-  /* Label properties */
-  content: "loading";
-  color: #fafad2;
-  text-shadow: 0.5vmin 0.5vmin 0 #000;
-  font-family: fantasy;
-  display: block;
-  width: 40vmin;
-  height: 20vmin;
-  position: absolute;
-  text-align: center;
+.book,
+.book__pg-shadow,
+.book__pg {
+  animation: cover 7s ease-in-out infinite;
 }
-.loader:after {
-  display: block;
-  content: " ";
-  background: #f000;
-  /* Overall sizes */
-  width: var(--f-w);
-  height: var(--f-w);
-  /* Initial position of the blocks */
-  box-shadow: var(--x-1) var(--y-3) var(--c-1-3),
-    var(--x-1) var(--y-2) var(--c-1-2), var(--x-2) var(--y-2) var(--c-2-2),
-    var(--x-3) var(--y-2) var(--c-3-2), var(--x-4) var(--y-2) var(--c-4-2),
-    var(--x-5) var(--y-2) var(--c-5-2), var(--x-6) var(--y-2) var(--c-6-2),
-    var(--x-6) var(--y-1) var(--c-6-1);
-  animation: 6s infinite loader;
+.book {
+  background-color: var(--primary-l);
+  border-radius: 0.25em;
+  box-shadow: 0 0.25em 0.5em hsla(0, 0%, 0%, 0.3),
+    0 0 0 0.25em var(--primary) inset;
+  padding: 0.25em;
+  perspective: 37.5em;
+  position: relative;
+  width: 16em;
+  height: 8em;
+  transform: translate3d(0, 0, 0);
+  transform-style: preserve-3d;
+}
+.book__pg-shadow,
+.book__pg {
   position: absolute;
+  left: 0.25em;
+  width: calc(50% - 0.25em);
+}
+.book__pg-shadow {
+  animation-name: shadow;
+  background-image: linear-gradient(
+    -45deg,
+    hsla(0, 0%, 0%, 0) 50%,
+    hsla(0, 0%, 0%, 0.3) 50%
+  );
+  filter: blur(0.25em);
+  top: calc(100% - 0.25em);
+  height: 3.75em;
+  transform: scaleY(0);
+  transform-origin: 100% 0%;
+}
+.book__pg {
+  animation-name: pg1;
+  background-color: var(--white);
+  background-image: linear-gradient(
+    90deg,
+    hsla(var(--hue), 10%, 90%, 0) 87.5%,
+    hsl(var(--hue), 10%, 90%)
+  );
+  height: calc(100% - 0.5em);
+  transform-origin: 100% 50%;
+}
+.book__pg--2,
+.book__pg--3,
+.book__pg--4 {
+  background-image: repeating-linear-gradient(
+      hsl(var(--hue), 10%, 10%) 0 0.125em,
+      hsla(var(--hue), 10%, 10%, 0) 0.125em 0.5em
+    ),
+    linear-gradient(
+      90deg,
+      hsla(var(--hue), 10%, 90%, 0) 87.5%,
+      hsl(var(--hue), 10%, 90%)
+    );
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 2.5em 4.125em, 100% 100%;
+}
+.book__pg--2 {
+  animation-name: pg2;
+}
+.book__pg--3 {
+  animation-name: pg3;
+}
+.book__pg--4 {
+  animation-name: pg4;
+}
+.book__pg--5 {
+  animation-name: pg5;
 }
 
-@keyframes loader {
-  0% {
-    box-shadow: var(--x-1) var(--y-3) var(--c-1-3),
-      var(--x-1) var(--y-2) var(--c-1-2), var(--x-2) var(--y-2) var(--c-2-2),
-      var(--x-3) var(--y-2) var(--c-3-2), var(--x-4) var(--y-2) var(--c-4-2),
-      var(--x-5) var(--y-2) var(--c-5-2), var(--x-6) var(--y-2) var(--c-6-2),
-      var(--x-6) var(--y-1) var(--c-6-1);
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: hsl(var(--hue), 10%, 30%);
+    --fg: hsl(var(--hue), 10%, 90%);
   }
-  5% {
-    box-shadow: var(--x-2) var(--y-3) var(--c-2-3),
-      var(--x-1) var(--y-2) var(--c-1-2), var(--x-2) var(--y-2) var(--c-2-2),
-      var(--x-3) var(--y-2) var(--c-3-2), var(--x-4) var(--y-2) var(--c-4-2),
-      var(--x-5) var(--y-2) var(--c-5-2), var(--x-6) var(--y-2) var(--c-6-2),
-      var(--x-5) var(--y-1) var(--c-5-1);
+}
+
+/* Animations */
+@keyframes cover {
+  from,
+  5%,
+  45%,
+  55%,
+  95%,
+  to {
+    animation-timing-function: ease-out;
+    background-color: var(--primary-l);
   }
-  10% {
-    box-shadow: var(--x-2) var(--y-2) var(--c-2-2),
-      var(--x-1) var(--y-2) var(--c-1-2), var(--x-2) var(--y-1) var(--c-2-1),
-      var(--x-3) var(--y-2) var(--c-3-2), var(--x-4) var(--y-2) var(--c-4-2),
-      var(--x-5) var(--y-3) var(--c-5-3), var(--x-6) var(--y-2) var(--c-6-2),
-      var(--x-5) var(--y-2) var(--c-5-2);
+  10%,
+  40%,
+  60%,
+  90% {
+    animation-timing-function: ease-in;
+    background-color: var(--primary-d);
   }
+}
+@keyframes shadow {
+  from,
+  10.01%,
+  20.01%,
+  30.01%,
+  40.01% {
+    animation-timing-function: ease-in;
+    transform: translate3d(0, 0, 1px) scaleY(0) rotateY(0);
+  }
+  5%,
+  15%,
+  25%,
+  35%,
+  45%,
+  55%,
+  65%,
+  75%,
+  85%,
+  95% {
+    animation-timing-function: ease-out;
+    transform: translate3d(0, 0, 1px) scaleY(0.2) rotateY(90deg);
+  }
+  10%,
+  20%,
+  30%,
+  40%,
+  50%,
+  to {
+    animation-timing-function: ease-out;
+    transform: translate3d(0, 0, 1px) scaleY(0) rotateY(180deg);
+  }
+  50.01%,
+  60.01%,
+  70.01%,
+  80.01%,
+  90.01% {
+    animation-timing-function: ease-in;
+    transform: translate3d(0, 0, 1px) scaleY(0) rotateY(180deg);
+  }
+  60%,
+  70%,
+  80%,
+  90%,
+  to {
+    animation-timing-function: ease-out;
+    transform: translate3d(0, 0, 1px) scaleY(0) rotateY(0);
+  }
+}
+@keyframes pg1 {
+  from,
+  to {
+    animation-timing-function: ease-in-out;
+    background-color: var(--white);
+    transform: translate3d(0, 0, 1px) rotateY(0.4deg);
+  }
+  10%,
   15% {
-    box-shadow: var(--x-2) var(--y-2) var(--c-2-2),
-      var(--x-1) var(--y-2) var(--c-1-2), var(--x-3) var(--y-1) var(--c-3-1),
-      var(--x-3) var(--y-2) var(--c-3-2), var(--x-4) var(--y-2) var(--c-4-2),
-      var(--x-4) var(--y-3) var(--c-4-3), var(--x-6) var(--y-2) var(--c-6-2),
-      var(--x-5) var(--y-2) var(--c-5-2);
+    animation-timing-function: ease-out;
+    background-color: var(--white);
+    transform: translate3d(0, 0, 1px) rotateY(180deg);
   }
-  20% {
-    box-shadow: var(--x-2) var(--y-2) var(--c-2-2),
-      var(--x-1) var(--y-2) var(--c-1-2), var(--x-3) var(--y-2) var(--c-3-2),
-      var(--x-3) var(--y-3) var(--c-3-3), var(--x-4) var(--y-1) var(--c-4-1),
-      var(--x-4) var(--y-2) var(--c-4-2), var(--x-6) var(--y-2) var(--c-6-2),
-      var(--x-5) var(--y-2) var(--c-5-2);
+  20%,
+  80% {
+    animation-timing-function: ease-in;
+    background-color: var(--white-d);
+    transform: translate3d(0, 0, 1px) rotateY(180deg);
   }
+  85%,
+  90% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--white);
+    transform: translate3d(0, 0, 1px) rotateY(180deg);
+  }
+}
+@keyframes pg2 {
+  from,
+  to {
+    animation-timing-function: ease-in;
+    background-color: var(--white-d);
+    transform: translate3d(0, 0, 1px) rotateY(0.3deg);
+  }
+  5%,
+  10% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--white);
+    transform: translate3d(0, 0, 1px) rotateY(0.3deg);
+  }
+  20%,
   25% {
-    box-shadow: var(--x-2) var(--y-2) var(--c-2-2),
-      var(--x-1) var(--y-2) var(--c-1-2), var(--x-3) var(--y-2) var(--c-3-2),
-      var(--x-4) var(--y-3) var(--c-4-3), var(--x-3) var(--y-1) var(--c-3-1),
-      var(--x-4) var(--y-2) var(--c-4-2), var(--x-6) var(--y-2) var(--c-6-2),
-      var(--x-5) var(--y-2) var(--c-5-2);
+    animation-timing-function: ease-out;
+    background-color: var(--white);
+    transform: translate3d(0, 0, 1px) rotateY(179.9deg);
   }
-  30% {
-    box-shadow: var(--x-2) var(--y-2) var(--c-2-2),
-      var(--x-1) var(--y-2) var(--c-1-2), var(--x-3) var(--y-3) var(--c-3-3),
-      var(--x-4) var(--y-2) var(--c-4-2), var(--x-3) var(--y-2) var(--c-3-2),
-      var(--x-4) var(--y-1) var(--c-4-1), var(--x-6) var(--y-2) var(--c-6-2),
-      var(--x-5) var(--y-2) var(--c-5-2);
+  30%,
+  70% {
+    animation-timing-function: ease-in;
+    background-color: var(--white-d);
+    transform: translate3d(0, 0, 1px) rotateY(179.9deg);
   }
+  75%,
+  80% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--white);
+    transform: translate3d(0, 0, 1px) rotateY(179.9deg);
+  }
+  90%,
+  95% {
+    animation-timing-function: ease-out;
+    background-color: var(--white);
+    transform: translate3d(0, 0, 1px) rotateY(0.3deg);
+  }
+}
+@keyframes pg3 {
+  from,
+  10%,
+  90%,
+  to {
+    animation-timing-function: ease-in;
+    background-color: var(--white-d);
+    transform: translate3d(0, 0, 1px) rotateY(0.2deg);
+  }
+  15%,
+  20% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--white);
+    transform: translate3d(0, 0, 1px) rotateY(0.2deg);
+  }
+  30%,
   35% {
-    box-shadow: var(--x-2) var(--y-2) var(--c-2-2),
-      var(--x-1) var(--y-2) var(--c-1-2), var(--x-2) var(--y-3) var(--c-2-3),
-      var(--x-4) var(--y-2) var(--c-4-2), var(--x-3) var(--y-2) var(--c-3-2),
-      var(--x-5) var(--y-1) var(--c-5-1), var(--x-6) var(--y-2) var(--c-6-2),
-      var(--x-5) var(--y-2) var(--c-5-2);
+    animation-timing-function: ease-out;
+    background-color: var(--white);
+    transform: translate3d(0, 0, 1px) rotateY(179.8deg);
   }
-  40% {
-    box-shadow: var(--x-2) var(--y-1) var(--c-2-1),
-      var(--x-1) var(--y-2) var(--c-1-2), var(--x-2) var(--y-2) var(--c-2-2),
-      var(--x-4) var(--y-2) var(--c-4-2), var(--x-3) var(--y-2) var(--c-3-2),
-      var(--x-5) var(--y-2) var(--c-5-2), var(--x-6) var(--y-2) var(--c-6-2),
-      var(--x-5) var(--y-3) var(--c-5-3);
+  40%,
+  60% {
+    animation-timing-function: ease-in;
+    background-color: var(--white-d);
+    transform: translate3d(0, 0, 1px) rotateY(179.8deg);
   }
+  65%,
+  70% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--white);
+    transform: translate3d(0, 0, 1px) rotateY(179.8deg);
+  }
+  80%,
+  85% {
+    animation-timing-function: ease-out;
+    background-color: var(--white);
+    transform: translate3d(0, 0, 1px) rotateY(0.2deg);
+  }
+}
+@keyframes pg4 {
+  from,
+  20%,
+  80%,
+  to {
+    animation-timing-function: ease-in;
+    background-color: var(--white-d);
+    transform: translate3d(0, 0, 1px) rotateY(0.1deg);
+  }
+  25%,
+  30% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--white);
+    transform: translate3d(0, 0, 1px) rotateY(0.1deg);
+  }
+  40%,
   45% {
-    box-shadow: var(--x-1) var(--y-1) var(--c-1-1),
-      var(--x-1) var(--y-2) var(--c-1-2), var(--x-2) var(--y-2) var(--c-2-2),
-      var(--x-4) var(--y-2) var(--c-4-2), var(--x-3) var(--y-2) var(--c-3-2),
-      var(--x-5) var(--y-2) var(--c-5-2), var(--x-6) var(--y-2) var(--c-6-2),
-      var(--x-6) var(--y-3) var(--c-6-3);
+    animation-timing-function: ease-out;
+    background-color: var(--white);
+    transform: translate3d(0, 0, 1px) rotateY(179.7deg);
   }
   50% {
-    box-shadow: var(--x-1) var(--y-2) var(--c-1-2),
-      var(--x-1) var(--y-3) var(--c-1-3), var(--x-2) var(--y-2) var(--c-2-2),
-      var(--x-4) var(--y-2) var(--c-4-2), var(--x-3) var(--y-2) var(--c-3-2),
-      var(--x-5) var(--y-2) var(--c-5-2), var(--x-6) var(--y-1) var(--c-6-1),
-      var(--x-6) var(--y-2) var(--c-6-2);
+    animation-timing-function: ease-in;
+    background-color: var(--white-d);
+    transform: translate3d(0, 0, 1px) rotateY(179.7deg);
   }
-  55% {
-    box-shadow: var(--x-1) var(--y-2) var(--c-1-2),
-      var(--x-2) var(--y-3) var(--c-2-3), var(--x-2) var(--y-2) var(--c-2-2),
-      var(--x-4) var(--y-2) var(--c-4-2), var(--x-3) var(--y-2) var(--c-3-2),
-      var(--x-5) var(--y-2) var(--c-5-2), var(--x-5) var(--y-1) var(--c-5-1),
-      var(--x-6) var(--y-2) var(--c-6-2);
-  }
+  55%,
   60% {
-    box-shadow: var(--x-1) var(--y-2) var(--c-1-2),
-      var(--x-2) var(--y-2) var(--c-2-2), var(--x-2) var(--y-1) var(--c-2-1),
-      var(--x-4) var(--y-2) var(--c-4-2), var(--x-3) var(--y-2) var(--c-3-2),
-      var(--x-5) var(--y-3) var(--c-5-3), var(--x-5) var(--y-2) var(--c-5-2),
-      var(--x-6) var(--y-2) var(--c-6-2);
+    animation-timing-function: ease-in-out;
+    background-color: var(--white);
+    transform: translate3d(0, 0, 1px) rotateY(179.7deg);
   }
-  65% {
-    box-shadow: var(--x-1) var(--y-2) var(--c-1-2),
-      var(--x-2) var(--y-2) var(--c-2-2), var(--x-3) var(--y-1) var(--c-3-1),
-      var(--x-4) var(--y-2) var(--c-4-2), var(--x-3) var(--y-2) var(--c-3-2),
-      var(--x-4) var(--y-3) var(--c-4-3), var(--x-5) var(--y-2) var(--c-5-2),
-      var(--x-6) var(--y-2) var(--c-6-2);
-  }
-  70% {
-    box-shadow: var(--x-1) var(--y-2) var(--c-1-2),
-      var(--x-2) var(--y-2) var(--c-2-2), var(--x-3) var(--y-2) var(--c-3-2),
-      var(--x-4) var(--y-1) var(--c-4-1), var(--x-3) var(--y-3) var(--c-3-3),
-      var(--x-4) var(--y-2) var(--c-4-2), var(--x-5) var(--y-2) var(--c-5-2),
-      var(--x-6) var(--y-2) var(--c-6-2);
-  }
+  70%,
   75% {
-    box-shadow: var(--x-1) var(--y-2) var(--c-1-2),
-      var(--x-2) var(--y-2) var(--c-2-2), var(--x-3) var(--y-2) var(--c-3-2),
-      var(--x-3) var(--y-1) var(--c-3-1), var(--x-4) var(--y-3) var(--c-4-3),
-      var(--x-4) var(--y-2) var(--c-4-2), var(--x-5) var(--y-2) var(--c-5-2),
-      var(--x-6) var(--y-2) var(--c-6-2);
+    animation-timing-function: ease-out;
+    background-color: var(--white);
+    transform: translate3d(0, 0, 1px) rotateY(0.1deg);
   }
-  80% {
-    box-shadow: var(--x-1) var(--y-2) var(--c-1-2),
-      var(--x-2) var(--y-2) var(--c-2-2), var(--x-3) var(--y-3) var(--c-3-3),
-      var(--x-3) var(--y-2) var(--c-3-2), var(--x-4) var(--y-2) var(--c-4-2),
-      var(--x-4) var(--y-1) var(--c-4-1), var(--x-5) var(--y-2) var(--c-5-2),
-      var(--x-6) var(--y-2) var(--c-6-2);
+}
+@keyframes pg5 {
+  from,
+  30%,
+  70%,
+  to {
+    animation-timing-function: ease-in;
+    background-color: var(--white-d);
+    transform: translate3d(0, 0, 1px) rotateY(0);
   }
-  85% {
-    box-shadow: var(--x-1) var(--y-2) var(--c-1-2),
-      var(--x-2) var(--y-2) var(--c-2-2), var(--x-2) var(--y-3) var(--c-2-3),
-      var(--x-3) var(--y-2) var(--c-3-2), var(--x-4) var(--y-2) var(--c-4-2),
-      var(--x-5) var(--y-1) var(--c-5-1), var(--x-5) var(--y-2) var(--c-5-2),
-      var(--x-6) var(--y-2) var(--c-6-2);
+  35%,
+  40% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--white);
+    transform: translate3d(0, 0, 1px) rotateY(0deg);
   }
-  90% {
-    box-shadow: var(--x-1) var(--y-2) var(--c-1-2),
-      var(--x-2) var(--y-1) var(--c-2-1), var(--x-2) var(--y-2) var(--c-2-2),
-      var(--x-3) var(--y-2) var(--c-3-2), var(--x-4) var(--y-2) var(--c-4-2),
-      var(--x-5) var(--y-2) var(--c-5-2), var(--x-5) var(--y-3) var(--c-5-3),
-      var(--x-6) var(--y-2) var(--c-6-2);
+  50% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--white);
+    transform: translate3d(0, 0, 1px) rotateY(179.6deg);
   }
-  95% {
-    box-shadow: var(--x-1) var(--y-2) var(--c-1-2),
-      var(--x-1) var(--y-1) var(--c-1-1), var(--x-2) var(--y-2) var(--c-2-2),
-      var(--x-3) var(--y-2) var(--c-3-2), var(--x-4) var(--y-2) var(--c-4-2),
-      var(--x-5) var(--y-2) var(--c-5-2), var(--x-6) var(--y-3) var(--c-6-3),
-      var(--x-6) var(--y-2) var(--c-6-2);
+  60%,
+  65% {
+    animation-timing-function: ease-out;
+    background-color: var(--white);
+    transform: translate3d(0, 0, 1px) rotateY(0);
   }
 }

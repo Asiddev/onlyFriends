@@ -147,8 +147,6 @@ function Browse(props) {
         <br />
         <br />
 
-        <Button variant="outlined">No</Button>
-
         <Button variant="contained">Yes</Button>
 
         <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
