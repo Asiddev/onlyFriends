@@ -163,43 +163,55 @@ function Dashboard(props) {
 
     axios.post("/api/user_interests", userObj)
     
-    if (profileImage) {
-      uploadImage(profilePathway, profileImage)
-      .then((url) => (userObj.profile_picture = url))
-      .then(() => {
-        if (bannerImage) {
-          uploadImage(bannerPathway, bannerImage)
-          .then((url) => (userObj.banner_picture = url))
-          .then(() => {
-            axios.post("/api/users/update", userObj)
-          })
-          .catch((err) => {
-            setError(err.response.data);
-          })
-        } else {
-          axios.post("/api/users/update", userObj)
-          .catch((err) => {
-            setError(err.response.data);
-          })
-        }
-      })
-    } else {
-      if (bannerImage) {
-        uploadImage(bannerPathway, bannerImage)
-        .then((url) => (userObj.banner_picture = url))
-        .then(() => {
-          axios.post("/api/users/update", userObj)
-        })
-        .catch((err) => {
-          setError(err.response.data);
-        })
-      } else {
-        axios.post("/api/users/update", userObj)
-        .catch((err) => {
-          setError(err.response.data);
-        })
-      }
-    }
+    Promise.all([
+     uploadImage(profilePathway, profileImage),
+     uploadImage(bannerPathway, bannerImage) 
+    ]).then((all) => {
+      userObj.profile_picture = all[0];
+      userObj.banner_picture = all[1];
+    }).then(() => {
+      axios.post('/api/users/update', userObj);
+    }).catch((err) => {
+      setError(err.response.data)
+    });
+
+    // if (profileImage) {
+    //   uploadImage(profilePathway, profileImage)
+    //   .then((url) => (userObj.profile_picture = url))
+    //   .then(() => {
+    //     if (bannerImage) {
+    //       uploadImage(bannerPathway, bannerImage)
+    //       .then((url) => (userObj.banner_picture = url))
+    //       .then(() => {
+    //         axios.post("/api/users/update", userObj)
+    //       })
+    //       .catch((err) => {
+    //         setError(err.response.data);
+    //       })
+    //     } else {
+    //       axios.post("/api/users/update", userObj)
+    //       .catch((err) => {
+    //         setError(err.response.data);
+    //       })
+    //     }
+    //   })
+    // } else {
+    //   if (bannerImage) {
+    //     uploadImage(bannerPathway, bannerImage)
+    //     .then((url) => (userObj.banner_picture = url))
+    //     .then(() => {
+    //       axios.post("/api/users/update", userObj)
+    //     })
+    //     .catch((err) => {
+    //       setError(err.response.data);
+    //     })
+    //   } else {
+    //     axios.post("/api/users/update", userObj)
+    //     .catch((err) => {
+    //       setError(err.response.data);
+    //     })
+    //   }
+    // }
   }
   return (
     <div>
