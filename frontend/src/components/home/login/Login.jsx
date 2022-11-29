@@ -62,7 +62,7 @@ function Login(props) {
         props.setCurrentUser(data.data.user);
         localStorage.setItem("user", JSON.stringify(data.data.user));
         props.setCookie(data.token);
-        navigate("/");
+        navigate("/profile");
       })
       .catch((err) => {
         console.log(err);

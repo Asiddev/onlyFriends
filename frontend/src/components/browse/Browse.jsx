@@ -1,7 +1,13 @@
-import * as React from 'react';
-import { red } from '@mui/material/colors';
+import * as React from "react";
+import { red } from "@mui/material/colors";
 import {
-  Card, CardHeader, CardMedia, CardContent, Avatar, IconButton, Typography,
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  Avatar,
+  IconButton,
+  Typography,
   Link,
   CssBaseline,
   Box,
@@ -18,18 +24,21 @@ import {
   Grid,
   Paper,
   BottomNavigationAction,
-  BottomNavigation
+  BottomNavigation,
 } from "@mui/material";
 import { MoreVert, ShareIcon } from "@mui/icons-material";
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import RestoreIcon from '@mui/icons-material/Restore';
-import ArchiveIcon from '@mui/icons-material/Archive';
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import RestoreIcon from "@mui/icons-material/Restore";
+import ArchiveIcon from "@mui/icons-material/Archive";
 
-import HomeIcon from '@mui/icons-material/Home';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import MessageIcon from '@mui/icons-material/Message';
-import LogoutIcon from '@mui/icons-material/Logout';
+import HomeIcon from "@mui/icons-material/Home";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import MessageIcon from "@mui/icons-material/Message";
+import LogoutIcon from "@mui/icons-material/Logout";
+import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
 
 function Copyright(props) {
   return (
@@ -51,6 +60,24 @@ function Copyright(props) {
 
 function Browse(props) {
   const [value, setValue] = React.useState(0);
+  const [profileInterests, setProfileInterest] = useState([]);
+
+  useEffect(() => {
+    axios.get(`/api/user_interests/${props.user.id}`).then((data) => {
+      console.log(props.user);
+      setProfileInterest([...data.data]);
+    });
+  }, []);
+
+  const renderInterestList = profileInterests.map((interest) => {
+    return (
+      <Button key={interest.id} variant="contained" sx={{ marginRight: 1 }}>
+        {interest.name}
+      </Button>
+    );
+  });
+
+  console.log(profileInterests);
 
   return (
     <div>
@@ -82,12 +109,12 @@ function Browse(props) {
 
       {/* this is the card */}
       <Container maxWidth="sm">
+        <img src={props.profilePicture} alt="" />
         <Card sx={{ maxWidth: "100%" }}>
           <CardHeader
             avatar={
-              <Avatar sx={{ bgcolor: red[300] }}
-              >
-                Rs
+              <Avatar sx={{ bgcolor: red[300] }}>
+                <img src={props.profileImage} alt="" />
               </Avatar>
             }
             action={
@@ -95,74 +122,44 @@ function Browse(props) {
                 <MoreVert />
               </IconButton>
             }
-            title="First Last"
-            subheader="Somecity, Netherlands"
+            title={props.user.name}
+            subheader={props.user.location}
           />
           <CardMedia
             component="img"
-            image="https://www.motorsportweek.com/wp-content/uploads/2021/06/jm2120ju606.jpg"
+            image={props.user.banner_picture}
             alt="Max"
           />
-          <CardContent>
+          <CardContent className="center">
             <Typography variant="body2" color="text.secondary">
-              This is the bio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id laoreet ipsum. Phasellus tellus nisl, varius in maximus bibendum, eleifend sit amet neque. Mauris dictum tellus sed ultrices finibus. Nulla in ipsum ac nisl feugiat maximus. Sed in nisl vehicula diam lobortis efficitur.
+              {props.user.description}
             </Typography>
 
             {/* their selected interests */}
             <br />
+
             <Grid container>
-              <Grid item>
-                <Button
-                  // key={interest.id}
-                  variant="contained"
-                  // onClick={handleClick}
-                  sx={{ marginRight: 1 }}
-                // value={interest.id}
-                >
-                  Racing
-                </Button>
-                <Button
-                  // key={interest.id}
-                  variant="contained"
-                  // onClick={handleClick}
-                  sx={{ marginRight: 1 }}
-                // value={interest.id}
-                >
-                  Skiing
-                </Button>
-                <Button
-                  // key={interest.id}
-                  variant="contained"
-                  // onClick={handleClick}
-                  sx={{ marginRight: 1 }}
-                // value={interest.id}
-                >
-                  Videogaming
-                </Button>
-              </Grid>
+              <Grid item>{profileInterests && renderInterestList}</Grid>
             </Grid>
           </CardContent>
-
-
         </Card>
 
-        <br /><br />
+        <br />
+        <br />
 
-        <Button variant="outlined">
-          No
-        </Button>
+        <Button variant="outlined">No</Button>
 
-        <Button variant="contained">
-          Yes
-        </Button>
+        <Button variant="contained">Yes</Button>
 
         <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
           <Copyright />
         </Box>
-
       </Container>
 
-      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+      <Paper
+        sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
+        elevation={3}
+      >
         <BottomNavigation
           showLabels
           value={value}
@@ -170,14 +167,18 @@ function Browse(props) {
             setValue(newValue);
           }}
         >
-          <BottomNavigationAction label="Home" icon={<HomeIcon />} />
-          <BottomNavigationAction label="Profile" icon={<AccountBoxIcon />} />
+          <BottomNavigationAction href="/" label="Home" icon={<HomeIcon />} />
+
+          <BottomNavigationAction
+            href="/profile"
+            label="Profile"
+            icon={<AccountBoxIcon />}
+          />
           <BottomNavigationAction label="Matches" icon={<PeopleAltIcon />} />
           <BottomNavigationAction label="Messages" icon={<MessageIcon />} />
           <BottomNavigationAction label="Logout" icon={<LogoutIcon />} />
         </BottomNavigation>
       </Paper>
-
     </div>
   );
 }

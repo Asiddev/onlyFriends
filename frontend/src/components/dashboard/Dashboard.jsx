@@ -54,12 +54,12 @@ function Dashboard(props) {
   let bioLimit = 100;
   const [bioLength, setBioLength] = useState(bioLimit);
 
-  const [location, setLocation] = useState('')
+  const [location, setLocation] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const [profileImage, setProfileImage] = useState(null);
   const [bannerImage, setBannerImage] = useState(null);
   const [active, setActive] = useState(false);
-
+  const [profileImage, setProfileImage] = useState(null);
   const [profilePreview, setProfilePreview] = useState(null);
   const [bannerPreview, setBannerPreview] = useState(null);
 
@@ -69,20 +69,19 @@ function Dashboard(props) {
 
   const navigate = useNavigate();
 
-
   //Retrieve users data
   useEffect(() => {
-    axios.get(`api/users/${JSON.parse(localStorage.getItem("user")).id}`)
-    .then((result)=> {
-      console.log(result.data[0])
-      const user = result.data[0]
-      !user.description? setBio("") : setBio(user.description);
-      setProfilePreview(user.profile_picture);
-      setBannerPreview(user.banner_picture);
-      setLocation(user.location)
-    })
-  },[])
-
+    axios
+      .get(`api/users/${JSON.parse(localStorage.getItem("user")).id}`)
+      .then((result) => {
+        console.log(result.data[0]);
+        const user = result.data[0];
+        !user.description ? setBio("") : setBio(user.description);
+        setProfilePreview(user.profile_picture);
+        setBannerPreview(user.banner_picture);
+        setLocation(user.location);
+      });
+  }, []);
 
   //Function to logout and clear cookie and storage
   const logOut = (event) => {
@@ -133,6 +132,7 @@ function Dashboard(props) {
 
   //Function to post profile info into backend
   const postProfile = (event) => {
+    setLoading(true);
     //Make error message set states here
     event.preventDefault();
     setError("");
@@ -161,252 +161,271 @@ function Dashboard(props) {
 
     //Axios Post request to backend
 
-    axios.post("/api/user_interests", userObj)
-    
+    axios.post("/api/user_interests", userObj);
+
     if (profileImage) {
       uploadImage(profilePathway, profileImage)
-      .then((url) => (userObj.profile_picture = url))
-      .then(() => {
-        if (bannerImage) {
-          uploadImage(bannerPathway, bannerImage)
-          .then((url) => (userObj.banner_picture = url))
-          .then(() => {
-            axios.post("/api/users/update", userObj)
-          })
-          .catch((err) => {
-            setError(err.response.data);
-          })
-        } else {
-          axios.post("/api/users/update", userObj)
-          .catch((err) => {
-            setError(err.response.data);
-          })
-        }
-      })
+        .then((url) => (userObj.profile_picture = url))
+        .then(() => {
+          if (bannerImage) {
+            uploadImage(bannerPathway, bannerImage)
+              .then((url) => (userObj.banner_picture = url))
+              .then(() => {
+                axios.post("/api/users/update", userObj);
+              })
+              .catch((err) => {
+                setError(err.response.data);
+              });
+          } else {
+            axios.post("/api/users/update", userObj).catch((err) => {
+              setError(err.response.data);
+            });
+          }
+        });
     } else {
       if (bannerImage) {
         uploadImage(bannerPathway, bannerImage)
-        .then((url) => (userObj.banner_picture = url))
-        .then(() => {
-          axios.post("/api/users/update", userObj)
-        })
-        .catch((err) => {
-          setError(err.response.data);
-        })
+          .then((url) => (userObj.banner_picture = url))
+          .then(() => {
+            axios.post("/api/users/update", userObj);
+          })
+          .catch((err) => {
+            setError(err.response.data);
+          });
       } else {
-        axios.post("/api/users/update", userObj)
-        .catch((err) => {
+        axios.post("/api/users/update", userObj).catch((err) => {
           setError(err.response.data);
-        })
+        });
       }
     }
-  }
+
+    setTimeout(() => {
+      setLoading(false);
+      navigate("/");
+    }, 2000);
+  };
   return (
-    <div>
-      <CssBaseline />
+    <>
+      {loading ? (
+        <div class="loader"></div>
+      ) : (
+        <div>
+          <CssBaseline />
 
-      <Box marginBottom={10}>
-        <AppBar>
-          <Toolbar className="navbar-logo">
-            {/* <img
-              src="https://i.imgur.com/Bgur1Fk.png"
-              alt="OnlyFriends logo"
-              style={{ width: "10rem", alignItems: "center", justifyContent: "center" }}
-            /> */}
-            <Box
-              component="img"
-              sx={{ width: 150 }}
-              alt="OnlyFriends logo"
-              src="https://i.imgur.com/Bgur1Fk.png"
-            />
-          </Toolbar>
-        </AppBar>
-      </Box>
-      <Box component="form" onSubmit={postProfile} noValidate sx={{ mt: 1 }}>
-        <Container maxWidth="sm">
-          <Typography
-            variant="h4"
-            align="center"
-            color="text.primary"
-            gutterBottom
-          >
-            Profile Setup
-          </Typography>
-          <Typography
-            variant="p"
-            align="center"
-            color="text.secondary"
-            paragraph
-          >
-            Provide the necessary information to start finding like-minded
-            people!
-          </Typography>
-        </Container>
-        <div className="center">
-          {error && (
-            <Alert severity="error">
-              <AlertTitle>Error</AlertTitle>
-              {error}
-            </Alert>
-          )}
-        </div>
-        <br />
-
-        <Container maxWidth="sm">
-          <div className="center img-button-container-row">
-            <div className="img-button-container-column">
-              <Typography variant="p">Upload a profile picture</Typography>
-              <Button variant="outlined" component="label" color="secondary">
-                Upload File
-                <input
-                  type="file"
-                  accept="image/*"
-                  name="profile_picture"
-                  onChange={profileImageChange}
-                  hidden
+          <Box marginBottom={10}>
+            <AppBar>
+              <Toolbar className="navbar-logo">
+                {/* <img
+          src="https://i.imgur.com/Bgur1Fk.png"
+          alt="OnlyFriends logo"
+          style={{ width: "10rem", alignItems: "center", justifyContent: "center" }}
+        /> */}
+                <Box
+                  component="img"
+                  sx={{ width: 150 }}
+                  alt="OnlyFriends logo"
+                  src="https://i.imgur.com/Bgur1Fk.png"
                 />
+              </Toolbar>
+            </AppBar>
+          </Box>
+          <Box
+            component="form"
+            onSubmit={postProfile}
+            noValidate
+            sx={{ mt: 1 }}
+          >
+            <Container maxWidth="sm">
+              <Typography
+                variant="h4"
+                align="center"
+                color="text.primary"
+                gutterBottom
+              >
+                Profile Setup
+              </Typography>
+              <Typography
+                variant="p"
+                align="center"
+                color="text.secondary"
+                paragraph
+              >
+                Provide the necessary information to start finding like-minded
+                people!
+              </Typography>
+            </Container>
+            <div className="center">
+              {error && (
+                <Alert severity="error">
+                  <AlertTitle>Error</AlertTitle>
+                  {error}
+                </Alert>
+              )}
+            </div>
+            <br />
+
+            <Container maxWidth="sm">
+              <div className="center img-button-container-row">
+                <div className="img-button-container-column">
+                  <Typography variant="p">Upload a profile picture</Typography>
+                  <Button
+                    variant="outlined"
+                    component="label"
+                    color="secondary"
+                  >
+                    Upload File
+                    <input
+                      type="file"
+                      accept="image/*"
+                      name="profile_picture"
+                      onChange={profileImageChange}
+                      hidden
+                    />
+                  </Button>
+                  <br />
+                </div>
+                <div>
+                  <img
+                    className="circle-img"
+                    src={profilePreview}
+                    alt="profile pic"
+                  />
+                </div>
+              </div>
+            </Container>
+
+            <br />
+
+            <Container maxWidth="sm">
+              <div className="center">
+                <Typography variant="p">Location</Typography>
+              </div>
+            </Container>
+
+            {/* Test for Kevin location */}
+            {/* <Container maxWidth="sm">
+    <Typography variant="p">Location for Test</Typography>
+    <Autocomplete
+      apiKey={process.env.REACT_APP_MY_API_KEY}
+      style={{ width: "90%" }}
+      onPlaceSelected={(place) => {
+      }}
+      options={{
+        types: ["(regions)"],
+        componentRestrictions: { country: "ca" },
+      }}
+    />
+  </Container> */}
+
+            {/* Test with proper textfield look */}
+            <Container maxWidth="sm">
+              <div className="center">
+                <Typography variant="p">
+                  <Autocomplete
+                    className="MuiTextField-root"
+                    name="Location"
+                    apiKey={process.env.REACT_APP_MY_API_KEY}
+                    style={{ width: "350px", height: "55px" }}
+                    onPlaceSelected={(place) => {
+                      setLocation(place["formatted_address"]);
+                    }}
+                    options={{
+                      types: ["(regions)"],
+                      componentRestrictions: { country: "ca" },
+                    }}
+                    defaultValue={location}
+                  />
+                </Typography>
+              </div>
+            </Container>
+
+            <br />
+
+            <Container maxWidth="sm">
+              <div className="center">
+                <Typography variant="p">Bio</Typography>
+                <TextField
+                  style={{ width: "350px", height: "55px" }}
+                  multiline={true}
+                  rows={3}
+                  label="Bio"
+                  name="Bio"
+                  value={bio}
+                  onChange={bioUpdater}
+                  placeholder="e.g. I love long walks to the fridge"
+                ></TextField>
+                <br />
+                <br />
+                <Typography
+                  className={bioLength >= 0 ? "safe" : "danger"}
+                  variant="h6"
+                >
+                  {bioLength}
+                </Typography>
+              </div>
+            </Container>
+
+            <br />
+
+            <Container maxWidth="sm">
+              <div className="center">
+                <Typography variant="p">Upload a cover banner</Typography>
+                <Button variant="outlined" component="label" color="secondary">
+                  Upload File
+                  <input
+                    type="file"
+                    accept="image/*"
+                    name="banner_picture"
+                    onChange={bannerImageChange}
+                    hidden
+                  />
+                </Button>
+                <div>
+                  <img
+                    className="rectangle-img"
+                    src={bannerPreview}
+                    alt="banner pic"
+                  />
+                </div>
+              </div>
+            </Container>
+
+            <br />
+
+            <Container maxWidth="md" className="chip-spacing">
+              <div className="center">
+                <Typography variant="p">
+                  Select all interests/hobbies that apply
+                </Typography>
+
+                <div className="formControl">
+                  <FormControl onSubmit={(e) => {}}>
+                    <ItemList picked={picked} setPicked={setPicked} />
+                  </FormControl>
+                </div>
+              </div>
+            </Container>
+
+            <br />
+
+            <div className="center">
+              <Button variant="outlined" type="submit" color="secondary">
+                Save
               </Button>
-              <br />
+              {loading && <h1>LOADING!</h1>}
             </div>
-            <div>
-              <img
-                className="circle-img"
-                src={profilePreview}
-                alt="profile pic"
-              />
+          </Box>
+
+          <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
+            {/* Test for Alex logout */}
+            <div className="center">
+              <Button onClick={logOut}> Logout now</Button>
             </div>
-          </div>
-        </Container>
-
-        <br />
-
-        <Container maxWidth="sm">
-          <div className="center">
-            <Typography variant="p">Location</Typography>
-          </div>
-        </Container>
-
-        {/* Test for Kevin location */}
-        {/* <Container maxWidth="sm">
-        <Typography variant="p">Location for Test</Typography>
-        <Autocomplete
-          apiKey={process.env.REACT_APP_MY_API_KEY}
-          style={{ width: "90%" }}
-          onPlaceSelected={(place) => {
-          }}
-          options={{
-            types: ["(regions)"],
-            componentRestrictions: { country: "ca" },
-          }}
-        />
-      </Container> */}
-
-        {/* Test with proper textfield look */}
-        <Container maxWidth="sm">
-          <div className="center">
-            <Typography variant="p">
-              <Autocomplete
-                className="MuiTextField-root"
-                name="Location"
-                apiKey={process.env.REACT_APP_MY_API_KEY}
-                style={{ width: "350px", height: "55px" }}
-                onPlaceSelected={(place) => {setLocation(place['formatted_address'])}}
-                options={{
-                  types: ["(regions)"],
-                  componentRestrictions: { country: "ca" },
-                }}
-                defaultValue = {location}
-              />
-            </Typography>
-          </div>
-        </Container>
-
-        <br />
-
-        <Container maxWidth="sm">
-          <div className="center">
-            <Typography variant="p">Bio</Typography>
-            <TextField
-              style={{ width: "350px", height: "55px" }}
-              multiline={true}
-              rows={3}
-              label="Bio"
-              name="Bio"
-              value={bio}
-              onChange={bioUpdater}
-              placeholder="e.g. I love long walks to the fridge"
-            ></TextField>
-            <br />
-            <br />
-            <Typography
-              className={bioLength >= 0 ? "safe" : "danger"}
-              variant="h6"
-            >
-              {bioLength}
-            </Typography>
-          </div>
-        </Container>
-
-        <br />
-
-        <Container maxWidth="sm">
-          <div className="center">
-            <Typography variant="p">Upload a cover banner</Typography>
-            <Button variant="outlined" component="label" color="secondary">
-              Upload File
-              <input
-                type="file"
-                accept="image/*"
-                name="banner_picture"
-                onChange={bannerImageChange}
-                hidden
-              />
-            </Button>
-            <div>
-             
-                <img
-                  className="rectangle-img"
-                  src={bannerPreview}
-                  alt="banner pic"
-                />
-             
-            </div>
-          </div>
-        </Container>
-
-        <br />
-
-        <Container maxWidth="md" className="chip-spacing">
-          <div className="center">
-            <Typography variant="p">
-              Select all interests/hobbies that apply
-            </Typography>
-
-            <div className="formControl">
-              <FormControl onSubmit={(e) => {}}>
-                <ItemList picked={picked} setPicked={setPicked} />
-              </FormControl>
-            </div>
-          </div>
-        </Container>
-
-        <br />
-
-        <div className="center">
-          <Button variant="outlined" type="submit" color="secondary">
-            Save
-          </Button>
+            <Copyright />
+          </Box>
         </div>
-      </Box>
-
-      <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
-        {/* Test for Alex logout */}
-        <div className="center">
-          <Button onClick={logOut}> Logout now</Button>
-        </div>
-        <Copyright />
-      </Box>
-    </div>
+      )}
+    </>
   );
 }
 export default Dashboard;
