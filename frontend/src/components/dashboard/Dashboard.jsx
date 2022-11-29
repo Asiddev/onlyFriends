@@ -282,30 +282,33 @@ function Dashboard(props) {
 
             <Container maxWidth="sm" className="text-center">
               <div className="d-flex">
-                <Button variant="outlined" component="label" color="secondary">
-                  Upload Photo
-                  <input
-                    type="file"
-                    accept="image/*"
-                    name="profile_picture"
-                    onChange={profileImageChange}
-                    hidden
-                  />
-                </Button>
+                <span>
+                  <Button variant="outlined" component="label" color="secondary">
+                    Upload Photo
+                    <input
+                      type="file"
+                      accept="image/*"
+                      name="profile_picture"
+                      onChange={profileImageChange}
+                      hidden
+                    />
+                  </Button>
 
-                <img
-                  className="circle-img"
-                  src={profilePreview}
-                  alt="profile pic"
-                />
+                  <img
+                    className="circle-img"
+                    src={profilePreview}
+                    alt="profile pic"
+                  />
+                </span>
               </div>
             </Container>
 
+            <br />
             <div>
               <Container maxWidth="sm">
                 <div className="center">
                   <Typography variant="p">
-                    Location <br />
+                    Location &nbsp; &nbsp;
                     <Autocomplete
                       className="MuiTextField-root"
                       name="Location"
@@ -385,7 +388,7 @@ function Dashboard(props) {
                 </Typography>
 
                 <div className="formControl">
-                  <FormControl onSubmit={(e) => {}}>
+                  <FormControl onSubmit={(e) => { }}>
                     <ItemList picked={picked} setPicked={setPicked} />
                   </FormControl>
                 </div>
