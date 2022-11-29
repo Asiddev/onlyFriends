@@ -25,10 +25,18 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  Paper,
+  BottomNavigation,
+  BottomNavigationAction,
 } from "@mui/material";
 import "./Dashboard.scss";
 import ItemList from "../../components/dashboard/ItemList";
 import "../../styles/animations.scss";
+import HomeIcon from "@mui/icons-material/Home";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import MessageIcon from "@mui/icons-material/Message";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 function Copyright(props) {
   return (
@@ -67,18 +75,25 @@ function Dashboard(props) {
 
   const [picked, setPicked] = useState([]);
   const [userInterest, loadUserInterest] = useState([]);
+  const [value, setValue] = React.useState(0);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     Promise.all([
       axios.get(`api/users/${JSON.parse(localStorage.getItem("user")).id}`),
-      axios.get(`api/user_interests/${JSON.parse(localStorage.getItem("user")).id}`)
+      axios.get(
+        `api/user_interests/${JSON.parse(localStorage.getItem("user")).id}`
+      ),
     ]).then((all) => {
       const user = all[0].data[0]; // This returns an object
       const userInterests = all[1].data; // This returns an array
 
+<<<<<<< HEAD
       //Set user info 
+=======
+      //Set user info
+>>>>>>> 28c1098 (new messages page and updates too navbars)
       props.setCurrentUser(user);
       !user.description ? setBio("") : setBio(user.description);
       setProfilePreview(user.profile_picture);
@@ -93,7 +108,6 @@ function Dashboard(props) {
       setPicked(interestArray);
     });
   }, []);
-
 
   //Function to logout and clear cookie and storage
   const logOut = (event) => {
@@ -198,13 +212,21 @@ function Dashboard(props) {
         console.log(err.message);
         setError(err.response.data);
       });
+<<<<<<< HEAD
 
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
       navigate("/");
     }, 2500);
+=======
+>>>>>>> 28c1098 (new messages page and updates too navbars)
 
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      navigate("/");
+    }, 2500);
   };
   return (
     <>
@@ -296,6 +318,7 @@ function Dashboard(props) {
 
             <Container maxWidth="sm" className="text-center">
               <div className="d-flex">
+<<<<<<< HEAD
                 <Typography variant="p">Upload a profile picture</Typography>
                 <img
                   className="circle-img"
@@ -310,6 +333,28 @@ function Dashboard(props) {
                     name="profile_picture"
                     onChange={profileImageChange}
                     hidden
+=======
+                <span>
+                  <Button
+                    variant="outlined"
+                    component="label"
+                    color="secondary"
+                  >
+                    Upload Photo
+                    <input
+                      type="file"
+                      accept="image/*"
+                      name="profile_picture"
+                      onChange={profileImageChange}
+                      hidden
+                    />
+                  </Button>
+
+                  <img
+                    className="circle-img"
+                    src={profilePreview}
+                    alt="profile pic"
+>>>>>>> 28c1098 (new messages page and updates too navbars)
                   />
                 </Button>
               </div>
@@ -403,7 +448,7 @@ function Dashboard(props) {
                 </Typography>
 
                 <div className="formControl">
-                  <FormControl onSubmit={(e) => { }}>
+                  <FormControl onSubmit={(e) => {}}>
                     <ItemList picked={picked} setPicked={setPicked} />
                   </FormControl>
                 </div>
@@ -421,11 +466,41 @@ function Dashboard(props) {
 
           <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
             {/* Test for Alex logout */}
-            <div className="center">
-              <Button onClick={logOut}> Logout now</Button>
-            </div>
-            <Copyright />
           </Box>
+          <Paper
+            sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
+            elevation={3}
+          >
+            <BottomNavigation
+              showLabels
+              value={value}
+              onChange={(event, newValue) => {
+                setValue(newValue);
+              }}
+            >
+              <BottomNavigationAction
+                href="/"
+                label="Home"
+                icon={<HomeIcon />}
+              />
+
+              <BottomNavigationAction
+                href="/profile"
+                label="Profile"
+                icon={<AccountBoxIcon />}
+              />
+              <BottomNavigationAction
+                label="Matches"
+                icon={<PeopleAltIcon />}
+              />
+              <BottomNavigationAction label="Messages" icon={<MessageIcon />} />
+              <BottomNavigationAction
+                label="Logout"
+                icon={<LogoutIcon />}
+                onClick={logOut}
+              />
+            </BottomNavigation>
+          </Paper>
         </div>
       )}
     </>
