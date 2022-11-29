@@ -47,8 +47,19 @@ const addUser = (req, res) => {
 
 const addUserProfileInfo = (req, res) => {
   const body = req.body;
-  userQueries
-  .addUserProfileInfo(body.id, body.profile_picture, body.banner_picture, body.description, body.location)
+  if (!body.profile_picture && !body.banner_picture) {
+    userQueries
+    .addUserProfileInfoD(body.id, body.description, body.location)
+  } else if (body.profile_picture && !body.banner_picture) {
+    userQueries
+    .addUserProfileInfoC(body.id, body.profile_picture, body.description, body.location)
+  } else if (!body.profile_picture && body.banner_picture) {
+    userQueries
+    .addUserProfileInfoB(body.id, body.banner_picture, body.description, body.location)
+  } else {
+    userQueries
+    .addUserProfileInfoA(body.id, body.profile_picture, body.banner_picture, body.description, body.location)
+  } 
 }
 
 const Login = (req, res) => {

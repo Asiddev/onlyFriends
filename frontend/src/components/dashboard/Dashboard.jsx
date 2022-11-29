@@ -154,10 +154,7 @@ function Dashboard(props) {
       setError("Location must be filled");
       return;
     }
-    if (!profileImage || !bannerImage) {
-      setError("Please upload image to express yourself");
-      return;
-    }
+
     //Upload image into firebase and get url link id
     const profilePathway = `profileImages/${v4()}`;
     const bannerPathway = `bannerImages/${v4()}`;
@@ -165,18 +162,45 @@ function Dashboard(props) {
     //Axios Post request to backend
 
     axios.post("/api/user_interests", userObj)
-
-    uploadImage(profilePathway, profileImage)
+    
+    if (profileImage) {
+      uploadImage(profilePathway, profileImage)
       .then((url) => (userObj.profile_picture = url))
-      .then(() => uploadImage(bannerPathway, bannerImage))
-      .then((url) => (userObj.banner_picture = url))
-      .then(() => axios.post("/api/users/update", userObj))
-      .catch((err) => {
-        setError(err.response.data);
+      .then(() => {
+        if (bannerImage) {
+          uploadImage(bannerPathway, bannerImage)
+          .then((url) => (userObj.banner_picture = url))
+          .then(() => {
+            axios.post("/api/users/update", userObj)
+          })
+          .catch((err) => {
+            setError(err.response.data);
+          })
+        } else {
+          axios.post("/api/users/update", userObj)
+          .catch((err) => {
+            setError(err.response.data);
+          })
+        }
       })
-
-  };
-
+    } else {
+      if (bannerImage) {
+        uploadImage(bannerPathway, bannerImage)
+        .then((url) => (userObj.banner_picture = url))
+        .then(() => {
+          axios.post("/api/users/update", userObj)
+        })
+        .catch((err) => {
+          setError(err.response.data);
+        })
+      } else {
+        axios.post("/api/users/update", userObj)
+        .catch((err) => {
+          setError(err.response.data);
+        })
+      }
+    }
+  }
   return (
     <div>
       <CssBaseline />
