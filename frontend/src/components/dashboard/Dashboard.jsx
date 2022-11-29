@@ -89,7 +89,15 @@ function Dashboard(props) {
       const user = all[0].data[0]; // This returns an object
       const userInterests = all[1].data; // This returns an array
 
+<<<<<<< HEAD
       //Set user info
+=======
+<<<<<<< HEAD
+      //Set user info 
+=======
+      //Set user info
+>>>>>>> 28c1098 (new messages page and updates too navbars)
+>>>>>>> cb7145e
       props.setCurrentUser(user);
       !user.description ? setBio("") : setBio(user.description);
       setProfilePreview(user.profile_picture);
@@ -208,6 +216,18 @@ function Dashboard(props) {
         console.log(err.message);
         setError(err.response.data);
       });
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      navigate("/");
+    }, 2500);
+=======
+>>>>>>> 28c1098 (new messages page and updates too navbars)
+>>>>>>> cb7145e
 
     setLoading(true);
     setTimeout(() => {
@@ -305,6 +325,22 @@ function Dashboard(props) {
 
             <Container maxWidth="sm" className="text-center">
               <div className="d-flex">
+<<<<<<< HEAD
+                <Typography variant="p">Upload a profile picture</Typography>
+                <img
+                  className="circle-img"
+                  src={profilePreview}
+                  alt="profile pic"
+                />
+                <Button variant="outlined" component="label" color="secondary">
+                  Upload Photo
+                  <input
+                    type="file"
+                    accept="image/*"
+                    name="profile_picture"
+                    onChange={profileImageChange}
+                    hidden
+=======
                 <span>
                   <Button
                     variant="outlined"
@@ -325,8 +361,9 @@ function Dashboard(props) {
                     className="circle-img"
                     src={profilePreview}
                     alt="profile pic"
+>>>>>>> 28c1098 (new messages page and updates too navbars)
                   />
-                </span>
+                </Button>
               </div>
             </Container>
 
@@ -358,17 +395,19 @@ function Dashboard(props) {
 
               <Container maxWidth="sm">
                 <div className="center">
-                  <Typography variant="p">Bio</Typography>
-                  <TextField
-                    style={{ width: "350px", height: "55px" }}
-                    multiline={true}
-                    rows={3}
-                    label="Bio"
-                    name="Bio"
-                    value={bio}
-                    onChange={bioUpdater}
-                    placeholder="e.g. I love long walks to the fridge"
-                  ></TextField>
+                  <span>
+                    <Typography variant="p">Bio</Typography> &nbsp;&nbsp;
+                    <TextField
+                      style={{ width: "350px", height: "55px" }}
+                      multiline={true}
+                      rows={3}
+                      label="Bio"
+                      name="Bio"
+                      value={bio}
+                      onChange={bioUpdater}
+                      placeholder="e.g. I love long walks to the fridge"
+                    ></TextField>
+                  </span>
                   <br />
                   <br />
                   <Typography
@@ -386,6 +425,14 @@ function Dashboard(props) {
             <Container maxWidth="sm">
               <div className="center">
                 <Typography variant="p">Upload a cover banner</Typography>
+                <div>
+                  <img
+                    className="rectangle-img"
+                    src={bannerPreview}
+                    alt="banner pic"
+                  />
+                </div>
+                <br />
                 <Button variant="outlined" component="label" color="secondary">
                   Upload File
                   <input
@@ -396,13 +443,6 @@ function Dashboard(props) {
                     hidden
                   />
                 </Button>
-                <div>
-                  <img
-                    className="rectangle-img"
-                    src={bannerPreview}
-                    alt="banner pic"
-                  />
-                </div>
               </div>
             </Container>
 
