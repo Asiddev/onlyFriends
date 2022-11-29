@@ -14,33 +14,33 @@ const getUserById = (id) => {
 
 const addUser = (req, res) => {
   userQueries.checkUserDB(req.body.email).then((user) => {
+
+    const { email, password, password_confirmation, name } = req.body;
+
     if (user) {
       return res.status(401).json("Email is taken");
-    } else {
-      if (req.body.password && req.body.password_confirmation) {
-        if (!(req.body.password === req.body.password_confirmation)) {
-          return res.status(401).json("Passwords do not match");
-        } else {
-          let saltRounds = 10;
-          let salt = bcrypt.genSaltSync(saltRounds);
-          let hash = bcrypt.hashSync(req.body.password, salt);
-
-          userQueries
-            .addUser(req.body.email, hash, req.body.name)
-            .then((data) => {
-              console.log(data.rows[0]);
-              return data.rows[0];
-            });
-        }
-      } else {
-        return res
-          .status(401)
-          .json("Please enter a password and password Confirmation field");
-      }
-      console.log("going here");
-
-      return res.status(201).redirect("/");
     }
+
+    if (password.length < 5) {
+      return res.status(401).json("Password length less than 5");
+    }
+
+    if (password !== password_confirmation) {
+      return res.status(401).json("Passwords do not match");
+    }
+
+    const saltRounds = 10;
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hash = bcrypt.hashSync(password, salt);
+
+    userQueries
+      .addUser(email, hash, name)
+      .then((data) => {
+        console.log(data.rows[0]);
+        return data.rows[0];
+      });
+
+    return res.status(201).redirect("/");
   });
 };
 
