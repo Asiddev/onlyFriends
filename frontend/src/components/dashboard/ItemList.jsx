@@ -51,6 +51,7 @@ const ItemList = (props) => {
       <Button
         key={interest.id}
         variant="contained"
+        className = {props.picked.includes(Number(interest.id))?"blockAni":""}
         onClick={handleClick}
         sx={{ marginRight: 1 }}
         value={interest.id}

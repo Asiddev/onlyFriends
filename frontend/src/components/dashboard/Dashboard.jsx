@@ -66,22 +66,34 @@ function Dashboard(props) {
   const [error, setError] = useState(null);
 
   const [picked, setPicked] = useState([]);
+  const [userInterest, loadUserInterest] = useState([]);
 
   const navigate = useNavigate();
 
-  //Retrieve users data
   useEffect(() => {
-    axios
-      .get(`api/users/${JSON.parse(localStorage.getItem("user")).id}`)
-      .then((result) => {
-        const user = result.data[0];
-        props.setCurrentUser(user);
-        !user.description ? setBio("") : setBio(user.description);
-        setProfilePreview(user.profile_picture);
-        setBannerPreview(user.banner_picture);
-        setLocation(user.location);
-      });
+    Promise.all([
+      axios.get(`api/users/${JSON.parse(localStorage.getItem("user")).id}`),
+      axios.get(`api/user_interests/${JSON.parse(localStorage.getItem("user")).id}`)
+    ]).then((all) => {
+      const user = all[0].data[0]; // This returns an object
+      const userInterests = all[1].data; // This returns an array
+
+      //Set user info 
+      props.setCurrentUser(user)
+      !user.description ? setBio("") : setBio(user.description);
+      setProfilePreview(user.profile_picture);
+      setBannerPreview(user.banner_picture);
+      setLocation(user.location);
+      
+      //Set user interest to render.
+      let interestArray = [];
+      for (const interest of userInterests) {
+        interestArray.push(interest.interest_id)
+      }
+      setPicked(interestArray);
+    })
   }, []);
+
 
   //Function to logout and clear cookie and storage
   const logOut = (event) => {
