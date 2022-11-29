@@ -147,7 +147,6 @@ function Dashboard(props) {
 
   //Function to post profile info into backend
   const postProfile = (event) => {
-    setLoading(true);
     //Make error message set states here
     event.preventDefault();
     setError("");
@@ -196,13 +195,16 @@ function Dashboard(props) {
         axios.post("/api/users/update", userObj);
       })
       .catch((err) => {
+        console.log(err.message);
         setError(err.response.data);
-      });
+      })
 
-    setTimeout(() => {
-      setLoading(false);
-      navigate("/");
-    }, 2500);
+        setLoading(true)
+        setTimeout(() => {
+          setLoading(false);
+          navigate("/");
+        }, 2500);
+
   };
   return (
     <>
@@ -228,13 +230,13 @@ function Dashboard(props) {
           <span className="center" color="primary">
             Saving...
           </span>
-          <div class="book">
-            <div class="book__pg-shadow"></div>
-            <div class="book__pg"></div>
-            <div class="book__pg book__pg--2"></div>
-            <div class="book__pg book__pg--3"></div>
-            <div class="book__pg book__pg--4"></div>
-            <div class="book__pg book__pg--5"></div>
+          <div className="book">
+            <div className="book__pg-shadow"></div>
+            <div className="book__pg"></div>
+            <div className="book__pg book__pg--2"></div>
+            <div className="book__pg book__pg--3"></div>
+            <div className="book__pg book__pg--4"></div>
+            <div className="book__pg book__pg--5"></div>
           </div>
         </>
       ) : (
