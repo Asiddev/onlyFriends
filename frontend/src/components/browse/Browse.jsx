@@ -142,7 +142,7 @@ function Browse(props) {
             <div className="shadow">
               <Card sx={{ maxWidth: "100%", height: "max-content" }} className="block padding" style={{ backgroundColor: "#E4F8FF", borderRadius: "1.75rem" }}>
                 <Button class="noselect" id="button-left">
-                  <span class="text"></span>
+                  {/* <span class="text"></span>
                   <span class="icon">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -154,12 +154,12 @@ function Browse(props) {
                     >
                       <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-5.904-2.803a.5.5 0 1 1 .707.707L6.707 10h2.768a.5.5 0 0 1 0 1H5.5a.5.5 0 0 1-.5-.5V6.525a.5.5 0 0 1 1 0v2.768l4.096-4.096z" />
                     </svg>
-                  </span>
-                  {/* <CheckIcon/> */}
+                  </span> */}
+                  <CloseIcon fontSize="large"/>
                 </Button>
                 <Button class="noselect" id="button-right">
-                  {/* <CloseIcon/> */}
-                  <span class="icon">
+                  <CheckIcon fontSize="large"/>
+                  {/* <span class="icon">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -170,7 +170,7 @@ function Browse(props) {
                     >
                       <path d="M0 8a8 8 0 1 0 16 0A8 8 0 0 0 0 8zm5.904 2.803a.5.5 0 1 1-.707-.707L9.293 6H6.525a.5.5 0 1 1 0-1H10.5a.5.5 0 0 1 .5.5v3.975a.5.5 0 0 1-1 0V6.707l-4.096 4.096z" />
                     </svg>
-                  </span>
+                  </span> */}
                 </Button>
 
                 <CardHeader
