@@ -46,20 +46,24 @@ const addUser = (req, res) => {
 };
 
 const addUserProfileInfo = (req, res) => {
-  const body = req.body;
-  if (!body.profile_picture && !body.banner_picture) {
-    userQueries
-    .addUserProfileInfoD(body.id, body.description, body.location)
-  } else if (body.profile_picture && !body.banner_picture) {
-    userQueries
-    .addUserProfileInfoC(body.id, body.profile_picture, body.description, body.location)
-  } else if (!body.profile_picture && body.banner_picture) {
-    userQueries
-    .addUserProfileInfoB(body.id, body.banner_picture, body.description, body.location)
-  } else {
-    userQueries
-    .addUserProfileInfoA(body.id, body.profile_picture, body.banner_picture, body.description, body.location)
-  } 
+  let query = `UPDATE users SET description = $1, location = $2`;
+  let inputs = [req.body.description, req.body.location];
+  if (req.body.profile_picture && req.body.banner_picture) {
+    inputs.push(req.body.profile_picture);
+    inputs.push(req.body.banner_picture);
+    query += `,profile_picture = $3, banner_picture = $4`
+  }
+  if (req.body.profile_picture && !req.body.banner_picture) {
+    inputs.push(req.body.profile_picture);
+    query += `, profile_picture = $3`
+  }
+  if (!req.body.profile_picture && req.body.banner_picture) {
+    inputs.push(req.body.banner_picture);
+    query += `, banner_picture = $3`
+  }
+  query += `WHERE id = ${req.body.id};`
+  console.log(query);
+  userQueries.addUserProfileInfo(query, inputs)
 }
 
 const Login = (req, res) => {
