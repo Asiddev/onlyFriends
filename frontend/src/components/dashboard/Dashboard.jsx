@@ -214,7 +214,7 @@ function Dashboard(props) {
           <div className="center img-button-container-row">
             <div className="img-button-container-column">
               <Typography variant="p">Upload a profile picture</Typography>
-              <Button variant="contained" component="label">
+              <Button variant="contained" component="label" color="secondary">
                 Upload File
                 <input
                   type="file"
@@ -271,7 +271,7 @@ function Dashboard(props) {
                 name="Location"
                 apiKey={process.env.REACT_APP_MY_API_KEY}
                 style={{ width: "350px", height: "55px" }}
-                onPlaceSelected={(place) => { }}
+                onPlaceSelected={(place) => {}}
                 options={{
                   types: ["(regions)"],
                   componentRestrictions: { country: "ca" },
@@ -296,7 +296,8 @@ function Dashboard(props) {
               onChange={bioUpdater}
               placeholder="e.g. I love long walks to the fridge"
             ></TextField>
-            <br /><br />
+            <br />
+            <br />
             <Typography
               className={bioLength >= 0 ? "safe" : "danger"}
               variant="h6"
@@ -353,11 +354,10 @@ function Dashboard(props) {
         <br />
 
         <div className="center">
-        <Button variant="contained" type="submit" color="secondary">
-          Save
-        </Button>
-      </div>
-
+          <Button variant="contained" type="submit" color="secondary">
+            Save
+          </Button>
+        </div>
       </Box>
 
       <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
