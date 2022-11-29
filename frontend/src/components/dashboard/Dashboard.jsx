@@ -38,10 +38,10 @@ function Copyright(props) {
       align="center"
       {...props}
     >
-      {"Copyright © Nico Hernandez, Alex Sidor, Kevin Lee "}
       <Link color="inherit" href="https://github.com/Asiddev/onlyFriends">
         OnlyFriends
       </Link>{" "}
+      {"© Nico Hernandez, Alex Sidor, Kevin Lee. "}
       {new Date().getFullYear()}
       {"."}
     </Typography>

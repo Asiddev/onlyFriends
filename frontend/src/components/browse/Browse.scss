@@ -23,11 +23,7 @@
 
 .relative {
   position: relative;
-  margin-top: 108px;
-}
-
-.border-img {
-  border: 2px solid black;
+  height: 100vh;
 }
 
 .shadow {
@@ -37,6 +33,10 @@
   margin-bottom: 20px;
   // border: 3px solid rgb(86, 93, 230);
   border-radius: 5rem;
+}
+
+.wrap {
+  word-break: break-all;
 }
 
 .interests-container {
@@ -56,10 +56,6 @@
   -ms-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-}
-
-.top-container {
-  background-color: rgba(228, 217, 217, 0.371);
 }
 
 #button-left {
