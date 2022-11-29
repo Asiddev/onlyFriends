@@ -17,12 +17,20 @@ const addUserInterest = (userId, interestId) => {
 
 	return db.query(`
 		INSERT INTO user_interests 
-		(user_id, interest_id) VALUES ($1, $2) 
-		RETURNING *;
+		(user_id, interest_id) 
+    SELECT $1,$2
+		WHERE NOT EXISTS
+      (SELECT user_id, interest_id
+        FROM user_interests
+        WHERE user_id = $1 AND interest_id = $2);
 	`, [userId, interestId]).then(
 		data => {
 			return data.rows;
 	})
+}
+
+const clearUserInterests = (userId) => {
+  return db.query(`DELETE FROM user_interests WHERE user_id = $1`,[userId])
 }
 
 const getUserInterestsById = (id) => {
@@ -36,5 +44,5 @@ const getUserInterestsById = (id) => {
   })
 }
 
-module.exports = { getAllUserInterests, getUserInterestById, addUserInterest, getUserInterestsById }
+module.exports = { getAllUserInterests, getUserInterestById, addUserInterest, getUserInterestsById, clearUserInterests }
 
