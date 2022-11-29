@@ -8,9 +8,28 @@ import {
   AppBar,
   Toolbar,
   Container,
-  Button
+  Button,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+  Grid,
+  Paper,
+  BottomNavigationAction,
+  BottomNavigation
 } from "@mui/material";
-import { MoreVert, FavoriteIcon, ShareIcon } from "@mui/icons-material";
+import { MoreVert, ShareIcon } from "@mui/icons-material";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import RestoreIcon from '@mui/icons-material/Restore';
+import ArchiveIcon from '@mui/icons-material/Archive';
+
+import HomeIcon from '@mui/icons-material/Home';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import MessageIcon from '@mui/icons-material/Message';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 function Copyright(props) {
   return (
@@ -30,8 +49,8 @@ function Copyright(props) {
   );
 }
 
-
 function Browse(props) {
+  const [value, setValue] = React.useState(0);
 
   return (
     <div>
@@ -50,13 +69,23 @@ function Browse(props) {
         </AppBar>
       </Box>
 
-      
+      {/* this is the side nav */}
+      {/* <List>
+        {['Profile', 'Home', 'Matches', 'Messages', 'Logout'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List> */}
 
+      {/* this is the card */}
       <Container maxWidth="sm">
         <Card sx={{ maxWidth: "100%" }}>
           <CardHeader
             avatar={
-              <Avatar sx={{ bgcolor: red[300] }} 
+              <Avatar sx={{ bgcolor: red[300] }}
               >
                 Rs
               </Avatar>
@@ -67,7 +96,7 @@ function Browse(props) {
               </IconButton>
             }
             title="First Last"
-            subheader="Vancouver, BC"
+            subheader="Somecity, Netherlands"
           />
           <CardMedia
             component="img"
@@ -76,10 +105,48 @@ function Browse(props) {
           />
           <CardContent>
             <Typography variant="body2" color="text.secondary">
-              This is the bio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id laoreet ipsum. Phasellus tellus nisl, varius in maximus bibendum, eleifend sit amet neque. Mauris dictum tellus sed ultrices finibus. Nulla in ipsum ac nisl feugiat maximus. Sed in nisl vehicula diam lobortis efficitur. 
+              This is the bio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id laoreet ipsum. Phasellus tellus nisl, varius in maximus bibendum, eleifend sit amet neque. Mauris dictum tellus sed ultrices finibus. Nulla in ipsum ac nisl feugiat maximus. Sed in nisl vehicula diam lobortis efficitur.
             </Typography>
+
+            {/* their selected interests */}
+            <br />
+            <Grid container>
+              <Grid item>
+                <Button
+                  // key={interest.id}
+                  variant="contained"
+                  // onClick={handleClick}
+                  sx={{ marginRight: 1 }}
+                // value={interest.id}
+                >
+                  Racing
+                </Button>
+                <Button
+                  // key={interest.id}
+                  variant="contained"
+                  // onClick={handleClick}
+                  sx={{ marginRight: 1 }}
+                // value={interest.id}
+                >
+                  Skiing
+                </Button>
+                <Button
+                  // key={interest.id}
+                  variant="contained"
+                  // onClick={handleClick}
+                  sx={{ marginRight: 1 }}
+                // value={interest.id}
+                >
+                  Videogaming
+                </Button>
+              </Grid>
+            </Grid>
           </CardContent>
+
+
         </Card>
+
+        <br /><br />
 
         <Button variant="outlined">
           No
@@ -94,6 +161,23 @@ function Browse(props) {
         </Box>
 
       </Container>
+
+      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+        <BottomNavigation
+          showLabels
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+        >
+          <BottomNavigationAction label="Home" icon={<HomeIcon />} />
+          <BottomNavigationAction label="Profile" icon={<AccountBoxIcon />} />
+          <BottomNavigationAction label="Matches" icon={<PeopleAltIcon />} />
+          <BottomNavigationAction label="Messages" icon={<MessageIcon />} />
+          <BottomNavigationAction label="Logout" icon={<LogoutIcon />} />
+        </BottomNavigation>
+      </Paper>
+
     </div>
   );
 }
