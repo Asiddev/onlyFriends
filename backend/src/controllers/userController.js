@@ -110,10 +110,6 @@ const Logout = (req, res) => {
     .json("Succesfully logged out");
 };
 
-const checkCommonInterest =  (userId, interestId) => {
-  return userQueries.checkCommonInterest(userId, interestId)
-};
-
 module.exports = {
   getAllUsers,
   getUserById,
@@ -122,5 +118,4 @@ module.exports = {
   addUserProfileInfo,
   Login,
   Logout,
-  checkCommonInterest
 };
