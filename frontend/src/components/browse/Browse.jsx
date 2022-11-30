@@ -37,14 +37,15 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import MessageIcon from "@mui/icons-material/Message";
 import LogoutIcon from "@mui/icons-material/Logout";
-import RoomIcon from '@mui/icons-material/Room';
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
+import RoomIcon from "@mui/icons-material/Room";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
 
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BottomNav from "../bottomnav/BottomNav";
 
 function Copyright(props) {
   return (
@@ -65,7 +66,6 @@ function Copyright(props) {
 }
 
 function Browse(props) {
-  const [value, setValue] = React.useState(0);
   const [profileInterests, setProfileInterest] = useState([]);
   const navigate = useNavigate();
 
@@ -102,9 +102,7 @@ function Browse(props) {
         variant="contained"
         sx={{ margin: 0.3 }}
       >
-        <Typography fontSize="0.7rem">
-          {interest.name}
-        </Typography>
+        <Typography fontSize="0.7rem">{interest.name}</Typography>
       </Button>
     );
   });
@@ -142,7 +140,15 @@ function Browse(props) {
 
           <Container maxWidth="sm" className="relative">
             <div className="shadow">
-              <Card sx={{ maxWidth: "100%", height: "max-content" }} className="block padding" style={{ backgroundColor: "#E4F8FF", borderRadius: "1.75rem", paddingBottom: "0" }}>
+              <Card
+                sx={{ maxWidth: "100%", height: "max-content" }}
+                className="block padding"
+                style={{
+                  backgroundColor: "#E4F8FF",
+                  borderRadius: "1.75rem",
+                  paddingBottom: "0",
+                }}
+              >
                 <Button class="noselect" id="button-left">
                   {/* <span class="text"></span>
                   <span class="icon">
@@ -184,7 +190,7 @@ function Browse(props) {
                     ></Avatar>
                   }
                   title={props.user.name}
-                // subheader={props.user.location}
+                  // subheader={props.user.location}
                 />
                 <CardMedia
                   sx={{ mx: "auto", width: 450, height: 300, boxShadow: 5 }}
@@ -194,7 +200,8 @@ function Browse(props) {
                 />
                 <br />
                 <Typography variant="h5">
-                  <RoomIcon />{props.user.location}
+                  <RoomIcon />
+                  {props.user.location}
                 </Typography>
                 <br />
                 <Typography
@@ -205,9 +212,7 @@ function Browse(props) {
                   {props.user.description}
                 </Typography>
                 <br />
-                <Typography variant="h5">
-                  Interests:
-                </Typography>
+                <Typography variant="h5">Interests:</Typography>
                 <CardContent className="center">
                   <Grid container className="interests-container">
                     <Grid item>{profileInterests && renderInterestList}</Grid>
@@ -219,37 +224,14 @@ function Browse(props) {
             <br />
           </Container>
         </div>
-      </section >
+      </section>
 
-      <Paper
-        sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
-        elevation={3}
-      >
-        <BottomNavigation
-          showLabels
-          value={value}
-          onChange={(event, newValue) => {
-            // event.preventDefault();
-            setValue(newValue);
-          }}
-        >
-          <BottomNavigationAction label="Home" icon={<HomeIcon />} />
-
-          <BottomNavigationAction
-            href="/profile"
-            label="Profile"
-            icon={<AccountBoxIcon />}
-          />
-          <BottomNavigationAction label="Matches" icon={<PeopleAltIcon />} />
-          <BottomNavigationAction label="Messages" icon={<MessageIcon />} />
-          <BottomNavigationAction
-            label="Logout"
-            icon={<LogoutIcon />}
-            onClick={logOut}
-          />
-        </BottomNavigation>
-      </Paper>
-    </div >
+      <BottomNav
+        value={props.value}
+        setValue={props.setValue}
+        setCurrentUser={props.setCurrentUser}
+      />
+    </div>
   );
 }
 export default Browse;

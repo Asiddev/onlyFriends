@@ -19,11 +19,8 @@ const addUser = (email, password, name) => {
   );
 };
 
-const addUserProfileInfo = (query, inputs ) => {
-  return db.query(
-    query,
-    inputs
-    );
+const addUserProfileInfo = (query, inputs) => {
+  return db.query(query, inputs);
 };
 
 const checkUserDB = (email) => {
@@ -35,7 +32,9 @@ const checkUserDB = (email) => {
 };
 
 const checkCommonInterest = (userId, interestId) => {
-  return db.query(`
+  return db
+    .query(
+      `
     SELECT user_id FROM user_interests
     JOIN users
     ON users.id = user_id
@@ -43,9 +42,19 @@ const checkCommonInterest = (userId, interestId) => {
     AND (interest_id = $2)
     AND (SELECT location FROM users WHERE id = $1) LIKE users.location
     
-  `,[userId, interestId]).then((data) => {
-    return data.rows;
-  })
-}
+  `,
+      [userId, interestId]
+    )
+    .then((data) => {
+      return data.rows;
+    });
+};
 
-module.exports = { getAllUsers, getUserById, addUser, checkUserDB,  addUserProfileInfo, checkCommonInterest };
+module.exports = {
+  getAllUsers,
+  getUserById,
+  addUser,
+  checkUserDB,
+  addUserProfileInfo,
+  checkCommonInterest,
+};

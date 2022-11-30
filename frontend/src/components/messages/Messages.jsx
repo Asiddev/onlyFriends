@@ -44,6 +44,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BottomNav from "../bottomnav/BottomNav";
 
 function Copyright(props) {
   return (
@@ -63,26 +64,10 @@ function Copyright(props) {
   );
 }
 
-function Matches(props) {
-  const [value, setValue] = React.useState(0);
+function Messages(props) {
+  console.log(props);
   const [profileInterests, setProfileInterest] = useState([]);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    axios
-      .get(`api/users/${JSON.parse(localStorage.getItem("user")).id}`)
-      .then((result) => {
-        const user = result.data[0];
-        props.setCurrentUser(user);
-      });
-  }, []);
-
-  useEffect(() => {
-    axios.get(`/api/user_interests/${props.user.id}`).then((data) => {
-      console.log(props.user);
-      setProfileInterest([...data.data]);
-    });
-  }, []);
 
   const logOut = (event) => {
     event.preventDefault();
@@ -92,21 +77,6 @@ function Matches(props) {
       navigate("/login");
     });
   };
-
-  const renderInterestList = profileInterests.map((interest) => {
-    return (
-      <Button
-        className="btn"
-        key={interest.id}
-        variant="contained"
-        sx={{ margin: 0.5 }}
-      >
-        {interest.name}
-      </Button>
-    );
-  });
-
-  console.log(profileInterests);
 
   return (
     <div>
@@ -241,35 +211,8 @@ function Matches(props) {
           </Container>
         </div>
       </section>
-
-      <Paper
-        sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
-        elevation={3}
-      >
-        <BottomNavigation
-          showLabels
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-          }}
-        >
-          <BottomNavigationAction href="/" label="Home" icon={<HomeIcon />} />
-
-          <BottomNavigationAction
-            href="/profile"
-            label="Profile"
-            icon={<AccountBoxIcon />}
-          />
-          <BottomNavigationAction label="Matches" icon={<PeopleAltIcon />} />
-          <BottomNavigationAction label="Messages" icon={<MessageIcon />} />
-          <BottomNavigationAction
-            label="Logout"
-            icon={<LogoutIcon />}
-            onClick={logOut}
-          />
-        </BottomNavigation>
-      </Paper>
+      <BottomNav value={props.value} setValue={props.setValue} />
     </div>
   );
 }
-export default Matches;
+export default Messages;

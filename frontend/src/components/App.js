@@ -10,27 +10,38 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [cookies, setCookie] = useCookies(null);
-
+  const pathname = window.location.pathname;
+  const [value, setValue] = useState(pathname);
   const [user, setCurrentUser] = useState(
     JSON.parse(localStorage.getItem("user") || null)
   );
 
-  console.log(user);
+  console.log(pathname);
 
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/messages" element={<Messages user={user} />} />
+          <Route
+            path="/messages"
+            element={<Messages user={user} value={value} setValue={setValue} />}
+          />
           <Route
             path="/login"
             element={
               user ? (
-                <Browse user={user} setCurrentUser={setCurrentUser} />
+                <Browse
+                  user={user}
+                  setCurrentUser={setCurrentUser}
+                  value={value}
+                  setValue={setValue}
+                />
               ) : (
                 <LoginPage
                   setCookie={setCookie}
                   setCurrentUser={setCurrentUser}
+                  value={value}
+                  setValue={setValue}
                 />
               )
             }
@@ -39,7 +50,12 @@ function App() {
             path="/"
             element={
               cookies["access-token"] ? (
-                <Browse user={user} setCurrentUser={setCurrentUser} />
+                <Browse
+                  user={user}
+                  setCurrentUser={setCurrentUser}
+                  value={value}
+                  setValue={setValue}
+                />
               ) : (
                 <Register />
               )
@@ -47,7 +63,14 @@ function App() {
           />
           <Route
             path="/profile"
-            element={<Dashboard user={user} setCurrentUser={setCurrentUser} />}
+            element={
+              <Dashboard
+                user={user}
+                setCurrentUser={setCurrentUser}
+                value={value}
+                setValue={setValue}
+              />
+            }
           />
         </Routes>
       </BrowserRouter>

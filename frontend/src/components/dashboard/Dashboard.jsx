@@ -31,6 +31,7 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import MessageIcon from "@mui/icons-material/Message";
 import LogoutIcon from "@mui/icons-material/Logout";
+import BottomNav from "../bottomnav/BottomNav.jsx";
 
 function Copyright(props) {
   return (
@@ -69,7 +70,6 @@ function Dashboard(props) {
 
   const [picked, setPicked] = useState([]);
   const [userInterest, loadUserInterest] = useState([]);
-  const [value, setValue] = React.useState(0);
 
   const navigate = useNavigate();
 
@@ -99,14 +99,6 @@ function Dashboard(props) {
   }, []);
 
   //Function to logout and clear cookie and storage
-  const logOut = (event) => {
-    event.preventDefault();
-    axios.get("/api/users/logout").then(() => {
-      localStorage.removeItem("user");
-      props.setCurrentUser(null);
-      navigate("/login");
-    });
-  };
 
   //Put function below into another file
   const bioUpdater = (event) => {
@@ -201,12 +193,6 @@ function Dashboard(props) {
         console.log(err.message);
         setError(err.response.data);
       });
-
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      navigate("/");
-    }, 2500);
 
     setLoading(true);
     setTimeout(() => {
@@ -430,40 +416,7 @@ function Dashboard(props) {
           <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
             {/* Test for Alex logout */}
           </Box>
-          <Paper
-            sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
-            elevation={3}
-          >
-            <BottomNavigation
-              showLabels
-              value={value}
-              onChange={(event, newValue) => {
-                setValue(newValue);
-              }}
-            >
-              <BottomNavigationAction
-                href="/"
-                label="Home"
-                icon={<HomeIcon />}
-              />
-
-              <BottomNavigationAction
-                href="/profile"
-                label="Profile"
-                icon={<AccountBoxIcon />}
-              />
-              <BottomNavigationAction
-                label="Matches"
-                icon={<PeopleAltIcon />}
-              />
-              <BottomNavigationAction label="Messages" icon={<MessageIcon />} />
-              <BottomNavigationAction
-                label="Logout"
-                icon={<LogoutIcon />}
-                onClick={logOut}
-              />
-            </BottomNavigation>
-          </Paper>
+          <BottomNav value={props.value} setValue={props.setValue} />
         </div>
       )}
     </>
