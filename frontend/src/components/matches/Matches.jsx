@@ -10,7 +10,7 @@ import TopNav from "../topnav/TopNav";
 import MatchesContent from "./MatchesContent";
 import Copyright from "../Copyright";
 
-function Matches() {
+function Matches(props) {
   return (
     <>
       {/* everything on this page is in this main Box, think of it as a fragment */}
@@ -23,7 +23,7 @@ function Matches() {
 
         <br />
         <Copyright />
-        <BottomNav />
+        <BottomNav value={props.value} setValue={props.setValue} />
       </Box>
     </>
   );
