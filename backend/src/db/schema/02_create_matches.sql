@@ -5,6 +5,5 @@ CREATE TABLE matches (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   user_liked INTEGER REFERENCES users(id) ON DELETE CASCADE,
   match BOOLEAN NOT NULL DEFAULT FALSE,
-  created_at timestamp default current_timestamp,
-  updated_at DATE DEFAULT NULL
+  created_at timestamp default current_timestamp
 );

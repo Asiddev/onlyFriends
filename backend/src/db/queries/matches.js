@@ -12,7 +12,7 @@ const getMatchById = id => {
 	})
 }
 
-const addMatches = (userId, userLiked) => {
+const acceptMatches = (userId, userLiked) => {
   return db.query(`
     INSERT INTO matches
     (user_id, user_liked, match)
@@ -25,4 +25,20 @@ const addMatches = (userId, userLiked) => {
   .then((data) => data.rows)
 }
 
-module.exports = {getAllMatches, getMatchById, addMatches}
+const declineMatches = (userId, userLiked) => {
+  return db.query(`
+    INSERT INTO matches
+    (user_id, user_liked, match)
+    VALUES ($1,$2,false)
+  `,[userId, userLiked])
+  .then((data => data.rows))
+}
+
+const clearMatches = (userId, userLiked) => {
+  return db.query(`
+    DELETE FROM matches
+    WHERE user_id = $1
+    AND user_liked = $2
+  `, [userId, userLiked])
+}
+module.exports = {getAllMatches, getMatchById, acceptMatches, declineMatches, clearMatches}

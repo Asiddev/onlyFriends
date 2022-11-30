@@ -130,12 +130,17 @@ function Browse(props) {
       user_id: props.user.id,
       user_liked: similarUsers[page].id
     }
-    axios.post("api/matches/accept", matchObj);
-    // setPage((prev) => prev - 1);
+    axios.post("api/matches/accept", matchObj)
+    setPage((prev) => prev + 1);
   }
 
   const swipeReject = () => {
-    setPage((prev) => prev - 1);
+    const matchObj = {
+      user_id: props.user.id,
+      user_liked: similarUsers[page].id
+    }
+    axios.post("api/matches/reject", matchObj)
+    setPage((prev) => prev + 1);
   }
 
   console.log(page);
@@ -193,12 +198,7 @@ function Browse(props) {
                   <Button
                     class="noselect"
                     id="button-left"
-                    onClick={(e) => {
-                      if (page >= similarUsers.length) {
-                        setPage(0);
-                      }
-                      setPage((prev) => prev - 1);
-                    }}
+                    onClick={swipeReject}
                   >
                     {/* <span class="text"></span>
                   <span class="icon">

@@ -7,12 +7,24 @@ const getAllMatches = (req, res) => {
   })
 };
 
-const addMatches = (req, res) => {
+const acceptMatches = (req, res) => {
   const {user_id, user_liked} = req.body;
-  matchQueries.addMatches(user_id, user_liked)
+  matchQueries.clearMatches(user_id, user_liked)
+  .then(() => {
+    matchQueries.acceptMatches(user_id, user_liked)
+  })
+}
+
+const declineMatches = (req, res) => {
+  const {user_id, user_liked} = req.body;
+  matchQueries.clearMatches(user_id, user_liked)
+  .then(() => {
+    matchQueries.declineMatches(user_id, user_liked)
+  })
 }
 
 module.exports = {
   getAllMatches,
-  addMatches,
+  acceptMatches,
+  declineMatches
 };
