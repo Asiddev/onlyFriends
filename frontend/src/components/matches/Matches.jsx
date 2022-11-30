@@ -11,7 +11,6 @@ import MatchesContent from "./MatchesContent";
 import Copyright from "../Copyright";
 
 function Matches() {
-
   return (
     <>
       {/* everything on this page is in this main Box, think of it as a fragment */}
@@ -29,4 +28,5 @@ function Matches() {
     </>
   );
 }
+
 export default Matches;
