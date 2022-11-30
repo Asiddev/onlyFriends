@@ -16,8 +16,6 @@ function App() {
     JSON.parse(localStorage.getItem("user") || null)
   );
 
-  console.log(pathname);
-
   return (
     <>
       <BrowserRouter>

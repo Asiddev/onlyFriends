@@ -80,22 +80,20 @@ function Messages(props) {
 
   return (
     <div>
-      <section class="sticky">
-        <div class="bubbles">
-          <div class="bubble"></div>
-          <div class="bubble"></div>
-          <div class="bubble"></div>
-          <div class="bubble"></div>
-          <div class="bubble"></div>
-          <div class="bubble"></div>
-          <div class="bubble"></div>
-          <div class="bubble"></div>
-          <div class="bubble"></div>
-          <div class="bubble"></div>
+      <section className="sticky">
+        <div className="bubbles">
+          <div className="bubble"></div>
+          <div className="bubble"></div>
+          <div className="bubble"></div>
+          <div className="bubble"></div>
+          <div className="bubble"></div>
+          <div className="bubble"></div>
+          <div className="bubble"></div>
+          <div className="bubble"></div>
+          <div className="bubble"></div>
+          <div className="bubble"></div>
 
-          <CssBaseline />
-
-          <Box marginBottom={10}>
+          <Box>
             <AppBar>
               <Toolbar className="navbar-logo">
                 <Box
@@ -108,14 +106,10 @@ function Messages(props) {
             </AppBar>
           </Box>
 
-          <Container maxWidth="sm" className="relative">
+          <Container maxWidth="md" className="relative">
             <div className="shadow ">
               <Card sx={{ maxWidth: "100%" }} className="block padding">
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  className="center"
-                >
+                <Typography variant="body1" color="text.secondary">
                   Status
                 </Typography>
                 <TextField
@@ -126,17 +120,8 @@ function Messages(props) {
                 <br />
                 <CardHeader
                   className="top-container"
-                  avatar={
-                    <Avatar
-                      src={props.user.profile_picture}
-                      sx={{ bgcolor: red[300] }}
-                    ></Avatar>
-                  }
-                  action={
-                    <IconButton aria-label="settings">
-                      <MoreVert />
-                    </IconButton>
-                  }
+                  avatar={<Avatar src={props.user.profile_picture}></Avatar>}
+                  action={<IconButton aria-label="settings"></IconButton>}
                   title="Online"
                   subheader={
                     <SignalWifiStatusbar4BarIcon style={{ fill: "green" }} />
@@ -148,9 +133,9 @@ function Messages(props) {
                   color="text.secondary"
                   className="center"
                 ></Typography>
-                <Container maxWidth="sm">
-                  <Box bgcolor="white" height="50vh" mb={2} pt={2}>
-                    <Box bgcolor="white" height="50vh" mb={2} pt={2}>
+                <Container maxWidth="lg">
+                  <Box bgcolor="white" height="400px" mb={2} pt={2}>
+                    <Box bgcolor="white" mb={2} pt={2}>
                       <Box
                         bgcolor="light-grey"
                         marginBottom={1}

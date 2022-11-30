@@ -309,84 +309,91 @@ function Dashboard(props) {
               </div>
             </Container>
 
-            <br />
-            <div>
-              <Container maxWidth="sm">
-                <div className="center">
-                  <Typography variant="p">
-                    Location &nbsp; &nbsp;
-                    <Autocomplete
-                      className="MuiTextField-root"
-                      name="Location"
-                      apiKey={process.env.REACT_APP_MY_API_KEY}
-                      style={{ width: "350px", height: "55px" }}
-                      onPlaceSelected={(place) => {
-                        setLocation(place["formatted_address"]);
-                      }}
-                      options={{
-                        types: ["(regions)"],
-                        componentRestrictions: { country: "ca" },
-                      }}
-                      defaultValue={location}
-                    />
-                  </Typography>
-                </div>
-              </Container>
+            <div className="top-container-format">
+              <div>
+                <Container maxWidth="sm">
+                  <div className="center">
+                    <Typography variant="p">
+                      Location &nbsp; &nbsp;
+                      <Autocomplete
+                        className="MuiTextField-root"
+                        name="Location"
+                        apiKey={process.env.REACT_APP_MY_API_KEY}
+                        style={{ width: "350px", height: "55px" }}
+                        onPlaceSelected={(place) => {
+                          setLocation(place["formatted_address"]);
+                        }}
+                        options={{
+                          types: ["(regions)"],
+                          componentRestrictions: { country: "ca" },
+                        }}
+                        defaultValue={location}
+                      />
+                    </Typography>
+                  </div>
+                </Container>
+
+                <br />
+
+                <Container maxWidth="sm">
+                  <div className="center">
+                    <span>
+                      <Typography variant="p">
+                        Bio &nbsp; &nbsp; &nbsp; &nbsp;
+                      </Typography>{" "}
+                      &nbsp;&nbsp;
+                      <TextField
+                        style={{ width: "350px", height: "55px" }}
+                        multiline={true}
+                        rows={3}
+                        label="Bio"
+                        name="Bio"
+                        value={bio}
+                        onChange={bioUpdater}
+                        placeholder="e.g. I love long walks to the fridge"
+                      ></TextField>
+                    </span>
+                    <br />
+                    <br />
+                    <Typography
+                      className={bioLength >= 0 ? "safe" : "danger"}
+                      variant="h6"
+                    >
+                      {bioLength}
+                    </Typography>
+                  </div>
+                </Container>
+              </div>
 
               <br />
 
               <Container maxWidth="sm">
                 <div className="center">
-                  <span>
-                    <Typography variant="p">Bio</Typography> &nbsp;&nbsp;
-                    <TextField
-                      style={{ width: "350px", height: "55px" }}
-                      multiline={true}
-                      rows={3}
-                      label="Bio"
-                      name="Bio"
-                      value={bio}
-                      onChange={bioUpdater}
-                      placeholder="e.g. I love long walks to the fridge"
-                    ></TextField>
-                  </span>
+                  <div>
+                    <img
+                      className="rectangle-img"
+                      src={bannerPreview}
+                      alt="banner pic"
+                    />
+                  </div>
                   <br />
-                  <br />
-                  <Typography
-                    className={bioLength >= 0 ? "safe" : "danger"}
-                    variant="h6"
+                  <Button
+                    variant="outlined"
+                    component="label"
+                    color="secondary"
                   >
-                    {bioLength}
-                  </Typography>
+                    Upload Banner
+                    <input
+                      type="file"
+                      accept="image/*"
+                      name="banner_picture"
+                      onChange={bannerImageChange}
+                      hidden
+                    />
+                  </Button>
                 </div>
               </Container>
             </div>
-
-            <br />
-
-            <Container maxWidth="sm">
-              <div className="center">
-                <Typography variant="p">Upload a cover banner</Typography>
-                <div>
-                  <img
-                    className="rectangle-img"
-                    src={bannerPreview}
-                    alt="banner pic"
-                  />
-                </div>
-                <br />
-                <Button variant="outlined" component="label" color="secondary">
-                  Upload File
-                  <input
-                    type="file"
-                    accept="image/*"
-                    name="banner_picture"
-                    onChange={bannerImageChange}
-                    hidden
-                  />
-                </Button>
-              </div>
-            </Container>
 
             <br />
 
