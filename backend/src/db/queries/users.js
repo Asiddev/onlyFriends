@@ -34,18 +34,23 @@ const checkUserDB = (email) => {
     });
 };
 
-const checkCommonInterest = (userId, interestId) => {
-  return db.query(`
-    SELECT user_id FROM user_interests
-    JOIN users
-    ON users.id = user_id
-    WHERE (user_id != $1)
-    AND (interest_id = $2)
+const getUserCommon = (userId) => {
+  return db.query(` 
+    SELECT * FROM users
+    WHERE id IN (
+      SELECT user_id FROM user_interests
+      WHERE interest_id IN (
+        SELECT interest_id FROM user_interests
+        WHERE user_id IN (
+          SELECT id FROM users
+          WHERE id = $1
+        )
+      )
+    ) AND (id != $1)
     AND (SELECT location FROM users WHERE id = $1) LIKE users.location
-    
-  `,[userId, interestId]).then((data) => {
+  `,[userId]).then((data) => {
     return data.rows;
   })
 }
 
-module.exports = { getAllUsers, getUserById, addUser, checkUserDB,  addUserProfileInfo, checkCommonInterest };
+module.exports = { getAllUsers, getUserById, addUser, checkUserDB,  addUserProfileInfo, getUserCommon };
