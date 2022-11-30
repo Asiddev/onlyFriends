@@ -30,6 +30,8 @@ import { MoreVert, ShareIcon } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import RestoreIcon from "@mui/icons-material/Restore";
 import ArchiveIcon from "@mui/icons-material/Archive";
+import CloseIcon from "@mui/icons-material/Close";
+import CheckIcon from "@mui/icons-material/Check";
 import "./Browse.scss";
 
 import HomeIcon from "@mui/icons-material/Home";

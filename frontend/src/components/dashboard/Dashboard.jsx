@@ -15,16 +15,10 @@ import {
   Typography,
   Button,
   TextField,
-  Chip,
-  Card,
   CssBaseline,
   Container,
   Link,
   FormControl,
-  FormLabel,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
   Paper,
   BottomNavigation,
   BottomNavigationAction,
@@ -89,15 +83,6 @@ function Dashboard(props) {
       const user = all[0].data[0]; // This returns an object
       const userInterests = all[1].data; // This returns an array
 
-<<<<<<< HEAD
-      //Set user info
-=======
-<<<<<<< HEAD
-      //Set user info 
-=======
-      //Set user info
->>>>>>> 28c1098 (new messages page and updates too navbars)
->>>>>>> cb7145e
       props.setCurrentUser(user);
       !user.description ? setBio("") : setBio(user.description);
       setProfilePreview(user.profile_picture);
@@ -216,18 +201,12 @@ function Dashboard(props) {
         console.log(err.message);
         setError(err.response.data);
       });
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
       navigate("/");
     }, 2500);
-=======
->>>>>>> 28c1098 (new messages page and updates too navbars)
->>>>>>> cb7145e
 
     setLoading(true);
     setTimeout(() => {
@@ -325,7 +304,6 @@ function Dashboard(props) {
 
             <Container maxWidth="sm" className="text-center">
               <div className="d-flex">
-<<<<<<< HEAD
                 <Typography variant="p">Upload a profile picture</Typography>
                 <img
                   className="circle-img"
@@ -340,28 +318,6 @@ function Dashboard(props) {
                     name="profile_picture"
                     onChange={profileImageChange}
                     hidden
-=======
-                <span>
-                  <Button
-                    variant="outlined"
-                    component="label"
-                    color="secondary"
-                  >
-                    Upload Photo
-                    <input
-                      type="file"
-                      accept="image/*"
-                      name="profile_picture"
-                      onChange={profileImageChange}
-                      hidden
-                    />
-                  </Button>
-
-                  <img
-                    className="circle-img"
-                    src={profilePreview}
-                    alt="profile pic"
->>>>>>> 28c1098 (new messages page and updates too navbars)
                   />
                 </Button>
               </div>
