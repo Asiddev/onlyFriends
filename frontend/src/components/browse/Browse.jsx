@@ -142,7 +142,7 @@ function Browse(props) {
 
           <Container maxWidth="sm" className="relative">
             <div className="shadow">
-              <Card sx={{ maxWidth: "100%", height: "max-content" }} className="block padding" style={{ backgroundColor: "#E4F8FF", borderRadius: "1.75rem", paddingBottom:"0"}}>
+              <Card sx={{ maxWidth: "100%", height: "max-content" }} className="block padding" style={{ backgroundColor: "#E4F8FF", borderRadius: "1.75rem", paddingBottom: "0" }}>
                 <Button class="noselect" id="button-left">
                   {/* <span class="text"></span>
                   <span class="icon">
@@ -229,10 +229,11 @@ function Browse(props) {
           showLabels
           value={value}
           onChange={(event, newValue) => {
+            // event.preventDefault();
             setValue(newValue);
           }}
         >
-          <BottomNavigationAction href="/" label="Home" icon={<HomeIcon />} />
+          <BottomNavigationAction label="Home" icon={<HomeIcon />} />
 
           <BottomNavigationAction
             href="/profile"
