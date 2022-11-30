@@ -1,3 +1,4 @@
+
 import React from "react";
 import {
   AppBar,
@@ -19,16 +20,14 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import MessageIcon from "@mui/icons-material/Message";
 import LogoutIcon from "@mui/icons-material/Logout";
 import "./Matches.scss";
-
-import RestoreIcon from "@mui/icons-material/Restore";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ArchiveIcon from "@mui/icons-material/Archive";
-
+import BottomNav from "../bottomnav/BottomNav";
 function Matches() {
+
   return (
     <>
-      <CssBaseline />
-      <Box sx={{ pb: 7 }}>
+    {/* everything on this page is in this main Box, think of it as a fragment */}
+    <Box sx={{ pb: 7 }}>
+        <CssBaseline />
         {/* TOP NAV - TO BE REFACTORED */}
         <Box marginBottom={10}>
           <AppBar>
@@ -42,7 +41,6 @@ function Matches() {
             </Toolbar>
           </AppBar>
         </Box>
-
         <Box
           sx={{
             width: 566,
@@ -83,179 +81,12 @@ function Matches() {
               <Button size="small">Learn More</Button>
             </CardActions>
           </Card>
-          <Card
-            variant="outlined"
-            sx={{
-              border: "3px solid pink",
-              maxWidth: 420,
-            }}
-          >
-            <CardContent>
-              <Typography
-                sx={{ fontSize: 14 }}
-                color="text.secondary"
-                gutterBottom
-              >
-                Word of the Day
-              </Typography>
-              <Typography variant="h5" component="div">
-                be•nev•o•lent
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                adjective
-              </Typography>
-              <Typography variant="body2">
-                well meaning and kindly.
-                <br />
-                {'"a benevolent smile"'}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Learn More</Button>
-            </CardActions>
-          </Card>
-          <Card
-            variant="outlined"
-            sx={{
-              border: "3px solid pink",
-              maxWidth: 420,
-            }}
-          >
-            <CardContent>
-              <Typography
-                sx={{ fontSize: 14 }}
-                color="text.secondary"
-                gutterBottom
-              >
-                Word of the Day
-              </Typography>
-              <Typography variant="h5" component="div">
-                be•nev•o•lent
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                adjective
-              </Typography>
-              <Typography variant="body2">
-                well meaning and kindly.
-                <br />
-                {'"a benevolent smile"'}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Learn More</Button>
-            </CardActions>
-          </Card>
-          <Card
-            variant="outlined"
-            sx={{
-              border: "3px solid pink",
-              maxWidth: 420,
-            }}
-          >
-            <CardContent>
-              <Typography
-                sx={{ fontSize: 14 }}
-                color="text.secondary"
-                gutterBottom
-              >
-                Word of the Day
-              </Typography>
-              <Typography variant="h5" component="div">
-                be•nev•o•lent
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                adjective
-              </Typography>
-              <Typography variant="body2">
-                well meaning and kindly.
-                <br />
-                {'"a benevolent smile"'}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Learn More</Button>
-            </CardActions>
-          </Card>
-          <Card
-            variant="outlined"
-            sx={{
-              border: "3px solid pink",
-              maxWidth: 420,
-            }}
-          >
-            <CardContent>
-              <Typography
-                sx={{ fontSize: 14 }}
-                color="text.secondary"
-                gutterBottom
-              >
-                Word of the Day
-              </Typography>
-              <Typography variant="h5" component="div">
-                be•nev•o•lent
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                adjective
-              </Typography>
-              <Typography variant="body2">
-                well meaning and kindly.
-                <br />
-                {'"a benevolent smile"'}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Learn More</Button>
-            </CardActions>
-          </Card>
-          <Card
-            variant="outlined"
-            sx={{
-              border: "3px solid pink",
-              maxWidth: 420,
-            }}
-          >
-            <CardContent>
-              <Typography
-                sx={{ fontSize: 14 }}
-                color="text.secondary"
-                gutterBottom
-              >
-                Word of the Day
-              </Typography>
-              <Typography variant="h5" component="div">
-                be•nev•o•lent
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                adjective
-              </Typography>
-              <Typography variant="body2">
-                well meaning and kindly.
-                <br />
-                {'"a benevolent smile"'}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Learn More</Button>
-            </CardActions>
-          </Card>
         </Box>
 
         {/* BOTTOM NAV - TO BE REFACTORED */}
-        <Paper
-          sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
-          elevation={3}
-        >
-          <BottomNavigation showLabels>
-            <BottomNavigationAction label="Home" icon={<HomeIcon />} />
-            <BottomNavigationAction label="Profile" icon={<AccountBoxIcon />} />
-            <BottomNavigationAction label="Matches" icon={<PeopleAltIcon />} />
-            <BottomNavigationAction label="Messages" icon={<MessageIcon />} />
-            <BottomNavigationAction label="Logout" icon={<LogoutIcon />} />
-          </BottomNavigation>
-        </Paper>
-      </Box>
+        <BottomNav />
+    </Box>
     </>
   );
 }
-
 export default Matches;
