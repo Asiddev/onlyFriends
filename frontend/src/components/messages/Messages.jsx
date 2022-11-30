@@ -1,47 +1,21 @@
 import * as React from "react";
-import { red } from "@mui/material/colors";
 import {
   Card,
   CardHeader,
-  CardMedia,
   CardContent,
   Avatar,
   IconButton,
   Typography,
   Link,
-  CssBaseline,
   Box,
   AppBar,
   Toolbar,
   Container,
-  Button,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Divider,
-  Grid,
-  Paper,
-  BottomNavigationAction,
-  BottomNavigation,
   TextField,
-  Input,
 } from "@mui/material";
 import SignalWifiStatusbar4BarIcon from "@mui/icons-material/SignalWifiStatusbar4Bar";
-import { MoreVert, ShareIcon } from "@mui/icons-material";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import RestoreIcon from "@mui/icons-material/Restore";
-import ArchiveIcon from "@mui/icons-material/Archive";
 import "./Messages.scss";
-
-import HomeIcon from "@mui/icons-material/Home";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import MessageIcon from "@mui/icons-material/Message";
-import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
-import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BottomNav from "../bottomnav/BottomNav";
@@ -80,19 +54,6 @@ function Messages(props) {
 
   return (
     <>
-      {/* <section className="sticky"> */}
-      {/* <div className="bubbles"> */}
-      {/* <div className="bubble"></div>
-          <div className="bubble"></div>
-          <div className="bubble"></div>
-          <div className="bubble"></div>
-          <div className="bubble"></div>
-          <div className="bubble"></div>
-          <div className="bubble"></div>
-          <div className="bubble"></div>
-          <div className="bubble"></div>
-          <div className="bubble"></div> */}
-
       <Box>
         <AppBar>
           <Toolbar className="navbar-logo">
@@ -195,8 +156,6 @@ function Messages(props) {
           <Copyright />
         </div>
       </Container>
-      {/* </div> */}
-      {/* </section> */}
       <BottomNav value={props.value} setValue={props.setValue} />
     </>
   );

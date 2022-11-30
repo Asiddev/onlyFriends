@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
-import ReactFileReader from "react-file-reader";
+import React, { useState, useEffect } from "react";
 import { storage } from "../../configAPI/firebase.js";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
@@ -17,23 +16,13 @@ import {
   TextField,
   CssBaseline,
   Container,
-  Link,
   FormControl,
-  Paper,
-  BottomNavigation,
-  BottomNavigationAction,
 } from "@mui/material";
 import "./Dashboard.scss";
 import ItemList from "../../components/dashboard/ItemList";
 import "../../styles/animations.scss";
-import HomeIcon from "@mui/icons-material/Home";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import MessageIcon from "@mui/icons-material/Message";
-import LogoutIcon from "@mui/icons-material/Logout";
 import BottomNav from "../bottomnav/BottomNav.jsx";
-import MyLocationIcon from "@mui/icons-material/MyLocation";
-import Copyright from "../Copyright.jsx";
+import TopNav from "../topnav/TopNav.jsx";
 
 function Dashboard(props) {
   //Refactor state like scheduler if time permits
@@ -45,7 +34,6 @@ function Dashboard(props) {
   const [loading, setLoading] = useState(false);
 
   const [bannerImage, setBannerImage] = useState(null);
-  const [active, setActive] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
   const [profilePreview, setProfilePreview] = useState(null);
   const [bannerPreview, setBannerPreview] = useState(null);
@@ -54,7 +42,6 @@ function Dashboard(props) {
   const [fetchingLocation, setFetchingLocation] = useState(null);
 
   const [picked, setPicked] = useState([]);
-  const [userInterest, loadUserInterest] = useState([]);
   const navigate = useNavigate();
 
   function getLocation() {
@@ -93,6 +80,7 @@ function Dashboard(props) {
 
       props.setCurrentUser(user);
       !user.description ? setBio("") : setBio(user.description);
+      !user.description ? setBioLength(bioLimit) : setBioLength(bioLimit - user.description.length);
       setProfilePreview(user.profile_picture);
       setBannerPreview(user.banner_picture);
       setLocation(user.location);
@@ -214,23 +202,7 @@ function Dashboard(props) {
     <>
       {loading ? (
         <>
-          <Box marginBottom={10}>
-            <AppBar>
-              <Toolbar className="navbar-logo">
-                {/* <img
-          src="https://i.imgur.com/Bgur1Fk.png"
-          alt="OnlyFriends logo"
-          style={{ width: "10rem", alignItems: "center", justifyContent: "center" }}
-        /> */}
-                <Box
-                  component="img"
-                  sx={{ width: 150 }}
-                  alt="OnlyFriends logo"
-                  src="https://i.imgur.com/Bgur1Fk.png"
-                />
-              </Toolbar>
-            </AppBar>
-          </Box>
+          <TopNav />
           <span className="center" color="primary">
             Saving...
           </span>
@@ -246,24 +218,7 @@ function Dashboard(props) {
       ) : (
         <div>
           <CssBaseline />
-
-          <Box marginBottom={10}>
-            <AppBar>
-              <Toolbar className="navbar-logo">
-                {/* <img
-          src="https://i.imgur.com/Bgur1Fk.png"
-          alt="OnlyFriends logo"
-          style={{ width: "10rem", alignItems: "center", justifyContent: "center" }}
-        /> */}
-                <Box
-                  component="img"
-                  sx={{ width: 150 }}
-                  alt="OnlyFriends logo"
-                  src="https://i.imgur.com/Bgur1Fk.png"
-                />
-              </Toolbar>
-            </AppBar>
-          </Box>
+          <TopNav />
           <Box
             component="form"
             onSubmit={postProfile}
@@ -419,7 +374,7 @@ function Dashboard(props) {
                 </Typography>
 
                 <div className="formControl">
-                  <FormControl onSubmit={(e) => { }}>
+                  <FormControl>
                     <ItemList picked={picked} setPicked={setPicked} />
                   </FormControl>
                 </div>

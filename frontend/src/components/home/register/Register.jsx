@@ -19,24 +19,7 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import axios from "axios";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © Nico Hernandez, Alex Sidor, Kevin Lee "}
-      <Link color="inherit" href="https://github.com/Asiddev/onlyFriends">
-        OnlyFriends
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import Copyright from "../../Copyright";
 
 const theme = createTheme();
 
@@ -178,6 +161,7 @@ function Register() {
                 </Grid>
               </Box>
             </Box>
+            <br />
             <Copyright sx={{ mt: 8, mb: 4 }} />
           </Container>
         </ThemeProvider>

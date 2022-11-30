@@ -6,8 +6,6 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import MessageIcon from "@mui/icons-material/Message";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "@mui/material";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 function BottomNav(props) {
   return (

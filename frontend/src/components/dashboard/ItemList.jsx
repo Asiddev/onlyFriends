@@ -6,11 +6,7 @@ import "./ItemList.scss";
 import "../../styles/animations.scss";
 import {
   Button,
-  Typography,
   Grid,
-  Container,
-  Card,
-  CardContent,
 } from "@mui/material";
 
 const ItemList = (props) => {
@@ -63,22 +59,6 @@ const ItemList = (props) => {
   });
 
   return (
-    // <div>
-    //   {interestList}
-    // </div>
-
-    // <Container>
-    //   <Grid container spacing={4}>
-    //     {interests.map((interest) => (
-    //       <Button item key={interest.id} xs={12} sm={6} md={4} onClick={handleClick} variant="contained" spacing="20">
-    //         <Typography>
-    //           {interest.name}
-    //         </Typography>
-    //       </Button>
-    //     ))}
-    //   </Grid>
-    // </Container>
-
     <Grid container>
       <Grid item>{interestList}</Grid>
     </Grid>
