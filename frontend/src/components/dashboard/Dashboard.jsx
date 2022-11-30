@@ -33,24 +33,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import LogoutIcon from "@mui/icons-material/Logout";
 import BottomNav from "../bottomnav/BottomNav.jsx";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      <Link color="inherit" href="https://github.com/Asiddev/onlyFriends">
-        OnlyFriends
-      </Link>{" "}
-      {"© Nico Hernandez, Alex Sidor, Kevin Lee. "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import Copyright from "../Copyright.jsx";
 
 function Dashboard(props) {
   //Refactor state like scheduler if time permits
@@ -76,7 +59,7 @@ function Dashboard(props) {
 
   function getLocation() {
     setFetchingLocation(true);
-    navigator.geolocation.getCurrentPosition(function (position) {
+    navigator.geolocation.getCurrentPosition(function(position) {
       console.log("Latitude is :", position.coords.latitude);
       console.log("Longitude is :", position.coords.longitude);
       axios
@@ -436,7 +419,7 @@ function Dashboard(props) {
                 </Typography>
 
                 <div className="formControl">
-                  <FormControl onSubmit={(e) => {}}>
+                  <FormControl onSubmit={(e) => { }}>
                     <ItemList picked={picked} setPicked={setPicked} />
                   </FormControl>
                 </div>

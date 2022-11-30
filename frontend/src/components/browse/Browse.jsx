@@ -46,24 +46,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BottomNav from "../bottomnav/BottomNav";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      <Link color="inherit" href="https://github.com/Asiddev/onlyFriends">
-        OnlyFriends
-      </Link>{" "}
-      {"© Nico Hernandez, Alex Sidor, Kevin Lee. "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import Copyright from "../Copyright";
 
 function Browse(props) {
   const [profileInterests, setProfileInterest] = useState([]);
@@ -132,8 +115,8 @@ function Browse(props) {
   return (
     <>
       {/* <section className="sticky"> */}
-        {/* <div className="bubbles"> */}
-          {/* <div className="bubble"></div>
+      {/* <div className="bubbles"> */}
+      {/* <div className="bubble"></div>
           <div className="bubble"></div>
           <div className="bubble"></div>
           <div className="bubble"></div>
@@ -144,50 +127,50 @@ function Browse(props) {
           <div className="bubble"></div>
           <div className="bubble"></div> */}
 
-          <CssBaseline />
+      <CssBaseline />
 
-          <Box marginBottom={10}>
-            <AppBar>
-              <Toolbar className="navbar-logo">
-                <Box
-                  component="img"
-                  sx={{ width: 150 }}
-                  alt="OnlyFriends logo"
-                  src="https://i.imgur.com/Bgur1Fk.png"
-                />
-              </Toolbar>
-            </AppBar>
-          </Box>
+      <Box marginBottom={10}>
+        <AppBar>
+          <Toolbar className="navbar-logo">
+            <Box
+              component="img"
+              sx={{ width: 150 }}
+              alt="OnlyFriends logo"
+              src="https://i.imgur.com/Bgur1Fk.png"
+            />
+          </Toolbar>
+        </AppBar>
+      </Box>
 
-          {loading ? (
-            <div className="loader">
-              <div className="inner one"></div>
-              <div className="inner two"></div>
-              <div className="inner three"></div>
-            </div>
-          ) : (
-            <Container maxWidth="sm" className="relative">
-              <div className="shadow">
-                <Card
-                  sx={{ maxWidth: "100%", height: "max-content" }}
-                  className="block padding"
-                  style={{
-                    backgroundColor: "#E4F8FF",
-                    borderRadius: "1.75rem",
-                    paddingBottom: "0",
-                  }}
-                >
-                  <Button
-                    class="noselect"
-                    id="button-left"
-                    onClick={(e) => {
-                      if (page >= similarUsers.length) {
-                        setPage(0);
-                      }
-                      setPage((prev) => prev - 1);
-                    }}
-                  >
-                    {/* <span class="text"></span>
+      {loading ? (
+        <div className="loader">
+          <div className="inner one"></div>
+          <div className="inner two"></div>
+          <div className="inner three"></div>
+        </div>
+      ) : (
+        <Container maxWidth="sm" className="relative">
+          <div className="shadow">
+            <Card
+              sx={{ maxWidth: "100%", height: "max-content" }}
+              className="block padding"
+              style={{
+                backgroundColor: "#E4F8FF",
+                borderRadius: "1.75rem",
+                paddingBottom: "0",
+              }}
+            >
+              <Button
+                class="noselect"
+                id="button-left"
+                onClick={(e) => {
+                  if (page >= similarUsers.length) {
+                    setPage(0);
+                  }
+                  setPage((prev) => prev - 1);
+                }}
+              >
+                {/* <span class="text"></span>
                   <span class="icon">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -200,17 +183,17 @@ function Browse(props) {
                       <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-5.904-2.803a.5.5 0 1 1 .707.707L6.707 10h2.768a.5.5 0 0 1 0 1H5.5a.5.5 0 0 1-.5-.5V6.525a.5.5 0 0 1 1 0v2.768l4.096-4.096z" />
                     </svg>
                   </span> */}
-                    <CloseIcon fontSize="large" />
-                  </Button>
-                  <Button
-                    class="noselect"
-                    id="button-right"
-                    onClick={(e) => {
-                      setPage((prev) => prev + 1);
-                    }}
-                  >
-                    <CheckIcon fontSize="large" />
-                    {/* <span class="icon">
+                <CloseIcon fontSize="large" />
+              </Button>
+              <Button
+                class="noselect"
+                id="button-right"
+                onClick={(e) => {
+                  setPage((prev) => prev + 1);
+                }}
+              >
+                <CheckIcon fontSize="large" />
+                {/* <span class="icon">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -222,66 +205,66 @@ function Browse(props) {
                       <path d="M0 8a8 8 0 1 0 16 0A8 8 0 0 0 0 8zm5.904 2.803a.5.5 0 1 1-.707-.707L9.293 6H6.525a.5.5 0 1 1 0-1H10.5a.5.5 0 0 1 .5.5v3.975a.5.5 0 0 1-1 0V6.707l-4.096 4.096z" />
                     </svg>
                   </span> */}
-                  </Button>
+              </Button>
 
-                  <CardHeader
-                    className="top-container-name"
-                    avatar={
-                      <Avatar
-                        src={
-                          similarUsers.length
-                            ? similarUsers[page].profile_picture
-                            : ""
-                        }
-                        sx={{ bgcolor: red[300] }}
-                      ></Avatar>
-                    }
-                    title={similarUsers.length ? similarUsers[page].name : ""}
-                  // subheader={props.user.location}
-                  />
-                  <CardMedia
-                    sx={{ mx: "auto", width: 450, height: 300, boxShadow: 5 }}
-                    component="img"
-                    image={
+              <CardHeader
+                className="top-container-name"
+                avatar={
+                  <Avatar
+                    src={
                       similarUsers.length
-                        ? similarUsers[page].banner_picture
+                        ? similarUsers[page].profile_picture
                         : ""
                     }
-                    alt="banner_picture"
-                  />
-                  <br />
-                  <Typography variant="h5">
-                    <RoomIcon />
-                    {similarUsers.length ? similarUsers[page].location : ""}
-                  </Typography>
-                  <br />
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    className="center wrap"
-                  >
-                    {similarUsers.length ? similarUsers[page].description : ""}
-                  </Typography>
-                  <br />
-                  <Typography variant="h5">Interests:</Typography>
-                  <CardContent className="center">
-                    <Grid container className="interests-container">
-                      <Grid item>{profileInterests && renderInterestList}</Grid>
-                    </Grid>
-                  </CardContent>
-                </Card>
-                <br />
-                <Copyright />
-              </div>
-              <BottomNav
-                value={props.value}
-                setValue={props.setValue}
-                setCurrentUser={props.setCurrentUser}
+                    sx={{ bgcolor: red[300] }}
+                  ></Avatar>
+                }
+                title={similarUsers.length ? similarUsers[page].name : ""}
+              // subheader={props.user.location}
               />
-            </Container>
-          )}
+              <CardMedia
+                sx={{ mx: "auto", width: 450, height: 300, boxShadow: 5 }}
+                component="img"
+                image={
+                  similarUsers.length
+                    ? similarUsers[page].banner_picture
+                    : ""
+                }
+                alt="banner_picture"
+              />
+              <br />
+              <Typography variant="h5">
+                <RoomIcon />
+                {similarUsers.length ? similarUsers[page].location : ""}
+              </Typography>
+              <br />
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                className="center wrap"
+              >
+                {similarUsers.length ? similarUsers[page].description : ""}
+              </Typography>
+              <br />
+              <Typography variant="h5">Interests:</Typography>
+              <CardContent className="center">
+                <Grid container className="interests-container">
+                  <Grid item>{profileInterests && renderInterestList}</Grid>
+                </Grid>
+              </CardContent>
+            </Card>
+            <br />
+            <Copyright />
+          </div>
+          <BottomNav
+            value={props.value}
+            setValue={props.setValue}
+            setCurrentUser={props.setCurrentUser}
+          />
+        </Container>
+      )}
 
-        {/* </div> */}
+      {/* </div> */}
       {/* </section> */}
 
     </>
