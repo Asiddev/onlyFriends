@@ -44,16 +44,7 @@ const getUserInterestsById = (id) => {
   })
 }
 
-const checkCommonInterest = (userId, interestId) => {
-  return db.query(`
-    SELECT user_id FROM user_interests
-    WHERE (user_id != $1)
-    AND (interest_id = $2);
-    
-  `,[userId, interestId]).then((data) => {
-    return data.rows;
-  })
-}
 
-module.exports = { getAllUserInterests, getUserInterestById, addUserInterest, getUserInterestsById, clearUserInterests, checkCommonInterest }
+
+module.exports = { getAllUserInterests, getUserInterestById, addUserInterest, getUserInterestsById, clearUserInterests }
 

@@ -24,15 +24,11 @@ const getUserInterestsById = (id) => {
   return userInterestQueries.getUserInterestsById(id)
 };
 
-const checkCommonInterest =  (userId, interestId) => {
-  return userInterestQueries.checkCommonInterest(userId, interestId)
-};
-
 module.exports = {
   getAllUserInterests,
   updateUserInterests,
   getUserInterestsById,
-  checkCommonInterest
+
 };
 
 

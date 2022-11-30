@@ -22,18 +22,33 @@ router.get("/:id/common", (req,res) => {
     return interestList;
   })
   .then((interests) => {
-    let final = [];
+    let userCommon = [];
     for (const interest of interests) {
-      final.push(userInterestController.checkCommonInterest(req.params.id, interest)
-    )}
-
-    console.log('row 30',final)
-    return Promise.all(final, (result) => {console.log("row 35,",result)})
+      userCommon.push(userController.checkCommonInterest(req.params.id, interest))
+    }
+    return Promise.all(userCommon, (result) => result)
   })
-  .then((data)=> {
-    console.log("final", data);
+  .then((userCommon)=> {
+    let finalCommonList = []; 
+    for (const users of userCommon) {
+      for (const user of users) {
+        if (!finalCommonList.includes(user.user_id)) {
+          finalCommonList.push(user.user_id);
+        }
+      }
+    }
+    return finalCommonList.sort();
   })
- 
+  .then((finalCommonList) => {
+    let finalUserList = [];
+    for (const user of finalCommonList) {
+      finalUserList.push(userController.getUserById(user))
+    }
+    return Promise.all(finalUserList,(result) => result)
+  })
+  .then((finalUserList) => {
+    res.send(finalUserList);
+  })
 })
 
 router.post("/update", userController.addUserProfileInfo);
