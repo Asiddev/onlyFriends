@@ -46,24 +46,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BottomNav from "../bottomnav/BottomNav";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      <Link color="inherit" href="https://github.com/Asiddev/onlyFriends">
-        OnlyFriends
-      </Link>{" "}
-      {"© Nico Hernandez, Alex Sidor, Kevin Lee. "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import Copyright from "../Copyright";
 
 function Browse(props) {
   const [profileInterests, setProfileInterest] = useState([]);
@@ -150,8 +133,8 @@ function Browse(props) {
   return (
     <>
       {/* <section className="sticky"> */}
-        {/* <div className="bubbles"> */}
-          {/* <div className="bubble"></div>
+      {/* <div className="bubbles"> */}
+      {/* <div className="bubble"></div>
           <div className="bubble"></div>
           <div className="bubble"></div>
           <div className="bubble"></div>
@@ -162,20 +145,20 @@ function Browse(props) {
           <div className="bubble"></div>
           <div className="bubble"></div> */}
 
-          <CssBaseline />
+      <CssBaseline />
 
-          <Box marginBottom={10}>
-            <AppBar>
-              <Toolbar className="navbar-logo">
-                <Box
-                  component="img"
-                  sx={{ width: 150 }}
-                  alt="OnlyFriends logo"
-                  src="https://i.imgur.com/Bgur1Fk.png"
-                />
-              </Toolbar>
-            </AppBar>
-          </Box>
+      <Box marginBottom={10}>
+        <AppBar>
+          <Toolbar className="navbar-logo">
+            <Box
+              component="img"
+              sx={{ width: 150 }}
+              alt="OnlyFriends logo"
+              src="https://i.imgur.com/Bgur1Fk.png"
+            />
+          </Toolbar>
+        </AppBar>
+      </Box>
 
           {loading ? (
             <div className="loader">
@@ -233,66 +216,66 @@ function Browse(props) {
                       <path d="M0 8a8 8 0 1 0 16 0A8 8 0 0 0 0 8zm5.904 2.803a.5.5 0 1 1-.707-.707L9.293 6H6.525a.5.5 0 1 1 0-1H10.5a.5.5 0 0 1 .5.5v3.975a.5.5 0 0 1-1 0V6.707l-4.096 4.096z" />
                     </svg>
                   </span> */}
-                  </Button>
+              </Button>
 
-                  <CardHeader
-                    className="top-container-name"
-                    avatar={
-                      <Avatar
-                        src={
-                          similarUsers.length
-                            ? similarUsers[page].profile_picture
-                            : ""
-                        }
-                        sx={{ bgcolor: red[300] }}
-                      ></Avatar>
-                    }
-                    title={similarUsers.length ? similarUsers[page].name : ""}
-                  // subheader={props.user.location}
-                  />
-                  <CardMedia
-                    sx={{ mx: "auto", width: 450, height: 300, boxShadow: 5 }}
-                    component="img"
-                    image={
+              <CardHeader
+                className="top-container-name"
+                avatar={
+                  <Avatar
+                    src={
                       similarUsers.length
-                        ? similarUsers[page].banner_picture
+                        ? similarUsers[page].profile_picture
                         : ""
                     }
-                    alt="banner_picture"
-                  />
-                  <br />
-                  <Typography variant="h5">
-                    <RoomIcon />
-                    {similarUsers.length ? similarUsers[page].location : ""}
-                  </Typography>
-                  <br />
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    className="center wrap"
-                  >
-                    {similarUsers.length ? similarUsers[page].description : ""}
-                  </Typography>
-                  <br />
-                  <Typography variant="h5">Interests:</Typography>
-                  <CardContent className="center">
-                    <Grid container className="interests-container">
-                      <Grid item>{profileInterests && renderInterestList}</Grid>
-                    </Grid>
-                  </CardContent>
-                </Card>
-                <br />
-                <Copyright />
-              </div>
-              <BottomNav
-                value={props.value}
-                setValue={props.setValue}
-                setCurrentUser={props.setCurrentUser}
+                    sx={{ bgcolor: red[300] }}
+                  ></Avatar>
+                }
+                title={similarUsers.length ? similarUsers[page].name : ""}
+              // subheader={props.user.location}
               />
-            </Container>
-          )}
+              <CardMedia
+                sx={{ mx: "auto", width: 450, height: 300, boxShadow: 5 }}
+                component="img"
+                image={
+                  similarUsers.length
+                    ? similarUsers[page].banner_picture
+                    : ""
+                }
+                alt="banner_picture"
+              />
+              <br />
+              <Typography variant="h5">
+                <RoomIcon />
+                {similarUsers.length ? similarUsers[page].location : ""}
+              </Typography>
+              <br />
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                className="center wrap"
+              >
+                {similarUsers.length ? similarUsers[page].description : ""}
+              </Typography>
+              <br />
+              <Typography variant="h5">Interests:</Typography>
+              <CardContent className="center">
+                <Grid container className="interests-container">
+                  <Grid item>{profileInterests && renderInterestList}</Grid>
+                </Grid>
+              </CardContent>
+            </Card>
+            <br />
+            <Copyright />
+          </div>
+          <BottomNav
+            value={props.value}
+            setValue={props.setValue}
+            setCurrentUser={props.setCurrentUser}
+          />
+        </Container>
+      )}
 
-        {/* </div> */}
+      {/* </div> */}
       {/* </section> */}
 
     </>
