@@ -32,6 +32,7 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import MessageIcon from "@mui/icons-material/Message";
 import LogoutIcon from "@mui/icons-material/Logout";
 import BottomNav from "../bottomnav/BottomNav.jsx";
+import MyLocationIcon from "@mui/icons-material/MyLocation";
 
 function Copyright(props) {
   return (
@@ -67,11 +68,34 @@ function Dashboard(props) {
   const [bannerPreview, setBannerPreview] = useState(null);
 
   const [error, setError] = useState(null);
+  const [fetchingLocation, setFetchingLocation] = useState(null);
 
   const [picked, setPicked] = useState([]);
   const [userInterest, loadUserInterest] = useState([]);
-
   const navigate = useNavigate();
+
+  function getLocation() {
+    setFetchingLocation(true);
+    navigator.geolocation.getCurrentPosition(function (position) {
+      console.log("Latitude is :", position.coords.latitude);
+      console.log("Longitude is :", position.coords.longitude);
+      axios
+        .get("https://api64.ipify.org?format=json")
+        .then((data) => {
+          const ip = data.data.ip;
+          return ip;
+        })
+        .then((data) => {
+          console.log(data);
+          axios.get(`http://ip-api.com/json/${data}`).then((data) => {
+            let { city, region, country } = data.data;
+            let string = `${city}, ${region}, ${country}`;
+            console.log(string);
+            setLocation(string);
+          });
+        });
+    });
+  }
 
   useEffect(() => {
     Promise.all([
@@ -80,6 +104,7 @@ function Dashboard(props) {
         `api/user_interests/${JSON.parse(localStorage.getItem("user")).id}`
       ),
     ]).then((all) => {
+      getLocation();
       const user = all[0].data[0]; // This returns an object
       const userInterests = all[1].data; // This returns an array
 
@@ -121,6 +146,8 @@ function Dashboard(props) {
 
   //Function to read changed image and preview it
   const profileImageChange = (event) => {
+    getLocation();
+
     const file = event.target.files[0];
     const reader = new FileReader();
     setProfileImage(file);
@@ -313,30 +340,6 @@ function Dashboard(props) {
               <div>
                 <Container maxWidth="sm">
                   <div className="center">
-                    <Typography variant="p">
-                      Location &nbsp; &nbsp;
-                      <Autocomplete
-                        className="MuiTextField-root"
-                        name="Location"
-                        apiKey={process.env.REACT_APP_MY_API_KEY}
-                        style={{ width: "350px", height: "55px" }}
-                        onPlaceSelected={(place) => {
-                          setLocation(place["formatted_address"]);
-                        }}
-                        options={{
-                          types: ["(regions)"],
-                          componentRestrictions: { country: "ca" },
-                        }}
-                        defaultValue={location}
-                      />
-                    </Typography>
-                  </div>
-                </Container>
-
-                <br />
-
-                <Container maxWidth="sm">
-                  <div className="center">
                     <span>
                       <Typography variant="p">
                         Bio &nbsp; &nbsp; &nbsp; &nbsp;
@@ -360,6 +363,35 @@ function Dashboard(props) {
                       variant="h6"
                     >
                       {bioLength}
+                    </Typography>
+                  </div>
+                </Container>
+
+                <br />
+
+                <Container maxWidth="sm">
+                  <div className="center">
+                    <Typography variant="p">
+                      Location &nbsp; &nbsp;
+                      <Autocomplete
+                        className="MuiTextField-root"
+                        name="Location"
+                        placeholder={
+                          fetchingLocation
+                            ? "Fetching Location..."
+                            : "Location here"
+                        }
+                        apiKey={process.env.REACT_APP_MY_API_KEY}
+                        style={{ width: "350px", height: "55px" }}
+                        onPlaceSelected={(place) => {
+                          setLocation(place["formatted_address"]);
+                        }}
+                        options={{
+                          types: ["(regions)"],
+                          componentRestrictions: { country: "ca" },
+                        }}
+                        defaultValue={location}
+                      />
                     </Typography>
                   </div>
                 </Container>
@@ -400,7 +432,7 @@ function Dashboard(props) {
             <Container maxWidth="md" className="chip-spacing">
               <div className="center">
                 <Typography variant="p">
-                  Select all interests/hobbies that apply
+                  Select atleast one interest that applies to you
                 </Typography>
 
                 <div className="formControl">
@@ -409,15 +441,13 @@ function Dashboard(props) {
                   </FormControl>
                 </div>
               </div>
+              <br />
+              <div className="center">
+                <Button variant="outlined" type="submit" color="secondary">
+                  Save
+                </Button>
+              </div>
             </Container>
-
-            <br />
-
-            <div className="center">
-              <Button variant="outlined" type="submit" color="secondary">
-                Save
-              </Button>
-            </div>
           </Box>
 
           <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">

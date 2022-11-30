@@ -23,7 +23,7 @@ const ItemList = (props) => {
     //parseInt(value) == makes number
     //Number(value) == makes number
 
-    const interestId = Number(e.target.value)
+    const interestId = Number(e.target.value);
     if (props.picked.includes(interestId)) {
       e.target.classList.remove("blockAni");
       props.setPicked((prevPicked) => {
@@ -49,8 +49,10 @@ const ItemList = (props) => {
     return (
       <Button
         key={interest.id}
-        variant="contained"
-        className = {props.picked.includes(Number(interest.id))?"blockAni":""}
+        variant={
+          props.picked.includes(Number(interest.id)) ? "contained" : "outlined"
+        }
+        className={props.picked.includes(Number(interest.id)) ? "blockAni" : ""}
         onClick={handleClick}
         sx={{ marginRight: 1 }}
         value={interest.id}

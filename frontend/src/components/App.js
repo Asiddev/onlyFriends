@@ -7,11 +7,13 @@ import Browse from "./browse/Browse";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 function App() {
   const [cookies, setCookie] = useCookies(null);
   const pathname = window.location.pathname;
   const [value, setValue] = useState(pathname);
+
   const [user, setCurrentUser] = useState(
     JSON.parse(localStorage.getItem("user") || null)
   );

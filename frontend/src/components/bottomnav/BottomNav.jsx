@@ -35,7 +35,7 @@ function BottomNav(props) {
           to={"/profile"}
           href="/profile"
           value={"/profile"}
-          label={"profile"}
+          label={"Profile"}
           icon={<AccountBoxIcon />}
         />
 
@@ -43,7 +43,7 @@ function BottomNav(props) {
           to={"/matches"}
           href="/matches"
           value={"/matches"}
-          label={"matches"}
+          label={"Matches"}
           component={Link}
           icon={<PeopleAltIcon />}
         />
@@ -52,7 +52,7 @@ function BottomNav(props) {
           to={"/messages"}
           href="/messages"
           value={"/messages"}
-          label={"messages"}
+          label={"Messages"}
           icon={<MessageIcon />}
         />
 
