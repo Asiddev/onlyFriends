@@ -41,4 +41,24 @@ const clearMatches = (userId, userLiked) => {
     AND user_liked = $2
   `, [userId, userLiked])
 }
-module.exports = {getAllMatches, getMatchById, acceptMatches, declineMatches, clearMatches}
+
+const getUserMatch = (userId) => {
+  return db
+    .query(` 
+    SELECT * FROM users
+      WHERE id IN(
+      SELECT user_id FROM matches
+      WHERE user_id IN
+          (SELECT user_liked FROM matches
+          WHERE user_id = $1 
+          AND match = true)
+      AND user_liked = $1
+      AND match = true)
+  `,
+      [userId]
+    )
+    .then((data) => {
+      return data.rows;
+    });
+};
+module.exports = {getAllMatches, getMatchById, acceptMatches, declineMatches, clearMatches, getUserMatch}

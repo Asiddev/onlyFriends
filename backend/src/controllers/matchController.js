@@ -7,6 +7,10 @@ const getAllMatches = (req, res) => {
   })
 };
 
+const getUserMatch = (id) => {
+  return matchQueries.getUserMatch(id);
+};
+
 const acceptMatches = (req, res) => {
   const {user_id, user_liked} = req.body;
   matchQueries.clearMatches(user_id, user_liked)
@@ -26,5 +30,6 @@ const declineMatches = (req, res) => {
 module.exports = {
   getAllMatches,
   acceptMatches,
-  declineMatches
+  declineMatches,
+  getUserMatch
 };
