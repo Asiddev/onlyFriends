@@ -26,7 +26,7 @@ function Matches() {
   return (
     <>
     {/* everything on this page is in this main Box, think of it as a fragment */}
-    <Box sx={{ pb: 7 }}>
+    <Box sx={{ pb: 10 }}>
         <CssBaseline />
         {/* TOP NAV - TO BE REFACTORED */}
         <Box marginBottom={10}>
