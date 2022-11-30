@@ -4,6 +4,7 @@ import Register from "./home/register/Register";
 import Dashboard from "./dashboard/Dashboard";
 import Messages from "./messages/Messages";
 import Browse from "./browse/Browse";
+import Matches from "./matches/Matches";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
@@ -22,6 +23,10 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route
+            path="/matches"
+            element={<Matches value={value} setValue={setValue} />}
+          />
           <Route
             path="/messages"
             element={<Messages user={user} value={value} setValue={setValue} />}

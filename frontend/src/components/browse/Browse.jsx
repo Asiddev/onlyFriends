@@ -73,7 +73,7 @@ function Browse(props) {
 
   const navigate = useNavigate();
 
-  const fetchSimUsers = async function () {
+  const fetchSimUsers = async function() {
     if (props.user) {
       setLoading(true);
       const data = await axios.get(`/api/users/${props.user.id}/common`);
@@ -148,9 +148,10 @@ function Browse(props) {
   console.log(profileInterests);
 
   return (
-    <div>
-      <section className="sticky">
-        <div className="bubbles">
+    <>
+      {/* <section className="sticky"> */}
+        {/* <div className="bubbles"> */}
+          {/* <div className="bubble"></div>
           <div className="bubble"></div>
           <div className="bubble"></div>
           <div className="bubble"></div>
@@ -159,8 +160,7 @@ function Browse(props) {
           <div className="bubble"></div>
           <div className="bubble"></div>
           <div className="bubble"></div>
-          <div className="bubble"></div>
-          <div className="bubble"></div>
+          <div className="bubble"></div> */}
 
           <CssBaseline />
 
@@ -248,7 +248,7 @@ function Browse(props) {
                       ></Avatar>
                     }
                     title={similarUsers.length ? similarUsers[page].name : ""}
-                    // subheader={props.user.location}
+                  // subheader={props.user.location}
                   />
                   <CardMedia
                     sx={{ mx: "auto", width: 450, height: 300, boxShadow: 5 }}
@@ -281,20 +281,21 @@ function Browse(props) {
                     </Grid>
                   </CardContent>
                 </Card>
+                <br />
+                <Copyright />
               </div>
-              <Copyright />
-              <br />
+              <BottomNav
+                value={props.value}
+                setValue={props.setValue}
+                setCurrentUser={props.setCurrentUser}
+              />
             </Container>
           )}
-        </div>
-      </section>
 
-      <BottomNav
-        value={props.value}
-        setValue={props.setValue}
-        setCurrentUser={props.setCurrentUser}
-      />
-    </div>
+        {/* </div> */}
+      {/* </section> */}
+
+    </>
   );
 }
 export default Browse;
