@@ -12,6 +12,17 @@ const getUserById = (id) => {
   });
 };
 
+const getUserCommon = (id) => {
+  return db.query(`
+    SELECT * FROM users
+    WHERE ((SELECT location as user_location FROM users WHERE id = $1) LIKE location)
+    AND (id != $1);
+  `,[id])
+  .then((data) => {
+    return data.rows
+  })
+}
+
 const addUser = (email, password, name) => {
   return db.query(
     "INSERT INTO users (email, password, name) VALUES ($1, $2, $3) RETURNING *;",
@@ -34,4 +45,4 @@ const checkUserDB = (email) => {
     });
 };
 
-module.exports = { getAllUsers, getUserById, addUser, checkUserDB,  addUserProfileInfo };
+module.exports = { getAllUsers, getUserById, addUser, checkUserDB,  addUserProfileInfo, getUserCommon };

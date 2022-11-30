@@ -1,4 +1,6 @@
 const userQueries = require("../db/queries/users");
+
+
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
@@ -10,6 +12,10 @@ const getAllUsers = (req, res) => {
 
 const getUserById = (id) => {
   return userQueries.getUserById(id);
+};
+
+const getUserCommon = (id) => {
+  return userQueries.getUserCommon(id);
 };
 
 const addUser = (req, res) => {
@@ -107,6 +113,7 @@ const Logout = (req, res) => {
 module.exports = {
   getAllUsers,
   getUserById,
+  getUserCommon,
   addUser,
   addUserProfileInfo,
   Login,
