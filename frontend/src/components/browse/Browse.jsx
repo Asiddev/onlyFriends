@@ -125,6 +125,19 @@ function Browse(props) {
     );
   });
 
+  const swipeAccept = () => {
+    const matchObj = {
+      user_id: props.user.id,
+      user_liked: similarUsers[page].id
+    }
+    axios.post("api/matches/accept", matchObj);
+    // setPage((prev) => prev - 1);
+  }
+
+  const swipeReject = () => {
+    setPage((prev) => prev - 1);
+  }
+
   console.log(page);
 
   console.log(profileInterests);
@@ -205,9 +218,7 @@ function Browse(props) {
                   <Button
                     class="noselect"
                     id="button-right"
-                    onClick={(e) => {
-                      setPage((prev) => prev + 1);
-                    }}
+                    onClick={swipeAccept}
                   >
                     <CheckIcon fontSize="large" />
                     {/* <span class="icon">

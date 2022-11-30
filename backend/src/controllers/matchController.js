@@ -7,6 +7,12 @@ const getAllMatches = (req, res) => {
   })
 };
 
+const addMatches = (req, res) => {
+  const {user_id, user_liked} = req.body;
+  matchQueries.addMatches(user_id, user_liked)
+}
+
 module.exports = {
   getAllMatches,
+  addMatches,
 };
