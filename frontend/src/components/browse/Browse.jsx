@@ -34,8 +34,6 @@ function Browse(props) {
   const [endOfList, setEndOfList] = useState(false);
   const [seen, setSeen] = useState([]);
 
-
-
   const navigate = useNavigate();
 
   const fetchSimUsers = async function () {
@@ -58,7 +56,6 @@ function Browse(props) {
   };
 
   useEffect(() => {
-
     axios
       .get(`api/users/${JSON.parse(localStorage.getItem("user")).id}`)
       .then((result) => {
@@ -108,8 +105,6 @@ function Browse(props) {
     setSeen((prev) => [...prev, similarUsers[page].id]);
   };
 
-  
-
   const swipeReject = () => {
     const matchObj = {
       user_id: props.user.id,
@@ -138,16 +133,36 @@ function Browse(props) {
       </Box>
 
       {loading ? (
-        <div className="loader">
-          <div className="inner one"></div>
-          <div className="inner two"></div>
-          <div className="inner three"></div>
-        </div>
+        <>
+          <div className="loader">
+            <div className="inner one"></div>
+            <div className="inner two"></div>
+            <div className="inner three"></div>
+          </div>
+          <BottomNav
+            value={props.value}
+            setValue={props.setValue}
+            setCurrentUser={props.setCurrentUser}
+          />
+        </>
       ) : (
         <Container maxWidth="sm" className="relative">
           <div className="shadow">
             {endOfList ? (
-              "No more users"
+              <div class="page_404 body">
+                <div class="row">
+                  <div class="col-sm-12 ">
+                    <div class="contant_box_404">
+                      <h3 class="h2">No more users in your area</h3>
+
+                      <p>Please check back after some time</p>
+                    </div>
+                    <div class="col-sm-10 col-sm-offset-1  text-center">
+                      <div class="four_zero_four_bg"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             ) : (
               <Card
                 sx={{ maxWidth: "100%", height: "max-content" }}
@@ -227,7 +242,6 @@ function Browse(props) {
 
       {/* </div> */}
       {/* </section> */}
-
     </>
   );
 }
