@@ -1,94 +1,99 @@
+.savingGif {
+  background-image: url(https://i.pinimg.com/originals/66/8a/8c/668a8cccacc792924fa588b4adca8f68.gif);
+  height: 500px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .navbar-logo {
   background-color: #008ccf;
   align-items: center;
   justify-content: center;
 }
 
-.raleway {
-  font-family: "Raleway", sans-serif;
-  font-weight: 600;
-}
+// .raleway {
+//   font-family: "Raleway", sans-serif;
+//   font-weight: 600;
+// }
 
-.top-container-format {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+// .top-container-format {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
 
-.chip-spacing {
-  line-height: 2.8rem;
-}
+// .chip-spacing {
+//   line-height: 2.8rem;
+// }
 
-.danger {
-  color: red;
-}
+// .danger {
+//   color: red;
+// }
 
-.safe {
-  color: black;
-}
+// .safe {
+//   color: black;
+// }
 
-.btn-key {
-  width: 200px;
-  border-radius: 20px;
-  height: 20px;
-  margin: 20px;
-  padding: 20px;
-  background-color: lightblue;
-}
+// .btn-key {
+//   width: 200px;
+//   border-radius: 20px;
+//   height: 20px;
+//   margin: 20px;
+//   padding: 20px;
+//   background-color: lightblue;
+// }
 
 .circle-img {
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  box-shadow: 0px 0px 30px #008ccf;
+  box-shadow: 2px 2px 8px 0px #008ccf;
 }
+
 .rectangle-img {
-  width: 400px;
-  height: 200px;
-  box-shadow: 0px 0px 30px #008ccf;
-  margin-top: 20px;
+  box-shadow: 2px 2px 8px 0px #008ccf;
 }
 
-.textFieldDescription {
-  height: 200px;
-}
-
-.d-flex {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
-}
-
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-// .MuiTextField-root	{
-//   background-color: aqua;
+// .textFieldDescription {
+//   height: 200px;
 // }
 
-.formControl {
-  // background-color: #00AFF0;
-  // border-radius: 2rem;
-  // padding: 1rem;
-  text-align: center;
-}
+// .d-flex {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 20px;
+//   align-items: center;
+// }
 
-.img-button-container-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
+// .center {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-direction: column;
+// }
 
-.img-button-container-column {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+// // .MuiTextField-root	{
+// //   background-color: aqua;
+// // }
+
+// .formControl {
+//   // background-color: #00AFF0;
+//   // border-radius: 2rem;
+//   // padding: 1rem;
+//   text-align: center;
+// }
+
+// .img-button-container-row {
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-evenly;
+// }
+
+// .img-button-container-column {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+// }
 // body {
 //   background-color: #92d3f1;
 //   color: var(--fg);

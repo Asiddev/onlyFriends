@@ -14,7 +14,10 @@ function Matches(props) {
   return (
     <>
       {/* everything on this page is in this main Box, think of it as a fragment */}
-      <Box sx={{ pb: 10, border: "3px solid red" }}>
+      <Box sx={{
+        pb: 10,
+        // border: "3px solid red"
+      }}>
         <CssBaseline />
         <TopNav />
 
