@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -9,10 +9,10 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import axios from "axios";
 import MessageIcon from "@mui/icons-material/Message";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function MatchesContent() {
   const navigate = useNavigate();
@@ -20,7 +20,8 @@ function MatchesContent() {
   const [matchUpdate, setMatchUpdate] = useState(false);
 
   useEffect(() => {
-    axios.get(`api/matches/${JSON.parse(localStorage.getItem("user")).id}`)
+    axios
+      .get(`api/matches/${JSON.parse(localStorage.getItem("user")).id}`)
       .then((matches) => {
         setMatchUpdate(false);
         // console.log("matches here >>>>>", matches);
@@ -29,7 +30,6 @@ function MatchesContent() {
         // console.log("matches", matches);
       });
   }, [matchUpdate]);
-
 
   const deleteMatch = (event) => {
     // console.log("garbage clicked");
@@ -41,17 +41,17 @@ function MatchesContent() {
 
     const userObj = {
       user_id: loggedInUser,
-      user_liked: userToBeDeleted
+      user_liked: userToBeDeleted,
     };
 
-    axios.post('api/matches/delete', userObj);
+    axios.post("api/matches/delete", userObj);
     setMatchUpdate(true);
     navigate("/matches");
 
     // axios.post(`api/matches/delete`, userObj)
     //   .then(() => {
 
-    //     // currently not working 
+    //     // currently not working
     //     setTimeout(() => {
     //       navigate("/profile");
     //     }, 2000);
@@ -72,36 +72,46 @@ function MatchesContent() {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-          }}>
-
+          }}
+        >
           <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-            }}>
-            <Box
-              component="img"
-              sx={{ width: 50, height: 50, borderRadius: "100%" }}
-              alt="OnlyFriends logo"
-              src={match.profile_picture}
-            />
+            component="img"
+            sx={{ width: 50, height: 50, borderRadius: "100%" }}
+            alt="OnlyFriends logo"
+            src={match.profile_picture}
+          />
 
-            <Box sx={{ marginLeft: "2rem" }}>
-              <Typography variant='p' fontWeight="light" key={match.id}>
-                {match.name}
-              </Typography>
-            </Box>
+          <Box>
+            <Typography
+              variant="p"
+              fontWeight="light"
+              key={match.id}
+              sx={{ marginLeft: "2rem" }}
+            >
+              {match.name}
+            </Typography>
           </Box>
 
           <Box>
-            <Button variant='contained' color="secondary" sx={{ marginLeft: "3rem", marginRight: "1rem" }} onClick={() => { console.log("message button clicked"); }}>
+            <Button
+              variant="contained"
+              color="secondary"
+              sx={{ marginLeft: "3rem", marginRight: "1rem" }}
+              onClick={() => {
+                console.log("message button clicked");
+              }}
+            >
               <MessageIcon />
             </Button>
-            <Button value={match.id} variant='contained' color="secondary" onClick={deleteMatch}>
+            <Button
+              value={match.id}
+              variant="contained"
+              color="secondary"
+              onClick={deleteMatch}
+            >
               <DeleteIcon />
             </Button>
           </Box>
-
         </Box>
       </React.Fragment >
     );
@@ -111,29 +121,23 @@ function MatchesContent() {
     <>
       <Container maxWidth="md"
         sx={{
-          // border: "3px dashed blue"
-        }}>
-        <Box
-          sx={{
-            borderRadius: "1.75rem",
-            backgroundColor: "#E4F8FF",
-            // border: "3px solid red",
-            padding: "2rem"
-          }}
+          width: 566,
+          borderRadius: "1.75rem",
+          backgroundColor: "#E4F8FF",
+          // border: "3px solid red",
+          padding: "2rem",
+        }}
+      >
+        <Typography
+          variant="h4"
+          color="#008CCF"
+          align="center"
+          marginBottom="2rem"
         >
-          <Typography
-            variant='h4'
-            color="#008CCF"
-            align='center'
-            marginBottom="2rem"
-          >
-            Matches
-          </Typography>
+          Matches
+        </Typography>
 
-          <Typography variant='h5'>
-            {matchesList}
-          </Typography>
-        </Box>
+        <Typography variant="h5">{matchesList}</Typography>
       </Container>
     </>
   );

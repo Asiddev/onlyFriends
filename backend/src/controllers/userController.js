@@ -1,6 +1,5 @@
 const userQueries = require("../db/queries/users");
 
-
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
@@ -20,7 +19,6 @@ const getUserCommon = (id) => {
 
 const addUser = (req, res) => {
   userQueries.checkUserDB(req.body.email).then((user) => {
-
     const { email, password, password_confirmation, name } = req.body;
 
     if (user) {
@@ -39,12 +37,10 @@ const addUser = (req, res) => {
     const salt = bcrypt.genSaltSync(saltRounds);
     const hash = bcrypt.hashSync(password, salt);
 
-    userQueries
-      .addUser(email, hash, name)
-      .then((data) => {
-        console.log(data.rows[0]);
-        return data.rows[0];
-      });
+    userQueries.addUser(email, hash, name).then((data) => {
+      console.log(data.rows[0]);
+      return data.rows[0];
+    });
 
     return res.status(201).redirect("/");
   });
