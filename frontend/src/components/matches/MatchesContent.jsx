@@ -5,6 +5,7 @@ import {
   Card,
   CardActions,
   CardContent,
+  Container,
   Button,
   Typography,
 } from "@mui/material";
@@ -102,60 +103,30 @@ function MatchesContent() {
 
   return (
     <>
-      <Box
-        sx={{
-          width: 566,
-          borderRadius: "1.75rem",
-          backgroundColor: "#E4F8FF",
-          // border: "3px solid red",
-          padding: "2rem"
-        }}
-      >
-        {/* <Card
-          variant="outlined"
+      <Container maxWidth="sm" sx={{ border: "3px solid pink" }}>
+        <Box
           sx={{
-            border: "3px solid pink",
-            maxWidth: 420,
+            width: 566,
+            borderRadius: "1.75rem",
+            backgroundColor: "#E4F8FF",
+            // border: "3px solid red",
+            padding: "2rem"
           }}
         >
-          <CardContent>
-            <Typography
-              sx={{ fontSize: 14 }}
-              color="text.secondary"
-              gutterBottom
-            >
-              Word of the Day
-            </Typography>
-            <Typography variant="h5" component="div">
-              be•nev•o•lent
-            </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              adjective
-            </Typography>
-            <Typography variant="body2">
-              well meaning and kindly.
-              <br />
-              {'"a benevolent smile"'}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Learn More</Button>
-          </CardActions>
-        </Card> */}
+          <Typography
+            variant='h4'
+            color="#008CCF"
+            align='center'
+            marginBottom="2rem"
+          >
+            Matches
+          </Typography>
 
-        <Typography
-          variant='h4'
-          color="#008CCF"
-          align='center'
-          marginBottom="2rem"
-        >
-          Matches
-        </Typography>
-
-        <Typography variant='h5'>
-          {matchesList}
-        </Typography>
-      </Box>
+          <Typography variant='h5'>
+            {matchesList}
+          </Typography>
+        </Box>
+      </Container>
     </>
   );
 }

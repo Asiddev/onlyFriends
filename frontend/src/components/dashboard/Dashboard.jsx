@@ -23,6 +23,7 @@ import ItemList from "../../components/dashboard/ItemList";
 import "../../styles/animations.scss";
 import BottomNav from "../bottomnav/BottomNav.jsx";
 import TopNav from "../topnav/TopNav.jsx";
+import Copyright from "../Copyright.jsx";
 
 function Dashboard(props) {
   //Refactor state like scheduler if time permits
@@ -216,183 +217,45 @@ function Dashboard(props) {
           </div>
         </>
       ) : (
-        <div>
-          <CssBaseline />
-          <TopNav />
-          <Box
-            component="form"
-            onSubmit={postProfile}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <Container maxWidth="sm">
-              <Typography
-                variant="h4"
-                align="center"
-                color="text.primary"
-                gutterBottom
-              >
-                Profile Setup
-              </Typography>
-              <Typography
-                variant="p"
-                align="center"
-                color="text.secondary"
-                paragraph
-              >
-                Provide the necessary information to start finding like-minded
-                people!
-              </Typography>
-            </Container>
-            <div className="center">
-              {error && (
-                <Alert severity="error">
-                  <AlertTitle>Error</AlertTitle>
-                  {error}
-                </Alert>
-              )}
-            </div>
+        <>
+          {/* everything on this page is in this main Box, think of it as a fragment */}
+          <Box sx={{ pb: 10 }}>
+            <CssBaseline />
+            <TopNav />
 
-            <Container maxWidth="sm" className="text-center">
-              <div className="d-flex">
-                <Typography variant="p">Upload a profile picture</Typography>
-                <img
-                  className="circle-img"
-                  src={profilePreview}
-                  alt="profile pic"
-                />
-                <Button variant="contained" component="label" color="secondary">
-                  Upload Photo
-                  <input
-                    type="file"
-                    accept="image/*"
-                    name="profile_picture"
-                    onChange={profileImageChange}
-                    hidden
-                  />
-                </Button>
-              </div>
-            </Container>
-
-            <div className="top-container-format">
-              <div>
-                <Container maxWidth="sm">
-                  <div className="center">
-                    <span>
-                      <Typography variant="p">
-                        Bio &nbsp; &nbsp; &nbsp; &nbsp;
-                      </Typography>{" "}
-                      &nbsp;&nbsp;
-                      <TextField
-                        style={{ width: "350px", height: "55px" }}
-                        multiline={true}
-                        rows={3}
-                        label="Bio"
-                        name="Bio"
-                        value={bio}
-                        onChange={bioUpdater}
-                        placeholder="e.g. I love long walks to the fridge"
-                      ></TextField>
-                    </span>
-                    <br />
-                    <br />
-                    <Typography
-                      className={bioLength >= 0 ? "safe" : "danger"}
-                      variant="h6"
-                    >
-                      {bioLength}
-                    </Typography>
-                  </div>
-                </Container>
-
-                <br />
-
-                <Container maxWidth="sm">
-                  <div className="center">
-                    <Typography variant="p">
-                      Location &nbsp; &nbsp;
-                      <Autocomplete
-                        className="MuiTextField-root"
-                        name="Location"
-                        placeholder={
-                          fetchingLocation
-                            ? "Fetching Location..."
-                            : "Location here"
-                        }
-                        apiKey={process.env.REACT_APP_MY_API_KEY}
-                        style={{ width: "350px", height: "55px" }}
-                        onPlaceSelected={(place) => {
-                          setLocation(place["formatted_address"]);
-                        }}
-                        options={{
-                          types: ["(regions)"],
-                          componentRestrictions: { country: "ca" },
-                        }}
-                        defaultValue={location}
-                      />
-                    </Typography>
-                  </div>
-                </Container>
-              </div>
-
-              <br />
-
-              <Container maxWidth="sm">
-                <div className="center">
-                  <div>
-                    <img
-                      className="rectangle-img"
-                      src={bannerPreview}
-                      alt="banner pic"
-                    />
-                  </div>
-                  <br />
-                  <Button
-                    variant="contained"
-                    component="label"
-                    color="secondary"
+            {/* THIS IS THE MAIN BODY - BETWEEN THE TOP NAV AND BOTTOM NAV */}
+            <>
+              <Container maxWidth="sm" sx={{ border: "3px solid pink" }}>
+                <Box
+                  sx={{
+                    width: 566,
+                    borderRadius: "1.75rem",
+                    backgroundColor: "#E4F8FF",
+                    // border: "3px solid red",
+                    padding: "2rem"
+                  }}
+                >
+                  <Typography
+                    variant='h4'
+                    color="#008CCF"
+                    align='center'
+                    marginBottom="2rem"
                   >
-                    Upload Banner
-                    <input
-                      type="file"
-                      accept="image/*"
-                      name="banner_picture"
-                      onChange={bannerImageChange}
-                      hidden
-                    />
-                  </Button>
-                </div>
+                    Profile Setup
+                  </Typography>
+
+                  <Typography variant='h5'>
+                    matchesList wouldve been here
+                  </Typography>
+                </Box>
               </Container>
-            </div>
+            </>
 
             <br />
-
-            <Container maxWidth="md" className="chip-spacing">
-              <div className="center">
-                <Typography variant="p">
-                  Select atleast one interest that applies to you
-                </Typography>
-
-                <div className="formControl">
-                  <FormControl>
-                    <ItemList picked={picked} setPicked={setPicked} />
-                  </FormControl>
-                </div>
-              </div>
-              <br />
-              <div className="center">
-                <Button variant="contained" type="submit" color="secondary">
-                  Save
-                </Button>
-              </div>
-            </Container>
+            <Copyright />
+            <BottomNav value={props.value} setValue={props.setValue} />
           </Box>
-
-          <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
-            {/* Test for Alex logout */}
-          </Box>
-          <BottomNav value={props.value} setValue={props.setValue} />
-        </div>
+        </>
       )}
     </>
   );

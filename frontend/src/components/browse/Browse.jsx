@@ -36,7 +36,7 @@ function Browse(props) {
 
   const navigate = useNavigate();
 
-  const fetchSimUsers = async function () {
+  const fetchSimUsers = async function() {
     if (props.user) {
       setLoading(true);
       const data = await axios.get(`/api/users/${props.user.id}/common`);
@@ -197,7 +197,7 @@ function Browse(props) {
                     ></Avatar>
                   }
                   title={similarUsers.length ? similarUsers[page].name : ""}
-                  // subheader={props.user.location}
+                // subheader={props.user.location}
                 />
                 <CardMedia
                   sx={{ mx: "auto", width: 450, height: 300, boxShadow: 5 }}
@@ -239,9 +239,6 @@ function Browse(props) {
           />
         </Container>
       )}
-
-      {/* </div> */}
-      {/* </section> */}
     </>
   );
 }
