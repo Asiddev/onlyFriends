@@ -206,7 +206,7 @@ function Dashboard(props) {
         <>
           <TopNav />
           <span className="center savingGif" color="primary">
-            Saving...
+            {/* Saving... */}
           </span>
           <div className="book">
             <div className="book__pg-shadow"></div>
