@@ -435,7 +435,7 @@ function Dashboard(props) {
                               : "Location here"
                           }
                           apiKey={process.env.REACT_APP_MY_API_KEY}
-                          style={{ width: "350px", height: "55px" }}
+                          style={{ width: "350px", height: "55px", backgroundColor: "#E4F8FF", border: "1px solid #AFBFC4", borderRadius: "0.3rem" }}
                           onPlaceSelected={(place) => {
                             setLocation(place["formatted_address"]);
                           }}
