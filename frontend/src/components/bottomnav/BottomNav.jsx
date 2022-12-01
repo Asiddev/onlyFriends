@@ -6,8 +6,20 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import MessageIcon from "@mui/icons-material/Message";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "@mui/material";
+import Logout from "@mui/icons-material/Logout";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function BottomNav(props) {
+  const navigate = useNavigate();
+  const logOut = (event) => {
+    event.preventDefault();
+    axios.get("/api/users/logout").then(() => {
+      localStorage.removeItem("user");
+      props.setCurrentUser(null);
+      navigate("/login");
+    });
+  };
   return (
     <Paper
       sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
@@ -54,7 +66,11 @@ function BottomNav(props) {
           icon={<MessageIcon />}
         />
 
-        <BottomNavigationAction label="Logout" icon={<LogoutIcon />} />
+        <BottomNavigationAction
+          label="Logout"
+          icon={<LogoutIcon />}
+          onClick={logOut}
+        />
       </BottomNavigation>
     </Paper>
   );

@@ -31,19 +31,27 @@ function Browse(props) {
   const [similarUsers, setSimilarUsers] = useState([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [endOfList, setEndOfList] = useState(false);
+  const [seen, setSeen] = useState([]);
 
 
 
   const navigate = useNavigate();
 
-  const fetchSimUsers = async function() {
+  const fetchSimUsers = async function () {
     if (props.user) {
       setLoading(true);
       const data = await axios.get(`/api/users/${props.user.id}/common`);
 
-      console.log(data);
+      for (let user of data.data) {
+        if (seen.includes(user.id)) {
+          console.log(`yup saw ${user.name}`);
+        }
+      }
+
       setSimilarUsers(data.data);
     }
+
     setTimeout(() => {
       setLoading(false);
     }, 500);
@@ -67,15 +75,6 @@ function Browse(props) {
     });
   }, []);
 
-  const logOut = (event) => {
-    event.preventDefault();
-    axios.get("/api/users/logout").then(() => {
-      localStorage.removeItem("user");
-      props.setCurrentUser(null);
-      navigate("/login");
-    });
-  };
-
   const renderInterestList = profileInterests.map((interest) => {
     return (
       <Button
@@ -92,10 +91,21 @@ function Browse(props) {
   const swipeAccept = () => {
     const matchObj = {
       user_id: props.user.id,
-      user_liked: similarUsers[page].id
+      user_liked: similarUsers[page].id,
     };
     axios.post("api/matches/accept", matchObj);
+    console.log("inside swipe", page);
+    let lookedAt = [];
+    lookedAt.push(similarUsers[page].id);
+
+    console.log(loading, page, similarUsers.length - 1);
+    if (page === similarUsers.length - 1) {
+      console.log("papa");
+      setEndOfList(true);
+    }
+
     setPage((prev) => prev + 1);
+    setSeen((prev) => [...prev, similarUsers[page].id]);
   };
 
   
@@ -103,9 +113,11 @@ function Browse(props) {
   const swipeReject = () => {
     const matchObj = {
       user_id: props.user.id,
-      user_liked: similarUsers[page].id
+      user_liked: similarUsers[page].id,
     };
+
     axios.post("api/matches/reject", matchObj);
+<<<<<<< HEAD
     setPage((prev) => page == similarUsers.length - 1 ? console.log('thats it') : page + 1) 
   };
 
@@ -113,6 +125,11 @@ function Browse(props) {
 
   console.log(profileInterests);
 
+=======
+    setPage((prev) => prev - 1);
+  };
+
+>>>>>>> render_no_more_users
   return (
     <>
       <CssBaseline />
@@ -139,20 +156,19 @@ function Browse(props) {
       ) : (
         <Container maxWidth="sm" className="relative">
           <div className="shadow">
-            <Card
-              sx={{ maxWidth: "100%", height: "max-content" }}
-              className="block padding"
-              style={{
-                backgroundColor: "#E4F8FF",
-                borderRadius: "1.75rem",
-                paddingBottom: "0",
-              }}
-            >
-              <Button
-                class="noselect"
-                id="button-left"
-                onClick={swipeReject}
+            {endOfList ? (
+              "No more users"
+            ) : (
+              <Card
+                sx={{ maxWidth: "100%", height: "max-content" }}
+                className="block padding"
+                style={{
+                  backgroundColor: "#E4F8FF",
+                  borderRadius: "1.75rem",
+                  paddingBottom: "0",
+                }}
               >
+<<<<<<< HEAD
                 <CloseIcon fontSize="large" />
               </Button>
               <Button
@@ -174,53 +190,64 @@ function Browse(props) {
                     </svg>
                   </span> */}
               </Button>
+=======
+                <Button class="noselect" id="button-left" onClick={swipeReject}>
+                  <CloseIcon fontSize="large" />
+                </Button>
+                <Button
+                  class="noselect"
+                  id="button-right"
+                  onClick={swipeAccept}
+                >
+                  <CheckIcon fontSize="large" />
+                </Button>
+>>>>>>> render_no_more_users
 
-              <CardHeader
-                className="top-container-name"
-                avatar={
-                  <Avatar
-                    src={
-                      similarUsers.length
-                        ? similarUsers[page].profile_picture
-                        : ""
-                    }
-                    sx={{ bgcolor: red[300] }}
-                  ></Avatar>
-                }
-                title={similarUsers.length ? similarUsers[page].name : ""}
-              // subheader={props.user.location}
-              />
-              <CardMedia
-                sx={{ mx: "auto", width: 450, height: 300, boxShadow: 5 }}
-                component="img"
-                image={
-                  similarUsers.length
-                    ? similarUsers[page].banner_picture
-                    : ""
-                }
-                alt="banner_picture"
-              />
-              <br />
-              <Typography variant="h5">
-                <RoomIcon />
-                {similarUsers.length ? similarUsers[page].location : ""}
-              </Typography>
-              <br />
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                className="center wrap"
-              >
-                {similarUsers.length ? similarUsers[page].description : ""}
-              </Typography>
-              <br />
-              <Typography variant="h5">Interests:</Typography>
-              <CardContent className="center">
-                <Grid container className="interests-container">
-                  <Grid item>{profileInterests && renderInterestList}</Grid>
-                </Grid>
-              </CardContent>
-            </Card>
+                <CardHeader
+                  className="top-container-name"
+                  avatar={
+                    <Avatar
+                      src={
+                        similarUsers.length
+                          ? similarUsers[page].profile_picture
+                          : ""
+                      }
+                      sx={{ bgcolor: red[300] }}
+                    ></Avatar>
+                  }
+                  title={similarUsers.length ? similarUsers[page].name : ""}
+                  // subheader={props.user.location}
+                />
+                <CardMedia
+                  sx={{ mx: "auto", width: 450, height: 300, boxShadow: 5 }}
+                  component="img"
+                  image={
+                    similarUsers.length ? similarUsers[page].banner_picture : ""
+                  }
+                  alt="banner_picture"
+                />
+                <br />
+                <Typography variant="h5">
+                  <RoomIcon />
+                  {similarUsers.length ? similarUsers[page].location : ""}
+                </Typography>
+                <br />
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  className="center wrap"
+                >
+                  {similarUsers.length ? similarUsers[page].description : ""}
+                </Typography>
+                <br />
+                <Typography variant="h5">Interests:</Typography>
+                <CardContent className="center">
+                  <Grid container className="interests-container">
+                    <Grid item>{profileInterests && renderInterestList}</Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            )}
             <br />
             <Copyright />
           </div>
