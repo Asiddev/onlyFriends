@@ -16,16 +16,16 @@ import DeleteIcon from '@mui/icons-material/Delete';
 function MatchesContent() {
   const navigate = useNavigate();
   const [matches, setMatches] = useState([]);
-  const [matchUpdate, setMatchUpdate] = useState(false)
+  const [matchUpdate, setMatchUpdate] = useState(false);
 
   useEffect(() => {
     axios.get(`api/matches/${JSON.parse(localStorage.getItem("user")).id}`)
       .then((matches) => {
-        setMatchUpdate(false)
+        setMatchUpdate(false);
         // console.log("matches here >>>>>", matches);
         // console.log("matches.data", matches.data);
         setMatches(matches.data);
-        console.log("matches", matches);
+        // console.log("matches", matches);
       });
   }, [matchUpdate]);
 
@@ -43,7 +43,7 @@ function MatchesContent() {
       user_liked: userToBeDeleted
     };
 
-    axios.post('api/matches/delete', userObj)
+    axios.post('api/matches/delete', userObj);
     setMatchUpdate(true);
     navigate("/matches");
 
@@ -60,17 +60,18 @@ function MatchesContent() {
 
   const matchesList = matches.map((match) => {
     return (
-      <>
-        <Box sx={{
-          marginBottom: "1rem",
-          padding: "1rem",
-          borderRadius: "1rem",
-          backgroundColor: "#4285F4",
-          color: "white",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}>
+      <React.Fragment key={match.id}>
+        <Box
+          sx={{
+            marginBottom: "1rem",
+            padding: "1rem",
+            borderRadius: "1rem",
+            backgroundColor: "#4285F4",
+            color: "white",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}>
 
           <Box
             component="img"
@@ -80,7 +81,9 @@ function MatchesContent() {
           />
 
           <Box>
-            <Typography variant='p' fontWeight="light" key={match.id} sx={{ marginLeft: "2rem" }}>{match.name}</Typography>
+            <Typography variant='p' fontWeight="light" key={match.id} sx={{ marginLeft: "2rem" }}>
+              {match.name}
+            </Typography>
           </Box>
 
           <Box>
@@ -93,7 +96,7 @@ function MatchesContent() {
           </Box>
 
         </Box>
-      </>
+      </React.Fragment>
     );
   });
 
@@ -139,6 +142,15 @@ function MatchesContent() {
             <Button size="small">Learn More</Button>
           </CardActions>
         </Card> */}
+
+        <Typography
+          variant='h4'
+          color="#008CCF"
+          align='center'
+          marginBottom="2rem"
+        >
+          Matches
+        </Typography>
 
         <Typography variant='h5'>
           {matchesList}
