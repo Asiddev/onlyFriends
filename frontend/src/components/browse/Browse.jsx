@@ -32,6 +32,8 @@ function Browse(props) {
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
 
+
+
   const navigate = useNavigate();
 
   const fetchSimUsers = async function() {
@@ -48,6 +50,7 @@ function Browse(props) {
   };
 
   useEffect(() => {
+
     axios
       .get(`api/users/${JSON.parse(localStorage.getItem("user")).id}`)
       .then((result) => {
@@ -95,16 +98,18 @@ function Browse(props) {
     setPage((prev) => prev + 1);
   };
 
+  
+
   const swipeReject = () => {
     const matchObj = {
       user_id: props.user.id,
       user_liked: similarUsers[page].id
     };
     axios.post("api/matches/reject", matchObj);
-    setPage((prev) => prev + 1);
+    setPage((prev) => page == similarUsers.length - 1 ? console.log('thats it') : page + 1) 
   };
 
-  console.log(page);
+
 
   console.log(profileInterests);
 
@@ -156,6 +161,18 @@ function Browse(props) {
                 onClick={swipeAccept}
               >
                 <CheckIcon fontSize="large" />
+                {/* <span class="icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-arrow-up-right-circle-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M0 8a8 8 0 1 0 16 0A8 8 0 0 0 0 8zm5.904 2.803a.5.5 0 1 1-.707-.707L9.293 6H6.525a.5.5 0 1 1 0-1H10.5a.5.5 0 0 1 .5.5v3.975a.5.5 0 0 1-1 0V6.707l-4.096 4.096z" />
+                    </svg>
+                  </span> */}
               </Button>
 
               <CardHeader
@@ -214,6 +231,10 @@ function Browse(props) {
           />
         </Container>
       )}
+
+      {/* </div> */}
+      {/* </section> */}
+
     </>
   );
 }
