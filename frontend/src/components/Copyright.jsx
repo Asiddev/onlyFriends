@@ -11,10 +11,21 @@ function Copyright() {
       >
         <Link color="inherit" href="https://github.com/Asiddev/onlyFriends">
           OnlyFriends
-        </Link>{" "}
-        {"© Nico Hernandez, Alex Sidor, Kevin Lee. "}
+        </Link>
+        {" © "}
+        <Link color="inherit" href="https://github.com/nicohsfu">
+          Nico Hernandez
+        </Link>
+        {", "}
+        <Link color="inherit" href="https://github.com/Asiddev">
+          Alex Sidor
+        </Link>
+        {", "}
+        <Link color="inherit" href="https://github.com/jhssttj">
+          Kevin Lee
+        </Link>
+        {". "}
         {new Date().getFullYear()}
-        {"."}
       </Typography>
     </>
   );
