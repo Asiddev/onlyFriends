@@ -117,19 +117,9 @@ function Browse(props) {
     };
 
     axios.post("api/matches/reject", matchObj);
-<<<<<<< HEAD
-    setPage((prev) => page == similarUsers.length - 1 ? console.log('thats it') : page + 1) 
-  };
-
-
-
-  console.log(profileInterests);
-
-=======
     setPage((prev) => prev - 1);
   };
 
->>>>>>> render_no_more_users
   return (
     <>
       <CssBaseline />
@@ -168,29 +158,6 @@ function Browse(props) {
                   paddingBottom: "0",
                 }}
               >
-<<<<<<< HEAD
-                <CloseIcon fontSize="large" />
-              </Button>
-              <Button
-                class="noselect"
-                id="button-right"
-                onClick={swipeAccept}
-              >
-                <CheckIcon fontSize="large" />
-                {/* <span class="icon">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-arrow-up-right-circle-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M0 8a8 8 0 1 0 16 0A8 8 0 0 0 0 8zm5.904 2.803a.5.5 0 1 1-.707-.707L9.293 6H6.525a.5.5 0 1 1 0-1H10.5a.5.5 0 0 1 .5.5v3.975a.5.5 0 0 1-1 0V6.707l-4.096 4.096z" />
-                    </svg>
-                  </span> */}
-              </Button>
-=======
                 <Button class="noselect" id="button-left" onClick={swipeReject}>
                   <CloseIcon fontSize="large" />
                 </Button>
@@ -201,7 +168,6 @@ function Browse(props) {
                 >
                   <CheckIcon fontSize="large" />
                 </Button>
->>>>>>> render_no_more_users
 
                 <CardHeader
                   className="top-container-name"
