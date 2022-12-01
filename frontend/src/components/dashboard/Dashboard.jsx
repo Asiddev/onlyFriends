@@ -225,13 +225,12 @@ function Dashboard(props) {
 
             {/* THIS IS THE MAIN BODY - BETWEEN THE TOP NAV AND BOTTOM NAV */}
             <>
-              <Container maxWidth="sm" sx={{ border: "3px solid pink" }}>
+              <Container maxWidth="md" sx={{ border: "6px dashed pink" }}>
                 <Box
                   sx={{
-                    width: 566,
-                    borderRadius: "1.75rem",
+
                     backgroundColor: "#E4F8FF",
-                    // border: "3px solid red",
+                    border: "3px solid red",
                     padding: "2rem"
                   }}
                 >

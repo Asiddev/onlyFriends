@@ -75,16 +75,22 @@ function MatchesContent() {
           }}>
 
           <Box
-            component="img"
-            sx={{ width: 50, height: 50, borderRadius: "100%" }}
-            alt="OnlyFriends logo"
-            src={match.profile_picture}
-          />
+            sx={{
+              display: "flex",
+              alignItems: "center",
+            }}>
+            <Box
+              component="img"
+              sx={{ width: 50, height: 50, borderRadius: "100%" }}
+              alt="OnlyFriends logo"
+              src={match.profile_picture}
+            />
 
-          <Box>
-            <Typography variant='p' fontWeight="light" key={match.id} sx={{ marginLeft: "2rem" }}>
-              {match.name}
-            </Typography>
+            <Box sx={{ marginLeft: "2rem" }}>
+              <Typography variant='p' fontWeight="light" key={match.id}>
+                {match.name}
+              </Typography>
+            </Box>
           </Box>
 
           <Box>
@@ -97,16 +103,15 @@ function MatchesContent() {
           </Box>
 
         </Box>
-      </React.Fragment>
+      </React.Fragment >
     );
   });
 
   return (
     <>
-      <Container maxWidth="sm" sx={{ border: "3px solid pink" }}>
+      <Container maxWidth="md" sx={{ border: "3px dashed blue" }}>
         <Box
           sx={{
-            width: 566,
             borderRadius: "1.75rem",
             backgroundColor: "#E4F8FF",
             // border: "3px solid red",
