@@ -261,7 +261,7 @@ function Dashboard(props) {
                   src={profilePreview}
                   alt="profile pic"
                 />
-                <Button variant="outlined" component="label" color="secondary">
+                <Button variant="contained" component="label" color="secondary">
                   Upload Photo
                   <input
                     type="file"
@@ -348,7 +348,7 @@ function Dashboard(props) {
                   </div>
                   <br />
                   <Button
-                    variant="outlined"
+                    variant="contained"
                     component="label"
                     color="secondary"
                   >
@@ -381,7 +381,7 @@ function Dashboard(props) {
               </div>
               <br />
               <div className="center">
-                <Button variant="outlined" type="submit" color="secondary">
+                <Button variant="contained" type="submit" color="secondary">
                   Save
                 </Button>
               </div>
