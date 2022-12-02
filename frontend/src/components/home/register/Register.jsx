@@ -1,5 +1,8 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, db, storage } from "../../../configAPI/firebase.js";
+import { doc, setDoc } from "firebase/firestore";
 import "./Register.scss";
 import "../../../styles/animations.scss";
 import {
@@ -27,7 +30,7 @@ function Register() {
   const navigator = useNavigate();
   const [error, setError] = React.useState("");
 
-  const validator = (event) => {
+  const validator = async (event) => {
     setError("");
     event.preventDefault();
     const newData = new FormData(event.currentTarget);
@@ -45,17 +48,35 @@ function Register() {
       password: newData.get("password"),
       password_confirmation: newData.get("password_confirmation"),
     };
-
-    axios
-      .post("/api/users", newDataObj)
-      .then((data) => {
-        console.log("success!");
-        navigator("/login");
+    
+    //Insert user info into firebase auth database
+    try{
+      const res = await createUserWithEmailAndPassword(auth, newDataObj.email, newDataObj.password)
+      
+      await updateProfile(res.user, {
+        displayName: newDataObj.name
       })
-      .catch((err) => {
-        console.log(err);
-        setError(err.response.data);
-      });
+      await setDoc(doc(db, "users", res.user.uid), {
+        uid: res.user.uid,
+        displayName: res.user.displayName,
+        email: res.user.email
+      })
+      await setDoc(doc(db,"userChats", res.user.uid), {});
+      
+    } catch(err) {
+      console.log(err);
+    }
+    
+        axios.post("/api/users", newDataObj)
+          .then((data) => {
+            console.log("success!");
+            navigator("/login");
+          })
+          .catch((err) => {
+            console.log(err);
+            setError(err.response.data);
+          });
+    
   };
 
   function isValidEmail(email) {
