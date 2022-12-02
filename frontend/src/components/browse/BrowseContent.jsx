@@ -1,10 +1,5 @@
 import {
-  Avatar,
   Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardMedia,
   Grid,
   Typography,
   Box,
@@ -14,8 +9,6 @@ import React from "react";
 import RoomIcon from "@mui/icons-material/Room";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-import Copyright from "../Copyright";
-import { display } from "@mui/system";
 
 function BrowseContent(props) {
   const {
