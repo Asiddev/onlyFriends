@@ -33,7 +33,8 @@ function MatchesContent() {
 
   const goToMsg = (event) => {
     const email = event.currentTarget.value;
-    navigate("/messages", {state:{email: email}} );
+    const matchId = (event.currentTarget.getAttribute("matchid"));
+    navigate("/messages", {state:{email: email, matchId: matchId}} );
   }
 
   const deleteMatch = (event) => {
@@ -103,6 +104,7 @@ function MatchesContent() {
               color="secondary"
               test="test"
               value={match.email}
+              matchid={match.id}
               sx={{ marginLeft: "3rem", marginRight: "1rem" }}
               onClick={goToMsg}
             >

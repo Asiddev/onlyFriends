@@ -41,7 +41,7 @@ import { db, auth } from "../../configAPI/firebase";
 function Messages(props) {
   const [profileInterests, setProfileInterest] = useState([]);
   const {state} = useLocation();
-  const {email}= state;
+  const {email, matchId}= state;
   const navigate = useNavigate();
   
   //Kevins state for test of message feature
@@ -54,6 +54,8 @@ function Messages(props) {
 
   const[senderName, setSenderName] = useState(currentUser.displayName);
   const[senderUid, setSenderUid] = useState(currentUser.uid);
+
+  const[reciever, setReciever] = useState(null);
 
   //Kevins function for test of message feature
   
@@ -112,7 +114,13 @@ function Messages(props) {
 
   //Render the search feature once to get the user data
   useEffect(() => {
-      handleSearch()
+    Promise.all([
+      handleSearch(),
+      axios.get(`/api/users/${Number(matchId)}`)
+    ])
+    .then((result) => {
+      setReciever(result[1].data[0]);
+    })
   },[]);
 
   const logOut = (event) => {
@@ -143,15 +151,6 @@ function Messages(props) {
           sx={{
             // border: "3px dashed blue"
           }}>
-            <MessageBox
-              chatUid = {chatUid}
-              />
-            <Input
-              senderUid = {senderUid}
-              recieverUid = {recieverUid} 
-              senderName = {senderName}
-              chatUid = {chatUid}
-            />
           <Box
             sx={{
               borderRadius: "1.75rem",
@@ -170,8 +169,19 @@ function Messages(props) {
             </Typography>
 
             <Typography variant='h5'>
-              stuff - this blue card should replace the white card above
+              You are currently talking too {reciever.name}
+              Insert image here currently not displayed due to size, but nico and alex will do it.
             </Typography>
+
+            <MessageBox
+              chatUid = {chatUid}
+              />
+            <Input
+              senderUid = {senderUid}
+              recieverUid = {recieverUid} 
+              senderName = {senderName}
+              chatUid = {chatUid}
+            />
           </Box>
         </Container>
 
