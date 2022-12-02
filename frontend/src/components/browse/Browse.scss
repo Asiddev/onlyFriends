@@ -75,15 +75,23 @@
   background-color: rgba(228, 217, 217, 0.371);
 }
 
+.button-left-color {
+  background-color: #FF8D8D;
+  color: white;
+  border: none;
+}
+
+.button-right-color {
+  background-color: #72AE78;
+  color: white;
+  border: none;
+}
+
 #button-left {
   opacity: 80%;
   position: absolute;
-  bottom: 100px;
-  left: 132px;
-  // top: 220px;
-  // left: 0;
-  // top: 360px;
-  // left: 650px;
+  top: 360px;
+  left: 650px;
   width: 50px;
   height: 80px;
   cursor: pointer;
@@ -132,10 +140,8 @@
 #button-right {
   opacity: 80%;
   position: absolute;
-  // top: 220px;
-  // right: 0;
-  // top: 360px;
-  // right: 650px;
+  top: 360px;
+  right: 650px;
   width: 50px;
   height: 80px;
   cursor: pointer;
