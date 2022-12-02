@@ -145,39 +145,44 @@ function Messages(props) {
         <BottomNav value={props.value} setValue={props.setValue} />
       </div>
 
-
       {/* NEW CODE BELOW - replace entire return block above */}
       {/* everything on this page is in this main Box, think of it as a fragment */}
-      <Box sx={{
-        pb: 10,
-        // border: "3px solid red"
-      }}>
+      <Box
+        sx={{
+          pb: 10,
+          // border: "3px solid red"
+        }}
+      >
         <CssBaseline />
         <TopNav />
 
         {/* THIS IS THE MAIN BODY - BETWEEN THE TOP NAV AND BOTTOM NAV */}
-        <Container maxWidth="md"
-          sx={{
-            // border: "3px dashed blue"
-          }}>
+        <Container
+          maxWidth="md"
+          sx={
+            {
+              // border: "3px dashed blue"
+            }
+          }
+        >
           <Box
             sx={{
               borderRadius: "1.75rem",
               backgroundColor: "#E4F8FF",
               // border: "3px solid red",
-              padding: "2rem"
+              padding: "2rem",
             }}
           >
             <Typography
-              variant='h4'
+              variant="h4"
               color="#008CCF"
-              align='center'
+              align="center"
               marginBottom="2rem"
             >
               Messages
             </Typography>
 
-            <Typography variant='h5'>
+            <Typography variant="h5">
               stuff - this blue card should replace the white card above
             </Typography>
           </Box>
