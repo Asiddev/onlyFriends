@@ -1,5 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../configAPI/firebase.js";
 import {
   Alert,
   AlertTitle,
@@ -26,7 +28,7 @@ function Login(props) {
   const navigate = useNavigate();
   const [error, setError] = React.useState("");
 
-  const validator = (event) => {
+  const validator = async (event) => {
     setError("");
     event.preventDefault();
     const newData = new FormData(event.currentTarget);
@@ -35,6 +37,12 @@ function Login(props) {
       email: newData.get("email"),
       password: newData.get("password"),
     };
+
+    try{
+      await signInWithEmailAndPassword(auth, newDataObj.email, newDataObj.password)
+    } catch (err) {
+      console.log(err);
+    }
 
     axios
       .post("/api/users/login", newDataObj)
