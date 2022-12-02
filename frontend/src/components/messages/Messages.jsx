@@ -34,7 +34,7 @@ import {
   serverTimestamp,
   getDoc,
 } from "firebase/firestore";
-import { db } from "../../configAPI/firebase";
+import { db, auth } from "../../configAPI/firebase";
 
 function Messages(props) {
   const [profileInterests, setProfileInterest] = useState([]);
@@ -43,7 +43,13 @@ function Messages(props) {
   const navigate = useNavigate();
 
   //Kevins state for test of message feature
-  const[user, setUser] = useState(null);
+  const[recieverName, setRecieverName] = useState(null);
+  const[recieverUid, setRecieverUid] = useState(null);
+
+  const[senderName, setSenderName] = useState(null);
+  const[senderUid, setSenderUid] = useState(null);
+
+  const currentUser = auth.currentUser;
   //Kevins function for test of message feature
   
   //Search in database for the person we want to talk to.
@@ -56,7 +62,8 @@ function Messages(props) {
     try {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-        setUser(doc.data().displayName)
+        setRecieverName(doc.data().displayName)
+        setRecieverUid(doc.data().uid)
       });
     } catch (err) {
       console.log(err);
@@ -66,8 +73,9 @@ function Messages(props) {
   //Render the search feature once to get the user data
   useEffect(() => {
     handleSearch()
+    setSenderName(currentUser.displayName);
+    setSenderUid(currentUser.uid);
   },[]);
-
 
   const logOut = (event) => {
     event.preventDefault();
@@ -98,7 +106,10 @@ function Messages(props) {
             // border: "3px dashed blue"
           }}>
             <p>Email goes here {email}</p>
-            <p>Data from fb to get correct name displayed here: {user}</p>
+            <p>Data from fb to get correct name displayed here: {recieverName}</p>
+            <p>Data from fb to get correct uid displayed here: {recieverUid}</p>
+            <p>Logged in user name displayed here {senderName}</p>
+            <p>Logged in user uid displayed here {senderUid}</p>
           <Box
             sx={{
               borderRadius: "1.75rem",
