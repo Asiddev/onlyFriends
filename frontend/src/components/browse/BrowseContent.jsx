@@ -154,6 +154,7 @@ function BrowseContent(props) {
             <Grid item>{profileInterests && renderInterestList}</Grid>
           </Grid>
 
+          {/* 2 BUTTONS SIDE BY SIDE
           <Box sx={{
             display: 'flex',
             flexDirection: 'row',
@@ -183,7 +184,8 @@ function BrowseContent(props) {
                 <CheckIcon fontSize="large" />
               </Button>
             </Box>
-          </Box>
+          </Box> 
+          */}
 
         </Box>
 
