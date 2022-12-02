@@ -19,13 +19,15 @@ import {
 import axios from "axios";
 import "../../../styles/animations.scss";
 import Copyright from "../../Copyright";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../configAPI/firebase.js";
 
 function LeftLoginSection(props) {
   const theme = createTheme();
   const navigate = useNavigate();
   const [error, setError] = React.useState("");
 
-  const validator = (event) => {
+  const validator = async (event) => {
     setError("");
     event.preventDefault();
     const newData = new FormData(event.currentTarget);
@@ -34,6 +36,12 @@ function LeftLoginSection(props) {
       email: newData.get("email"),
       password: newData.get("password"),
     };
+
+    try{
+      await signInWithEmailAndPassword(auth, newDataObj.email, newDataObj.password)
+    } catch (err) {
+      console.log(err);
+    }
 
     axios
       .post("/api/users/login", newDataObj)

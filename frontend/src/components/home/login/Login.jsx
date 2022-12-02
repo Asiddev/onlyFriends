@@ -3,7 +3,9 @@ import { Box } from "@mui/material";
 import LeftLoginSection from "./LeftLoginSection";
 import RightLoginSection from "./RightLoginSection";
 
+
 function Login(props) {
+
   return (
     <Box className="container">
       <LeftLoginSection
