@@ -114,7 +114,6 @@ function BrowseContent(props) {
           </Grid>
         </CardContent>
       </Card>
-      <Copyright />
     </>
   );
 }

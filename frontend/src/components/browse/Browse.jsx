@@ -12,6 +12,7 @@ import EndAnimation from "./EndAnimation";
 import BrowseContent from "./BrowseContent";
 import BlizzardAnimation from "./BlizzardAnimation";
 import TopNav from "../topnav/TopNav";
+import Copyright from "../Copyright";
 
 function Browse(props) {
   const [profileInterests, setProfileInterest] = useState([]);
@@ -21,7 +22,7 @@ function Browse(props) {
   const [endOfList, setEndOfList] = useState(false);
   const [seen, setSeen] = useState([]);
 
-  const fetchSimUsers = async function () {
+  const fetchSimUsers = async function() {
     if (props.user) {
       setLoading(true);
       const data = await axios.get(`/api/users/${props.user.id}/common`);
@@ -100,6 +101,8 @@ function Browse(props) {
               />
             )}
           </Box>
+          <br />
+          <Copyright />
           <BottomNav
             value={props.value}
             setValue={props.setValue}
