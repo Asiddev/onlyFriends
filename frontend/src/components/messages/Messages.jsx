@@ -23,6 +23,8 @@ import { useNavigate } from "react-router-dom";
 import TopNav from "../topnav/TopNav";
 import BottomNav from "../bottomnav/BottomNav";
 import Copyright from "../Copyright";
+import Input from "./components/Input"
+import MessageBox from "./components/MessageBox"
 import {
   collection,
   query,
@@ -41,15 +43,18 @@ function Messages(props) {
   const {state} = useLocation();
   const {email}= state;
   const navigate = useNavigate();
-
+  
   //Kevins state for test of message feature
+  const currentUser = auth.currentUser;
+
   const[recieverName, setRecieverName] = useState(null);
   const[recieverUid, setRecieverUid] = useState(null);
 
-  const[senderName, setSenderName] = useState(null);
-  const[senderUid, setSenderUid] = useState(null);
+  const[chatUid, setChatUid] = useState(null);
 
-  const currentUser = auth.currentUser;
+  const[senderName, setSenderName] = useState(currentUser.displayName);
+  const[senderUid, setSenderUid] = useState(currentUser.uid);
+
   //Kevins function for test of message feature
   
   //Search in database for the person we want to talk to.
@@ -64,17 +69,50 @@ function Messages(props) {
       querySnapshot.forEach((doc) => {
         setRecieverName(doc.data().displayName)
         setRecieverUid(doc.data().uid)
+        checkChats(senderUid, doc.data().uid)
       });
     } catch (err) {
       console.log(err);
     }
   };
 
+  //Check whether the chat between the 2 users exists and create if it doesnt and sed the combined ID
+  const checkChats = async (senderUid, recieverUid) => {
+    const combinedId =
+      senderUid > recieverUid
+      ? senderUid + recieverUid
+      : recieverUid + senderUid;
+      try {
+        setChatUid(combinedId.toString());
+        const res = await getDoc(doc(db, "chats", `${combinedId}`));
+
+        if(!res.exists()) {
+          //If it doesnt exist, create the chat in the overall chat db
+          await setDoc(doc(db, "chats", combinedId), {messages: []});
+          //If it doesnt exist, create the 2 chats in the user chat db (2 because we need chat from 2 POV users)
+          //Sender data
+          await updateDoc(doc(db, "userChats", `${senderUid}`), {
+            [combinedId+".userInfo"]: {
+              uid: recieverUid,
+              displayName: recieverName,
+            },
+            [combinedId + ".date"]: serverTimestamp(),
+          });
+          //Reciever data
+          await updateDoc(doc(db, "userChats", `${recieverUid}`), {
+            [combinedId+".userInfo"]: {
+              uid: senderUid,
+              displayName: senderName,
+            },
+            [combinedId + ".date"]: serverTimestamp(),
+          });
+        }
+      } catch (err) {}
+  }
+
   //Render the search feature once to get the user data
   useEffect(() => {
-    handleSearch()
-    setSenderName(currentUser.displayName);
-    setSenderUid(currentUser.uid);
+      handleSearch()
   },[]);
 
   const logOut = (event) => {
@@ -105,11 +143,15 @@ function Messages(props) {
           sx={{
             // border: "3px dashed blue"
           }}>
-            <p>Email goes here {email}</p>
-            <p>Data from fb to get correct name displayed here: {recieverName}</p>
-            <p>Data from fb to get correct uid displayed here: {recieverUid}</p>
-            <p>Logged in user name displayed here {senderName}</p>
-            <p>Logged in user uid displayed here {senderUid}</p>
+            <MessageBox
+              chatUid = {chatUid}
+              />
+            <Input
+              senderUid = {senderUid}
+              recieverUid = {recieverUid} 
+              senderName = {senderName}
+              chatUid = {chatUid}
+            />
           <Box
             sx={{
               borderRadius: "1.75rem",
