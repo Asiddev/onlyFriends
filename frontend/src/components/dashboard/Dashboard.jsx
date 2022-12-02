@@ -183,15 +183,15 @@ function Dashboard(props) {
     setTimeout(() => {
       setLoading(false);
       navigate("/");
-    }, 2500);
+    }, 0);
   };
   return (
     <>
       {loading ? (
         <>
-          <TopNav />
+          {/* <TopNav />
           <span className="center savingGif" color="primary">
-            {/* Saving... */}
+            Saving...
           </span>
           <div className="book">
             <div className="book__pg-shadow"></div>
@@ -200,7 +200,7 @@ function Dashboard(props) {
             <div className="book__pg book__pg--3"></div>
             <div className="book__pg book__pg--4"></div>
             <div className="book__pg book__pg--5"></div>
-          </div>
+          </div> */}
         </>
       ) : (
         <>

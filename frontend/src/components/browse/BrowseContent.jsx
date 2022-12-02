@@ -46,7 +46,7 @@ function BrowseContent(props) {
     }
 
     setPage((prev) => prev + 1);
-    setSeen((prev) => [...prev, similarUsers[page].id]);
+    // setSeen((prev) => [...prev, similarUsers[page].id]);
   };
 
   const swipeReject = () => {
@@ -56,25 +56,12 @@ function BrowseContent(props) {
     };
 
     axios.post("api/matches/reject", matchObj);
-    setPage((prev) => prev - 1);
+    console.log("rejected");
+    setPage((prev) => prev + 1);
   };
 
   return (
     <>
-      {/* <Box sx={{ display: 'flex' }}> */}
-
-      {/* <Box
-          sx={{
-            // border: '3px solid red',
-            display: "flex",
-            alignItems: 'center'
-          }}
-        >
-          <Button class="noselect button-left-color" onClick={swipeReject}>
-            <CloseIcon fontSize="large" />
-          </Button>
-        </Box> */}
-
       <Box
         sx={{
           borderRadius: "1.75rem",
@@ -125,7 +112,7 @@ function BrowseContent(props) {
           }}
         >
           <Box>
-            <Button monClick={swipeReject} variant="contained" sx={{ backgroundColor: "#FF8D8D" }}>
+            <Button onClick={swipeReject} variant="contained" sx={{ backgroundColor: "#FF8D8D" }}>
               <CloseIcon fontSize="large" />
             </Button>
           </Box>
@@ -168,54 +155,7 @@ function BrowseContent(props) {
           <Grid item>{profileInterests && renderInterestList}</Grid>
         </Grid>
 
-        {/* 2 BUTTONS SIDE BY SIDE
-          <Box sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            marginTop: '2rem',
-            gap: '3rem',
-            border: '3px dashed red',
-          }}>
-            <Box
-              sx={{
-                // border: '3px solid red',
-                alignItems: 'center'
-              }}
-            >
-              <Button class="noselect button-left-color" onClick={swipeReject}>
-                <CloseIcon fontSize="large" />
-              </Button>
-            </Box>
-
-            <Box
-              sx={{
-                // border: '3px solid red',
-                alignItems: 'center'
-              }}
-            >
-              <Button class="noselect button-right-color" onClick={swipeAccept}>
-                <CheckIcon fontSize="large" />
-              </Button>
-            </Box>
-          </Box> 
-          */}
-
       </Box>
-
-      {/* <Box
-          sx={{
-            // border: '3px solid red',
-            display: "flex",
-            alignItems: 'center'
-          }}
-        >
-          <Button class="noselect button-right-color" onClick={swipeAccept}>
-            <CheckIcon fontSize="large" />
-          </Button>
-        </Box> */}
-
-      {/* </Box> */}
     </>
   );
 }
