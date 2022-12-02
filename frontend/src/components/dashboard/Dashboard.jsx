@@ -13,7 +13,6 @@ import Copyright from "../Copyright.jsx";
 import DashboardContent from "./dashboardContent/DashboardContent.jsx";
 
 function Dashboard(props) {
-  //Refactor state like scheduler if time permits
   const [bio, setBio] = useState("");
   let bioLimit = 100;
   const [bioLength, setBioLength] = useState(bioLimit);
@@ -31,7 +30,7 @@ function Dashboard(props) {
 
   function getLocation() {
     setFetchingLocation(true);
-    navigator.geolocation.getCurrentPosition(function(position) {
+    navigator.geolocation.getCurrentPosition(function (position) {
       console.log("Latitude is :", position.coords.latitude);
       console.log("Longitude is :", position.coords.longitude);
       axios
@@ -197,10 +196,12 @@ function Dashboard(props) {
       ) : (
         <>
           {/* think of this main Box as a fragment */}
-          <Box sx={{
-            pb: 10,
-            // border: "3px solid red"
-          }} >
+          <Box
+            sx={{
+              pb: 10,
+              // border: "3px solid red"
+            }}
+          >
             <CssBaseline />
             <TopNav />
 
