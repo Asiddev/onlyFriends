@@ -18,7 +18,6 @@ function EndAnimation() {
           </div>
         </div>
       </div>
-      <Copyright />
     </>
   );
 }

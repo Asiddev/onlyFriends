@@ -64,6 +64,7 @@ function MatchesContent() {
       <React.Fragment key={match.id}>
         <Box
           sx={{
+            // border: "3px solid red",
             marginBottom: "1rem",
             padding: "1rem",
             borderRadius: "1rem",
@@ -74,22 +75,34 @@ function MatchesContent() {
             alignItems: "center",
           }}
         >
-          <Box
-            component="img"
-            sx={{ width: 50, height: 50, borderRadius: "100%" }}
-            alt="OnlyFriends logo"
-            src={match.profile_picture}
-          />
 
-          <Box>
-            <Typography
-              variant="p"
-              fontWeight="light"
-              key={match.id}
-              sx={{ marginLeft: "2rem" }}
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <Box
+              component="img"
+              sx={{ width: 50, height: 50, borderRadius: "100%"}}
+              alt="OnlyFriends logo"
+              src={match.profile_picture}
+            />
+
+            <Box
+              sx={{
+                // border: "3px dashed pink",
+              }}
             >
-              {match.name}
-            </Typography>
+              <Typography
+                variant="p"
+                fontWeight="light"
+                key={match.id}
+                sx={{ marginLeft: "1rem" }}
+              >
+                {match.name}
+              </Typography>
+            </Box>
           </Box>
 
           <Box>
@@ -119,13 +132,12 @@ function MatchesContent() {
 
   return (
     <>
-      <Container maxWidth="md"
+      <Box
         sx={{
-          width: 566,
           borderRadius: "1.75rem",
           backgroundColor: "#E4F8FF",
           // border: "3px solid red",
-          padding: "2rem",
+          padding: "2rem"
         }}
       >
         <Typography
@@ -137,8 +149,10 @@ function MatchesContent() {
           Matches
         </Typography>
 
-        <Typography variant="h5">{matchesList}</Typography>
-      </Container>
+        <Typography variant="h5">
+          {matchesList}
+        </Typography>
+      </Box>
     </>
   );
 }

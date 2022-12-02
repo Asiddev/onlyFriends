@@ -84,11 +84,17 @@ function Browse(props) {
           />
         </>
       ) : (
-        <Container maxWidth="sm" className="relative">
-          <Box className="shadow">
-            {endOfList ? (
-              <EndAnimation />
-            ) : (
+        <Box sx={{
+          pb: 10,
+          // border: "3px solid red"
+        }}>
+          {endOfList ? (
+            <EndAnimation />
+          ) : (
+            <Container maxWidth="sm"
+              sx={{
+                // border: "3px dashed blue"
+              }}>
               <BrowseContent
                 page={page}
                 user={props.user}
@@ -99,8 +105,9 @@ function Browse(props) {
                 profileInterests={profileInterests}
                 renderInterestList={renderInterestList}
               />
-            )}
-          </Box>
+            </Container>
+          )}
+
           <br />
           <Copyright />
           <BottomNav
@@ -108,7 +115,7 @@ function Browse(props) {
             setValue={props.setValue}
             setCurrentUser={props.setCurrentUser}
           />
-        </Container>
+        </Box>
       )}
     </>
   );
