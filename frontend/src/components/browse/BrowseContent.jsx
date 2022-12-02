@@ -63,7 +63,7 @@ function BrowseContent(props) {
     <>
       {/* <Box sx={{ display: 'flex' }}> */}
 
-        {/* <Box
+      {/* <Box
           sx={{
             // border: '3px solid red',
             display: "flex",
@@ -75,86 +75,100 @@ function BrowseContent(props) {
           </Button>
         </Box> */}
 
+      <Box
+        sx={{
+          borderRadius: "1.75rem",
+          backgroundColor: "#E4F8FF",
+          // border: "3px dashed blue",
+          // padding: "2rem 5rem 2rem 5rem",
+          padding: "2rem",
+          display: 'flex column'
+        }}
+      >
+
         <Box
           sx={{
-            borderRadius: "1.75rem",
-            backgroundColor: "#E4F8FF",
-            // border: "3px dashed blue",
-            // padding: "2rem 5rem 2rem 5rem",
-            padding: "2rem",
-            display: 'flex column'
+            display: 'flex',
+            alignItems: 'center',
+            marginBottom: '1rem',
           }}
         >
-
-          <Button class="noselect" id="button-left" onClick={swipeReject}>
-            <CloseIcon fontSize="large" />
-          </Button>
-          <Button class="noselect" id="button-right" onClick={swipeAccept}>
-            <CheckIcon fontSize="large" />
-          </Button>
-
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              marginBottom: '1rem',
-            }}
-          >
-            <Box
-              component="img"
-              sx={{ width: 55, height: 55, borderRadius: "100%" }}
-              alt="Current potential match profile pic"
-              src={similarUsers.length ? similarUsers[page].profile_picture : ""}
-            />
-
-            <Box sx={{ marginLeft: '1rem' }}>
-              <Typography variant="h5">
-                {similarUsers.length ? similarUsers[page].name : ""}
-              </Typography>
-            </Box>
-          </Box>
-
           <Box
             component="img"
-            sx={{ width: "100%", height: "20rem", objectFit: 'cover', marginBottom: '1rem' }}
-            alt="Current potential match banner"
-            src={similarUsers.length ? similarUsers[page].banner_picture : ""}
+            sx={{ width: 55, height: 55, borderRadius: "100%" }}
+            alt="Current potential match profile pic"
+            src={similarUsers.length ? similarUsers[page].profile_picture : ""}
           />
 
-          <Box
-            sx={{ marginBottom: '1rem' }}
-          >
-            <Typography variant="p">
-              <RoomIcon fontSize="sm" />
-              {similarUsers.length ? similarUsers[page].location : ""}
+          <Box sx={{ marginLeft: '1rem' }}>
+            <Typography variant="h5">
+              {similarUsers.length ? similarUsers[page].name : ""}
             </Typography>
           </Box>
+        </Box>
 
-          <Box
-            sx={{ marginBottom: '1rem' }}
-          >
-            <Typography
-              variant="body2"
-              color="text.secondary"
-            >
-              {similarUsers.length ? similarUsers[page].description : ""}
-            </Typography>
+        <Box
+          component="img"
+          sx={{ width: "100%", height: "20rem", objectFit: 'cover', marginBottom: '1rem' }}
+          alt="Current potential match banner"
+          src={similarUsers.length ? similarUsers[page].banner_picture : ""}
+        />
+
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignContent: 'center',
+            height: "100%",
+            // border: "3px solid red",
+            margin: "0 -4rem 0 -4rem"
+          }}
+        >
+          <Box>
+            <Button monClick={swipeReject} variant="contained" sx={{ backgroundColor: "#FF8D8D" }}>
+              <CloseIcon fontSize="large" />
+            </Button>
           </Box>
+          <Button onClick={swipeAccept} variant="contained"
+            sx={{ backgroundColor: "#72AE78" }}>
+            <CheckIcon fontSize="large" />
+          </Button>
+        </Box>
 
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center'
-            }}
+        <Box
+          sx={{ marginBottom: '1rem', marginTop: "-2rem", marginLeft: "1rem" }}
+        >
+          <Typography variant="p">
+            <RoomIcon fontSize="sm" />
+            {similarUsers.length ? similarUsers[page].location : ""}
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{ marginBottom: '1rem' }}
+        >
+          <Typography
+            variant="body2"
+            color="text.secondary"
           >
-            <Typography variant="h6">Interests</Typography>
-          </Box>
+            {similarUsers.length ? similarUsers[page].description : ""}
+          </Typography>
+        </Box>
 
-          <Grid container className="interests-container">
-            <Grid item>{profileInterests && renderInterestList}</Grid>
-          </Grid>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center'
+          }}
+        >
+          <Typography variant="h6">Interests</Typography>
+        </Box>
 
-          {/* 2 BUTTONS SIDE BY SIDE
+        <Grid container className="interests-container">
+          <Grid item>{profileInterests && renderInterestList}</Grid>
+        </Grid>
+
+        {/* 2 BUTTONS SIDE BY SIDE
           <Box sx={{
             display: 'flex',
             flexDirection: 'row',
@@ -187,9 +201,9 @@ function BrowseContent(props) {
           </Box> 
           */}
 
-        </Box>
+      </Box>
 
-        {/* <Box
+      {/* <Box
           sx={{
             // border: '3px solid red',
             display: "flex",
