@@ -50,13 +50,12 @@ function Messages(props) {
   const handleSearch = async () => {
     const q = query(
       collection(db, "users"),
-      where("displayName", "==", "Matt")
+      where("email", "==", email.toLowerCase())
     );
 
     try {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
         setUser(doc.data().displayName)
       });
     } catch (err) {
@@ -64,6 +63,7 @@ function Messages(props) {
     }
   };
 
+  //Render the search feature once to get the user data
   useEffect(() => {
     handleSearch()
   },[]);
