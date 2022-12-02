@@ -73,7 +73,7 @@ const Login = (req, res) => {
     }
 
     if (user && !bcrypt.compareSync(req.body.password, user.password)) {
-      return res.status(401).json("Invalid Autharization , Please try again ");
+      return res.status(401).json("Invalid Authorization , Please try again ");
     }
 
     const token = jwt.sign(
