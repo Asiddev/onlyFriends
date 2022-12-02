@@ -38,7 +38,7 @@ function Browse(props) {
 
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 100);
   };
 
   useEffect(() => {
