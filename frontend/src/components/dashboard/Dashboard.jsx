@@ -31,7 +31,7 @@ function Dashboard(props) {
 
   function getLocation() {
     setFetchingLocation(true);
-    navigator.geolocation.getCurrentPosition(function (position) {
+    navigator.geolocation.getCurrentPosition(function(position) {
       console.log("Latitude is :", position.coords.latitude);
       console.log("Longitude is :", position.coords.longitude);
       axios
@@ -204,17 +204,12 @@ function Dashboard(props) {
         </>
       ) : (
         <>
-          {/* everything on this page is in this main Box, think of it as a fragment */}
-          <Box
-            sx={{
-              pb: 10,
-              // border: "3px solid red"
-            }}
-          >
+          {/* think of this main Box as a fragment */}
+          <Box sx={{ pb: 10,
+            // border: "3px solid red"
+          }} >
             <CssBaseline />
             <TopNav />
-
-            {/* THIS IS THE MAIN CONTAINER */}
 
             <DashboardContent
               postProfile={postProfile}

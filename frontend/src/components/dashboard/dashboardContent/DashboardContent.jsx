@@ -29,14 +29,9 @@ function DashboardContent(props) {
   } = props;
 
   return (
-    <Container
-      maxWidth="md"
-      sx={
-        {
-          // border: "3px dashed blue"
-        }
-      }
-    >
+    <Container maxWidth="md" sx={{
+      // border: "3px dashed blue"
+    }}>
       {/* this Box below is the main "Card" with rounded corners */}
       <Box
         component="form"
@@ -49,12 +44,7 @@ function DashboardContent(props) {
           padding: "2rem",
         }}
       >
-        <Typography
-          variant="h4"
-          color="#008CCF"
-          align="center"
-          marginBottom="2rem"
-        >
+        <Typography variant="h4" color="#008CCF" align="center" marginBottom="2rem">
           Profile Setup
         </Typography>
 
@@ -62,7 +52,6 @@ function DashboardContent(props) {
           Provide the necessary information to start finding like-minded people!
         </Typography>
 
-        {/* refactor to a MUI component later */}
         <Box sx={{ marginBottom: "1rem" }}>
           {error && (
             <Alert severity="error">
