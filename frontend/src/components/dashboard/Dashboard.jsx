@@ -5,19 +5,7 @@ import { v4 } from "uuid";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Autocomplete from "react-google-autocomplete";
-import {
-  AppBar,
-  Alert,
-  AlertTitle,
-  Box,
-  Toolbar,
-  Typography,
-  Button,
-  TextField,
-  CssBaseline,
-  Container,
-  FormControl,
-} from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
 import "./Dashboard.scss";
 import ItemList from "../../components/dashboard/ItemList";
 import "../../styles/animations.scss";
