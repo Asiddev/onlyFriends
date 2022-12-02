@@ -15,6 +15,7 @@ import RoomIcon from "@mui/icons-material/Room";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import Copyright from "../Copyright";
+import { display } from "@mui/system";
 
 function BrowseContent(props) {
   const {
@@ -64,11 +65,14 @@ function BrowseContent(props) {
         sx={{
           borderRadius: "1.75rem",
           backgroundColor: "#E4F8FF",
-          // border: "3px solid red",
-          padding: "2rem"
+          // border: "3px dashed blue",
+          // padding: "2rem 5rem 2rem 5rem",
+          padding: "2rem",
+          display: 'flex column'
         }}
       >
 
+        {/* FIX THESE BUTTONS */}
         <Button class="noselect" id="button-left" onClick={swipeReject}>
           <CloseIcon fontSize="large" />
         </Button>
@@ -76,44 +80,66 @@ function BrowseContent(props) {
           <CheckIcon fontSize="large" />
         </Button>
 
-        <CardHeader
-          className="top-container-name"
-          avatar={
-            <Avatar
-              src={
-                similarUsers.length ? similarUsers[page].profile_picture : ""
-              }
-            ></Avatar>
-          }
-          title={similarUsers.length ? similarUsers[page].name : ""}
-        // subheader={props.user.location}
-        />
-        <CardMedia
-          sx={{ mx: "auto", width: 450, height: 300, boxShadow: 5 }}
-          component="img"
-          image={similarUsers.length ? similarUsers[page].banner_picture : ""}
-          alt="banner_picture"
-        />
-        <br />
-        <Typography variant="h5">
-          <RoomIcon />
-          {similarUsers.length ? similarUsers[page].location : ""}
-        </Typography>
-        <br />
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          className="center wrap"
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            marginBottom: '1rem',
+          }}
         >
-          {similarUsers.length ? similarUsers[page].description : ""}
-        </Typography>
-        <br />
-        <Typography variant="h5">Interests:</Typography>
-        <CardContent className="center">
-          <Grid container className="interests-container">
-            <Grid item>{profileInterests && renderInterestList}</Grid>
-          </Grid>
-        </CardContent>
+          <Box
+            component="img"
+            sx={{ width: 55, height: 55, borderRadius: "100%" }}
+            alt="Current potential match profile pic"
+            src={similarUsers.length ? similarUsers[page].profile_picture : ""}
+          />
+
+          <Box sx={{ marginLeft: '1rem' }}>
+            <Typography variant="h5">
+              {similarUsers.length ? similarUsers[page].name : ""}
+            </Typography>
+          </Box>
+        </Box>
+
+        <Box
+          component="img"
+          sx={{ width: "100%", height: "20rem", objectFit: 'cover', marginBottom: '1rem' }}
+          alt="Current potential match banner"
+          src={similarUsers.length ? similarUsers[page].banner_picture : ""}
+        />
+
+        <Box
+          sx={{ marginBottom: '1rem' }}
+        >
+          <Typography variant="p">
+            <RoomIcon fontSize="sm" />
+            {similarUsers.length ? similarUsers[page].location : ""}
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{ marginBottom: '1rem' }}
+        >
+          <Typography
+            variant="body2"
+            color="text.secondary"
+          >
+            {similarUsers.length ? similarUsers[page].description : ""}
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center'
+          }}
+        >
+          <Typography variant="h6">Interests</Typography>
+        </Box>
+
+        <Grid container className="interests-container">
+          <Grid item>{profileInterests && renderInterestList}</Grid>
+        </Grid>
 
       </Box>
     </>

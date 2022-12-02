@@ -78,8 +78,12 @@
 #button-left {
   opacity: 80%;
   position: absolute;
-  top: 220px;
-  left: 0;
+  bottom: 100px;
+  left: 132px;
+  // top: 220px;
+  // left: 0;
+  // top: 360px;
+  // left: 650px;
   width: 50px;
   height: 80px;
   cursor: pointer;
@@ -128,8 +132,10 @@
 #button-right {
   opacity: 80%;
   position: absolute;
-  top: 220px;
-  right: 0;
+  // top: 220px;
+  // right: 0;
+  // top: 360px;
+  // right: 650px;
   width: 50px;
   height: 80px;
   cursor: pointer;

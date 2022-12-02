@@ -64,6 +64,7 @@ function MatchesContent() {
       <React.Fragment key={match.id}>
         <Box
           sx={{
+            // border: "3px solid red",
             marginBottom: "1rem",
             padding: "1rem",
             borderRadius: "1rem",
@@ -74,22 +75,34 @@ function MatchesContent() {
             alignItems: "center",
           }}
         >
-          <Box
-            component="img"
-            sx={{ width: 50, height: 50, borderRadius: "100%" }}
-            alt="OnlyFriends logo"
-            src={match.profile_picture}
-          />
 
-          <Box>
-            <Typography
-              variant="p"
-              fontWeight="light"
-              key={match.id}
-              sx={{ marginLeft: "2rem" }}
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <Box
+              component="img"
+              sx={{ width: 50, height: 50, borderRadius: "100%"}}
+              alt="OnlyFriends logo"
+              src={match.profile_picture}
+            />
+
+            <Box
+              sx={{
+                // border: "3px dashed pink",
+              }}
             >
-              {match.name}
-            </Typography>
+              <Typography
+                variant="p"
+                fontWeight="light"
+                key={match.id}
+                sx={{ marginLeft: "1rem" }}
+              >
+                {match.name}
+              </Typography>
+            </Box>
           </Box>
 
           <Box>
@@ -136,7 +149,9 @@ function MatchesContent() {
           Matches
         </Typography>
 
-        <Typography variant="h5">{matchesList}</Typography>
+        <Typography variant="h5">
+          {matchesList}
+        </Typography>
       </Box>
     </>
   );

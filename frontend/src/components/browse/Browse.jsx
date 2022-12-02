@@ -86,12 +86,12 @@ function Browse(props) {
       ) : (
         <Box sx={{
           pb: 10,
-          border: "3px solid red"
+          // border: "3px solid red"
         }}>
           {endOfList ? (
             <EndAnimation />
           ) : (
-            <Container maxWidth="md"
+            <Container maxWidth="sm"
               sx={{
                 // border: "3px dashed blue"
               }}>
