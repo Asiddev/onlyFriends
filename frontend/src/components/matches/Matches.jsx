@@ -1,7 +1,8 @@
 import React from "react";
 import {
   Box,
-  CssBaseline
+  CssBaseline,
+  Container,
 } from "@mui/material";
 
 import "./Matches.scss";
@@ -22,7 +23,12 @@ function Matches(props) {
         <TopNav />
 
         {/* THIS IS THE MAIN BODY - BETWEEN THE TOP NAV AND BOTTOM NAV */}
-        <MatchesContent />
+        <Container maxWidth="md"
+          sx={{
+            // border: "3px dashed blue"
+          }}>
+          <MatchesContent />
+        </Container>
 
         <br />
         <Copyright />

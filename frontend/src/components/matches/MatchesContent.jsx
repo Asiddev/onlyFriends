@@ -119,13 +119,12 @@ function MatchesContent() {
 
   return (
     <>
-      <Container maxWidth="md"
+      <Box
         sx={{
-          width: 566,
           borderRadius: "1.75rem",
           backgroundColor: "#E4F8FF",
           // border: "3px solid red",
-          padding: "2rem",
+          padding: "2rem"
         }}
       >
         <Typography
@@ -138,7 +137,7 @@ function MatchesContent() {
         </Typography>
 
         <Typography variant="h5">{matchesList}</Typography>
-      </Container>
+      </Box>
     </>
   );
 }

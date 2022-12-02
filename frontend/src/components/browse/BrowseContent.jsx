@@ -7,6 +7,7 @@ import {
   CardMedia,
   Grid,
   Typography,
+  Box,
 } from "@mui/material";
 import axios from "axios";
 import React from "react";
@@ -59,15 +60,15 @@ function BrowseContent(props) {
 
   return (
     <>
-      <Card
-        sx={{ maxWidth: "100%", height: "max-content" }}
-        className="block padding"
-        style={{
-          backgroundColor: "#E4F8FF",
+      <Box
+        sx={{
           borderRadius: "1.75rem",
-          paddingBottom: "0",
+          backgroundColor: "#E4F8FF",
+          // border: "3px solid red",
+          padding: "2rem"
         }}
       >
+
         <Button class="noselect" id="button-left" onClick={swipeReject}>
           <CloseIcon fontSize="large" />
         </Button>
@@ -85,7 +86,7 @@ function BrowseContent(props) {
             ></Avatar>
           }
           title={similarUsers.length ? similarUsers[page].name : ""}
-          // subheader={props.user.location}
+        // subheader={props.user.location}
         />
         <CardMedia
           sx={{ mx: "auto", width: 450, height: 300, boxShadow: 5 }}
@@ -113,7 +114,8 @@ function BrowseContent(props) {
             <Grid item>{profileInterests && renderInterestList}</Grid>
           </Grid>
         </CardContent>
-      </Card>
+
+      </Box>
     </>
   );
 }
