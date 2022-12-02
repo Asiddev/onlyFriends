@@ -183,29 +183,22 @@ function Dashboard(props) {
     setTimeout(() => {
       setLoading(false);
       navigate("/");
-    }, 0);
+    }, 2000);
   };
   return (
     <>
       {loading ? (
         <>
-          {/* <TopNav />
+          <TopNav />
           <span className="center savingGif" color="primary">
             Saving...
           </span>
-          <div className="book">
-            <div className="book__pg-shadow"></div>
-            <div className="book__pg"></div>
-            <div className="book__pg book__pg--2"></div>
-            <div className="book__pg book__pg--3"></div>
-            <div className="book__pg book__pg--4"></div>
-            <div className="book__pg book__pg--5"></div>
-          </div> */}
         </>
       ) : (
         <>
           {/* think of this main Box as a fragment */}
-          <Box sx={{ pb: 10,
+          <Box sx={{
+            pb: 10,
             // border: "3px solid red"
           }} >
             <CssBaseline />
