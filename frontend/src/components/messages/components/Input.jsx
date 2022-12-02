@@ -28,21 +28,6 @@ const Input = (props) => {
         date: Timestamp.now()
       }),
     })
-    //Add message to sender database
-    await updateDoc(doc(db,"userChats", senderUid.toString()), {
-      [chatUid + ".lastMessage"]: {
-        message: message,
-      },
-      [chatUid + ".date"]: serverTimestamp(),
-    });
-    //Add message to reciever database
-    await updateDoc(doc(db, "userChats", recieverUid.toString()), {
-      [chatUid + ".lastMessage"]: {
-        message: message,
-      },
-      [chatUid + ".date"]: serverTimestamp(), 
-    });
-
     setMessage("");
   };
 

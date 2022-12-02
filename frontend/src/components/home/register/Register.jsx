@@ -60,9 +60,7 @@ function Register() {
         uid: res.user.uid,
         displayName: res.user.displayName,
         email: res.user.email
-      })
-      await setDoc(doc(db,"userChats", res.user.uid), {});
-      
+      })      
     } catch(err) {
       console.log(err);
     }

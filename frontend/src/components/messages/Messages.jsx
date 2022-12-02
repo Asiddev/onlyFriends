@@ -91,23 +91,6 @@ function Messages(props) {
         if(!res.exists()) {
           //If it doesnt exist, create the chat in the overall chat db
           await setDoc(doc(db, "chats", combinedId), {messages: []});
-          //If it doesnt exist, create the 2 chats in the user chat db (2 because we need chat from 2 POV users)
-          //Sender data
-          await updateDoc(doc(db, "userChats", `${senderUid}`), {
-            [combinedId+".userInfo"]: {
-              uid: recieverUid,
-              displayName: recieverName,
-            },
-            [combinedId + ".date"]: serverTimestamp(),
-          });
-          //Reciever data
-          await updateDoc(doc(db, "userChats", `${recieverUid}`), {
-            [combinedId+".userInfo"]: {
-              uid: senderUid,
-              displayName: senderName,
-            },
-            [combinedId + ".date"]: serverTimestamp(),
-          });
         }
       } catch (err) {}
   }
@@ -115,11 +98,11 @@ function Messages(props) {
   //Render the search feature once to get the user data
   useEffect(() => {
     Promise.all([
-      handleSearch(),
-      axios.get(`/api/users/${Number(matchId)}`)
+      axios.get(`/api/users/${Number(matchId)}`),
+      handleSearch()
     ])
     .then((result) => {
-      setReciever(result[1].data[0]);
+      setReciever(result[0].data[0])
     })
   },[]);
 
@@ -169,7 +152,8 @@ function Messages(props) {
             </Typography>
 
             <Typography variant='h5'>
-              You are currently talking too {reciever.name}
+              You are currently talking too {reciever !== null && reciever.name}
+              <br/>
               Insert image here currently not displayed due to size, but nico and alex will do it.
             </Typography>
 
