@@ -31,6 +31,11 @@ function MatchesContent() {
       });
   }, [matchUpdate]);
 
+  const goToMsg = (event) => {
+    const email = event.currentTarget.value;
+    navigate("/messages", {state:{email: email}} );
+  }
+
   const deleteMatch = (event) => {
     // console.log("garbage clicked");
 
@@ -96,10 +101,10 @@ function MatchesContent() {
             <Button
               variant="contained"
               color="secondary"
+              test="test"
+              value={match.email}
               sx={{ marginLeft: "3rem", marginRight: "1rem" }}
-              onClick={() => {
-                console.log("message button clicked");
-              }}
+              onClick={goToMsg}
             >
               <MessageIcon />
             </Button>

@@ -1,4 +1,5 @@
 import * as React from "react";
+import {useLocation} from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -17,16 +18,56 @@ import {
 import SignalWifiStatusbar4BarIcon from "@mui/icons-material/SignalWifiStatusbar4Bar";
 import "./Messages.scss";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import TopNav from "../topnav/TopNav";
 import BottomNav from "../bottomnav/BottomNav";
 import Copyright from "../Copyright";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  setDoc,
+  doc,
+  updateDoc,
+  serverTimestamp,
+  getDoc,
+} from "firebase/firestore";
+import { db } from "../../configAPI/firebase";
 
 function Messages(props) {
-  console.log(props);
   const [profileInterests, setProfileInterest] = useState([]);
+  const {state} = useLocation();
+  const {email}= state;
   const navigate = useNavigate();
+
+  //Kevins state for test of message feature
+  const[user, setUser] = useState(null);
+  //Kevins function for test of message feature
+  
+  //Search in database for the person we want to talk to.
+  const handleSearch = async () => {
+    const q = query(
+      collection(db, "users"),
+      where("displayName", "==", "Matt")
+    );
+
+    try {
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+        setUser(doc.data().displayName)
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    handleSearch()
+  },[]);
+
 
   const logOut = (event) => {
     event.preventDefault();
@@ -39,112 +80,7 @@ function Messages(props) {
 
   return (
     <>
-      <div className="OLD CODE TO BE REPLACED">
-        <Box>
-          <AppBar>
-            <Toolbar className="navbar-logo">
-              <Box
-                component="img"
-                sx={{ width: 150 }}
-                alt="OnlyFriends logo"
-                src="https://i.imgur.com/Bgur1Fk.png"
-              />
-            </Toolbar>
-          </AppBar>
-        </Box>
-
-        <Container maxWidth="md" className="relative2">
-          <div className="shadow ">
-            <Card sx={{ maxWidth: "100%" }} className="block padding">
-              <Typography variant="body1" color="text.secondary">
-                Status
-              </Typography>
-              <TextField
-                style={{ width: "500px" }}
-                placeholder="Whats on your mind?"
-              ></TextField>
-              <br />
-              <br />
-              <CardHeader
-                className="top-container"
-                avatar={<Avatar src={props.user.profile_picture}></Avatar>}
-                action={<IconButton aria-label="settings"></IconButton>}
-                title="Online"
-                subheader={
-                  <SignalWifiStatusbar4BarIcon style={{ fill: "green" }} />
-                }
-              />
-
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                className="center"
-              ></Typography>
-              <Container maxWidth="lg">
-                <Box bgcolor="white" height="400px" mb={2} pt={2}>
-                  <Box bgcolor="white" mb={2} pt={2}>
-                    <Box
-                      bgcolor="light-grey"
-                      marginBottom={1}
-                      height="70px"
-                      p={3}
-                      boxShadow={1}
-                    >
-                      <Typography variant="body2" color="text.secondary">
-                        Jason
-                      </Typography>
-                    </Box>
-                    <Box
-                      bgcolor="light-grey"
-                      marginBottom={1}
-                      height="70px"
-                      p={3}
-                      boxShadow={1}
-                    >
-                      <Typography variant="body2" color="text.secondary">
-                        Jason
-                      </Typography>
-                    </Box>
-                    <Box marginBottom={1} height="70px" p={3} boxShadow={1}>
-                      <Typography variant="body2" color="text.secondary">
-                        Jason
-                      </Typography>
-                    </Box>
-                    <Box
-                      bgcolor="light-grey"
-                      marginBottom={1}
-                      height="70px"
-                      p={3}
-                      boxShadow={1}
-                    >
-                      <Typography variant="body2" color="text.secondary">
-                        Jason
-                      </Typography>
-                    </Box>
-                    <Box
-                      bgcolor="light-grey"
-                      marginBottom={1}
-                      height="70px"
-                      p={3}
-                      boxShadow={1}
-                    >
-                      <Typography variant="body2" color="text.secondary">
-                        Jason
-                      </Typography>
-                    </Box>
-                  </Box>
-                </Box>
-              </Container>
-              <CardContent className="center"></CardContent>
-            </Card>
-          </div>
-          <div className="spacer">
-            <Copyright />
-          </div>
-        </Container>
-        <BottomNav value={props.value} setValue={props.setValue} />
-      </div>
-
+   
 
       {/* NEW CODE BELOW - replace entire return block above */}
       {/* everything on this page is in this main Box, think of it as a fragment */}
@@ -156,10 +92,13 @@ function Messages(props) {
         <TopNav />
 
         {/* THIS IS THE MAIN BODY - BETWEEN THE TOP NAV AND BOTTOM NAV */}
+        
         <Container maxWidth="md"
           sx={{
             // border: "3px dashed blue"
           }}>
+            <p>Email goes here {email}</p>
+            <p>Data from fb to get correct name displayed here: {user}</p>
           <Box
             sx={{
               borderRadius: "1.75rem",
