@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -23,8 +23,8 @@ import { useNavigate } from "react-router-dom";
 import TopNav from "../topnav/TopNav";
 import BottomNav from "../bottomnav/BottomNav";
 import Copyright from "../Copyright";
-import Input from "./components/Input"
-import MessageBox from "./components/MessageBox"
+import Input from "./components/Input";
+import MessageBox from "./components/MessageBox";
 import {
   collection,
   query,
@@ -40,25 +40,25 @@ import { db, auth } from "../../configAPI/firebase";
 
 function Messages(props) {
   const [profileInterests, setProfileInterest] = useState([]);
-  const {state} = useLocation();
-  const {email, matchId}= state;
+  const { state } = useLocation();
+  const { email, matchId } = state;
   const navigate = useNavigate();
-  
+
   //Kevins state for test of message feature
   const currentUser = auth.currentUser;
 
-  const[recieverName, setRecieverName] = useState(null);
-  const[recieverUid, setRecieverUid] = useState(null);
+  const [recieverName, setRecieverName] = useState(null);
+  const [recieverUid, setRecieverUid] = useState(null);
 
-  const[chatUid, setChatUid] = useState(null);
+  const [chatUid, setChatUid] = useState(null);
 
-  const[senderName, setSenderName] = useState(currentUser.displayName);
-  const[senderUid, setSenderUid] = useState(currentUser.uid);
+  const [senderName, setSenderName] = useState(currentUser.displayName);
+  const [senderUid, setSenderUid] = useState(currentUser.uid);
 
-  const[reciever, setReciever] = useState(null);
+  const [reciever, setReciever] = useState(null);
 
   //Kevins function for test of message feature
-  
+
   //Search in database for the person we want to talk to.
   const handleSearch = async () => {
     const q = query(
@@ -69,9 +69,9 @@ function Messages(props) {
     try {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-        setRecieverName(doc.data().displayName)
-        setRecieverUid(doc.data().uid)
-        checkChats(senderUid, doc.data().uid)
+        setRecieverName(doc.data().displayName);
+        setRecieverUid(doc.data().uid);
+        checkChats(senderUid, doc.data().uid);
       });
     } catch (err) {
       console.log(err);
@@ -82,18 +82,18 @@ function Messages(props) {
   const checkChats = async (senderUid, recieverUid) => {
     const combinedId =
       senderUid > recieverUid
-      ? senderUid + recieverUid
-      : recieverUid + senderUid;
-      try {
-        setChatUid(combinedId.toString());
-        const res = await getDoc(doc(db, "chats", `${combinedId}`));
+        ? senderUid + recieverUid
+        : recieverUid + senderUid;
+    try {
+      setChatUid(combinedId.toString());
+      const res = await getDoc(doc(db, "chats", `${combinedId}`));
 
-        if(!res.exists()) {
-          //If it doesnt exist, create the chat in the overall chat db
-          await setDoc(doc(db, "chats", combinedId), {messages: []});
-        }
-      } catch (err) {}
-  }
+      if (!res.exists()) {
+        //If it doesnt exist, create the chat in the overall chat db
+        await setDoc(doc(db, "chats", combinedId), { messages: [] });
+      }
+    } catch (err) { }
+  };
 
   //Render the search feature once to get the user data
   useEffect(() => {
@@ -101,10 +101,10 @@ function Messages(props) {
       axios.get(`/api/users/${Number(matchId)}`),
       handleSearch()
     ])
-    .then((result) => {
-      setReciever(result[0].data[0])
-    })
-  },[]);
+      .then((result) => {
+        setReciever(result[0].data[0]);
+      });
+  }, []);
 
   const logOut = (event) => {
     event.preventDefault();
@@ -117,7 +117,7 @@ function Messages(props) {
 
   return (
     <>
-   
+
 
       {/* NEW CODE BELOW - replace entire return block above */}
       {/* everything on this page is in this main Box, think of it as a fragment */}
@@ -131,7 +131,7 @@ function Messages(props) {
         <TopNav />
 
         {/* THIS IS THE MAIN BODY - BETWEEN THE TOP NAV AND BOTTOM NAV */}
-        
+
         <Container maxWidth="md"
           sx={{
             // border: "3px dashed blue"
@@ -153,28 +153,37 @@ function Messages(props) {
               Messages
             </Typography>
 
-            <Typography variant='h5'>
-              You are currently talking too {reciever !== null && reciever.name}
-              <br/>
-              Insert image here currently not displayed due to size, but nico and alex will do it.
+            <Typography variant='h5' display="flex" justifyContent="center">
+              {/* You are currently talking to {reciever !== null && reciever.name} */}
+              {reciever !== null && reciever.name}
             </Typography>
 
-            <MessageBox
-              chatUid = {chatUid}
+            <Box
+              sx={{
+                // border: "3px solid red",
+              }}
+            >
+              <MessageBox
+                chatUid={chatUid}
               />
-            <Input
-              senderUid = {senderUid}
-              recieverUid = {recieverUid} 
-              senderName = {senderName}
-              chatUid = {chatUid}
-            />
+            </Box>
+            <Box
+            // sx={{ border: "3px dashed green" }}
+            >
+              <Input
+                senderUid={senderUid}
+                recieverUid={recieverUid}
+                senderName={senderName}
+                chatUid={chatUid}
+              />
+            </Box>
           </Box>
         </Container>
 
         <br />
         <Copyright />
         <BottomNav value={props.value} setValue={props.setValue} />
-      </Box>
+      </Box >
     </>
   );
 }
