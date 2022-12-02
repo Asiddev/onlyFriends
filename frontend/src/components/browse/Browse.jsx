@@ -1,30 +1,17 @@
 import * as React from "react";
-import { red } from "@mui/material/colors";
-import {
-  Card,
-  CardHeader,
-  CardMedia,
-  CardContent,
-  Avatar,
-  Typography,
-  CssBaseline,
-  Box,
-  AppBar,
-  Toolbar,
-  Container,
-  Button,
-  Grid,
-} from "@mui/material";
+import { Typography, CssBaseline, Box, Container, Button } from "@mui/material";
 import "./Browse.scss";
-import RoomIcon from "@mui/icons-material/Room";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
+
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import BottomNav from "../bottomnav/BottomNav";
-import Copyright from "../Copyright";
+
+import EndAnimation from "./EndAnimation";
+import BrowseContent from "./BrowseContent";
+import BlizzardAnimation from "./BlizzardAnimation";
+import TopNav from "../topnav/TopNav";
 
 function Browse(props) {
   const [profileInterests, setProfileInterest] = useState([]);
@@ -34,9 +21,7 @@ function Browse(props) {
   const [endOfList, setEndOfList] = useState(false);
   const [seen, setSeen] = useState([]);
 
-  const navigate = useNavigate();
-
-  const fetchSimUsers = async function() {
+  const fetchSimUsers = async function () {
     if (props.user) {
       setLoading(true);
       const data = await axios.get(`/api/users/${props.user.id}/common`);
@@ -85,61 +70,13 @@ function Browse(props) {
     );
   });
 
-  const swipeAccept = () => {
-    const matchObj = {
-      user_id: props.user.id,
-      user_liked: similarUsers[page].id,
-    };
-    axios.post("api/matches/accept", matchObj);
-    console.log("inside swipe", page);
-    let lookedAt = [];
-    lookedAt.push(similarUsers[page].id);
-
-    console.log(loading, page, similarUsers.length - 1);
-    if (page === similarUsers.length - 1) {
-      console.log("papa");
-      setEndOfList(true);
-    }
-
-    setPage((prev) => prev + 1);
-    setSeen((prev) => [...prev, similarUsers[page].id]);
-  };
-
-  const swipeReject = () => {
-    const matchObj = {
-      user_id: props.user.id,
-      user_liked: similarUsers[page].id,
-    };
-
-    axios.post("api/matches/reject", matchObj);
-    setPage((prev) => prev - 1);
-  };
-
   return (
     <>
       <CssBaseline />
-
-      <Box marginBottom={10}>
-        <AppBar>
-          <Toolbar className="navbar-logo">
-            <Box
-              component="img"
-              sx={{ width: 150 }}
-              alt="OnlyFriends logo"
-              src="https://i.imgur.com/Bgur1Fk.png"
-            />
-          </Toolbar>
-        </AppBar>
-      </Box>
-
+      <TopNav />
       {loading ? (
         <>
-          <div className="loader">
-            <div className="inner one"></div>
-            <div className="inner two"></div>
-            <div className="inner three"></div>
-          </div>
-          <BottomNav
+          <BlizzardAnimation
             value={props.value}
             setValue={props.setValue}
             setCurrentUser={props.setCurrentUser}
@@ -147,91 +84,22 @@ function Browse(props) {
         </>
       ) : (
         <Container maxWidth="sm" className="relative">
-          <div className="shadow">
+          <Box className="shadow">
             {endOfList ? (
-              <div class="page_404 body">
-                <div class="row">
-                  <div class="col-sm-12 ">
-                    <div class="contant_box_404">
-                      <h3 class="h2">No more users in your area</h3>
-
-                      <p>Please check back after some time</p>
-                    </div>
-                    <div class="col-sm-10 col-sm-offset-1  text-center">
-                      <div class="four_zero_four_bg"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <EndAnimation />
             ) : (
-              <Card
-                sx={{ maxWidth: "100%", height: "max-content" }}
-                className="block padding"
-                style={{
-                  backgroundColor: "#E4F8FF",
-                  borderRadius: "1.75rem",
-                  paddingBottom: "0",
-                }}
-              >
-                <Button class="noselect" id="button-left" onClick={swipeReject}>
-                  <CloseIcon fontSize="large" />
-                </Button>
-                <Button
-                  class="noselect"
-                  id="button-right"
-                  onClick={swipeAccept}
-                >
-                  <CheckIcon fontSize="large" />
-                </Button>
-
-                <CardHeader
-                  className="top-container-name"
-                  avatar={
-                    <Avatar
-                      src={
-                        similarUsers.length
-                          ? similarUsers[page].profile_picture
-                          : ""
-                      }
-                      sx={{ bgcolor: red[300] }}
-                    ></Avatar>
-                  }
-                  title={similarUsers.length ? similarUsers[page].name : ""}
-                // subheader={props.user.location}
-                />
-                <CardMedia
-                  sx={{ mx: "auto", width: 450, height: 300, boxShadow: 5 }}
-                  component="img"
-                  image={
-                    similarUsers.length ? similarUsers[page].banner_picture : ""
-                  }
-                  alt="banner_picture"
-                />
-                <br />
-                <Typography variant="h5">
-                  <RoomIcon />
-                  {similarUsers.length ? similarUsers[page].location : ""}
-                </Typography>
-                <br />
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  className="center wrap"
-                >
-                  {similarUsers.length ? similarUsers[page].description : ""}
-                </Typography>
-                <br />
-                <Typography variant="h5">Interests:</Typography>
-                <CardContent className="center">
-                  <Grid container className="interests-container">
-                    <Grid item>{profileInterests && renderInterestList}</Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
+              <BrowseContent
+                page={page}
+                user={props.user}
+                loading={loading}
+                similarUsers={similarUsers}
+                setEndOfList={setEndOfList}
+                setPage={setPage}
+                profileInterests={profileInterests}
+                renderInterestList={renderInterestList}
+              />
             )}
-            <br />
-            <Copyright />
-          </div>
+          </Box>
           <BottomNav
             value={props.value}
             setValue={props.setValue}
