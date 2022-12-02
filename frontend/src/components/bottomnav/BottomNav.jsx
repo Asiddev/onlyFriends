@@ -34,9 +34,9 @@ function BottomNav(props) {
       >
         <BottomNavigationAction
           component={Link}
-          value={"/login"}
-          to={"/login"}
-          href="/login"
+          value={"/"}
+          to={"/"}
+          href="/"
           label={"Home"}
           icon={<HomeIcon />}
         />
