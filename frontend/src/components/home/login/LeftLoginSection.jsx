@@ -33,7 +33,7 @@ function LeftLoginSection(props) {
     const newData = new FormData(event.currentTarget);
 
     const newDataObj = {
-      email: newData.get("email"),
+      email: newData.get("email").toLowerCase(),
       password: newData.get("password"),
     };
 

@@ -44,7 +44,7 @@ function Register() {
     }
     const newDataObj = {
       name: newData.get("name"),
-      email: newData.get("email"),
+      email: newData.get("email").toLowerCase(),
       password: newData.get("password"),
       password_confirmation: newData.get("password_confirmation"),
     };

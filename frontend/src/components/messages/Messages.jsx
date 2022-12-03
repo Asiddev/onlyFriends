@@ -55,8 +55,10 @@ function Messages(props) {
   const [senderName, setSenderName] = useState(currentUser.displayName);
   const [senderUid, setSenderUid] = useState(currentUser.uid);
 
-  const [reciever, setReciever] = useState(null);
+  const[sender, setSender] = useState(null);
 
+  const [reciever, setReciever] = useState(null);
+  console.log("test 44", currentUser)
   //Kevins function for test of message feature
 
   //Search in database for the person we want to talk to.
@@ -99,10 +101,12 @@ function Messages(props) {
   useEffect(() => {
     Promise.all([
       axios.get(`/api/users/${Number(matchId)}`),
+      axios.get(`api/users/${JSON.parse(localStorage.getItem("user")).id}`),
       handleSearch()
     ])
       .then((result) => {
         setReciever(result[0].data[0]);
+        setSender(result[1].data[0]);
       });
   }, []);
 
@@ -165,6 +169,9 @@ function Messages(props) {
             >
               <MessageBox
                 chatUid={chatUid}
+                senderName = {senderName}
+                sender = {sender}
+                reciever={reciever}
               />
             </Box>
             <Box

@@ -9,6 +9,8 @@ import {
 const MessageBox = (props) => {
   const chatUid = props.chatUid;
   const senderName = props.senderName;
+  const sender = props.sender
+  const reciever = props.reciever
   const recieverName = props.recieverName;
   const [messages, setMessages] = useState([]);
 
@@ -33,7 +35,7 @@ const MessageBox = (props) => {
             // border: "3px solid pink",
           }}
         >
-          <Message message={message} key={message.id} senderName={senderName} />
+          <Message message={message} key={message.id} senderName={sender.name} sender={sender} reciever = {reciever} />
         </Box>
       ))}
     </div>

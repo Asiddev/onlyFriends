@@ -6,7 +6,13 @@ import {
 const Message = (props) => {
   const message = props.message.message;
   const senderName = props.message.senderName;
+  const postedDate = new Date(props.message.date.seconds * 1000).toISOString();
+  const senderImage = props.senderImage;
 
+  const sender = props.sender;
+  const reciever = props.reciever;
+
+  const profileImage = senderName === sender.name? sender.profile_picture: reciever.profile_picture;
 
   return (
     <Box
@@ -32,7 +38,7 @@ const Message = (props) => {
             objectFit: "cover",
           }}
           alt="Profile pic"
-          src="https://i.imgur.com/QMntCB7_d.webp?maxwidth=760&fidelity=grand"
+          src={profileImage}
         />
       </Box>
       <Box
@@ -48,6 +54,10 @@ const Message = (props) => {
         <Typography
           variant="p">
           {message}
+        </Typography>
+        <Typography
+          variant="p">
+          Posted On:{postedDate}
         </Typography>
       </Box>
 
