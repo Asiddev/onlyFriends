@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../configAPI/firebase";
 import Message from "./Message";
@@ -11,7 +11,6 @@ const MessageBox = (props) => {
   const senderName = props.senderName;
   const sender = props.sender
   const reciever = props.reciever
-  const recieverName = props.recieverName;
   const [messages, setMessages] = useState([]);
 
 
@@ -31,11 +30,9 @@ const MessageBox = (props) => {
       {messages.map((message) => (
 
         <Box
-          sx={{
-            // border: "3px solid pink",
-          }}
+          className = {message.senderName === sender.name? "Sender":"Reciever"}
         >
-          <Message message={message} key={message.id} senderName={sender.name} sender={sender} reciever = {reciever} />
+          <Message message={message} key={message.id} senderName={senderName} sender={sender} reciever = {reciever} />
         </Box>
       ))}
     </div>

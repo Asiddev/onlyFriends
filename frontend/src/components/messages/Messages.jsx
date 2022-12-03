@@ -1,21 +1,11 @@
 import * as React from "react";
 import { useLocation } from "react-router-dom";
 import {
-  Card,
-  CardHeader,
-  CardContent,
-  Avatar,
-  IconButton,
   Typography,
-  Link,
   Box,
-  AppBar,
-  Toolbar,
   Container,
-  TextField,
   CssBaseline,
 } from "@mui/material";
-import SignalWifiStatusbar4BarIcon from "@mui/icons-material/SignalWifiStatusbar4Bar";
 import "./Messages.scss";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -32,14 +22,11 @@ import {
   getDocs,
   setDoc,
   doc,
-  updateDoc,
-  serverTimestamp,
   getDoc,
 } from "firebase/firestore";
 import { db, auth } from "../../configAPI/firebase";
 
 function Messages(props) {
-  const [profileInterests, setProfileInterest] = useState([]);
   const { state } = useLocation();
   const { email, matchId } = state;
   const navigate = useNavigate();
@@ -47,18 +34,13 @@ function Messages(props) {
   //Kevins state for test of message feature
   const currentUser = auth.currentUser;
 
-  const [recieverName, setRecieverName] = useState(null);
-  const [recieverUid, setRecieverUid] = useState(null);
-
   const [chatUid, setChatUid] = useState(null);
 
-  const [senderName, setSenderName] = useState(currentUser.displayName);
-  const [senderUid, setSenderUid] = useState(currentUser.uid);
+  const [senderName] = useState(currentUser.displayName);
+  const [senderUid] = useState(currentUser.uid);
 
   const[sender, setSender] = useState(null);
-
   const [reciever, setReciever] = useState(null);
-  console.log("test 44", currentUser)
   //Kevins function for test of message feature
 
   //Search in database for the person we want to talk to.
@@ -71,8 +53,6 @@ function Messages(props) {
     try {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-        setRecieverName(doc.data().displayName);
-        setRecieverUid(doc.data().uid);
         checkChats(senderUid, doc.data().uid);
       });
     } catch (err) {
@@ -179,7 +159,6 @@ function Messages(props) {
             >
               <Input
                 senderUid={senderUid}
-                recieverUid={recieverUid}
                 senderName={senderName}
                 chatUid={chatUid}
               />

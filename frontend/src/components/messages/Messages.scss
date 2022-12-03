@@ -65,3 +65,12 @@
 .top-container {
   background-color: rgba(228, 217, 217, 0.371);
 }
+
+.Sender {
+  display:flex;
+  justify-content: flex-start;
+}
+.Reciever{
+  display:flex;
+  justify-content: flex-end;
+}

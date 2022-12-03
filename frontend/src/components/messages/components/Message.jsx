@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React from "react";
 import {
   Box, Typography,
 } from "@mui/material";
+import TimeAgo from 'timeago-react';
 
 const Message = (props) => {
   const message = props.message.message;
   const senderName = props.message.senderName;
-  const postedDate = new Date(props.message.date.seconds * 1000).toISOString();
-  const senderImage = props.senderImage;
+  const postedDate = (props.message.date.seconds*1000);
 
   const sender = props.sender;
   const reciever = props.reciever;
@@ -16,6 +16,7 @@ const Message = (props) => {
 
   return (
     <Box
+      className = {senderName === sender.name? "SenderMsg": "RecieverMsg"}
       sx={{
         // border: "3px dashed purple",
         marginBottom: "1rem",
@@ -55,10 +56,10 @@ const Message = (props) => {
           variant="p">
           {message}
         </Typography>
-        <Typography
-          variant="p">
-          Posted On:{postedDate}
-        </Typography>
+        <TimeAgo
+          datetime={postedDate}
+          locale='En'
+        />
       </Box>
 
     </Box>

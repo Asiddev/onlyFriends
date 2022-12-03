@@ -1,10 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { v4 as uuid } from "uuid";
-import { db, storage } from "../../../configAPI/firebase";
+import { db} from "../../../configAPI/firebase";
 import {
   arrayUnion,
   doc,
-  serverTimestamp,
   Timestamp,
   updateDoc,
 } from "firebase/firestore";
@@ -13,7 +12,6 @@ import {
   Box,
   TextField,
   Button,
-  Typography,
 } from "@mui/material";
 
 const Input = (props) => {
@@ -23,7 +21,6 @@ const Input = (props) => {
   const chatUid = props.chatUid;
   const senderUid = props.senderUid;
   const senderName = props.senderName;
-  const recieverUid = props.recieverUid;
 
   const sendMessage = async () => {
     //Add message into overall chat database
