@@ -24,11 +24,24 @@ function App() {
         <Routes>
           <Route
             path="/matches"
-            element={<Matches value={value} setValue={setValue} />}
+            element={
+              <Matches
+                value={value}
+                setValue={setValue}
+                setCurrentUser={setCurrentUser}
+              />
+            }
           />
           <Route
             path="/messages"
-            element={<Messages user={user} value={value} setValue={setValue} />}
+            element={
+              <Messages
+                user={user}
+                value={value}
+                setValue={setValue}
+                setCurrentUser={setCurrentUser}
+              />
+            }
           />
           <Route
             path="/login"

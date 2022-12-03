@@ -37,8 +37,12 @@ function LeftLoginSection(props) {
       password: newData.get("password"),
     };
 
-    try{
-      await signInWithEmailAndPassword(auth, newDataObj.email, newDataObj.password)
+    try {
+      await signInWithEmailAndPassword(
+        auth,
+        newDataObj.email,
+        newDataObj.password
+      );
     } catch (err) {
       console.log(err);
     }
@@ -50,7 +54,7 @@ function LeftLoginSection(props) {
         props.setCurrentUser(data.data.user);
         localStorage.setItem("user", JSON.stringify(data.data.user));
         props.setCookie(data.token);
-        navigate("/profile");
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);

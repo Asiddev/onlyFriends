@@ -225,7 +225,11 @@ function Dashboard(props) {
 
             <br />
             <Copyright />
-            <BottomNav value={props.value} setValue={props.setValue} />
+            <BottomNav
+              value={props.value}
+              setValue={props.setValue}
+              setCurrentUser={props.setCurrentUser}
+            />
           </Box>
         </>
       )}
