@@ -1,6 +1,6 @@
 import { Button, Grid, Typography, Box } from "@mui/material";
 import axios from "axios";
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import RoomIcon from "@mui/icons-material/Room";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
@@ -25,11 +25,13 @@ function BrowseContent(props) {
 
     if (page === similarUsers.length - 1) {
       setEndOfList(true);
+      return;
     }
+
+    console.log("after if/return")
 
     setLoading(true);
     setPage((prev) => prev + 1);
-    
   };
 
   const swipeReject = () => {

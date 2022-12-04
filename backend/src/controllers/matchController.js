@@ -17,6 +17,7 @@ const acceptMatches = (req, res) => {
   matchQueries.clearMatches(user_id, user_liked)
     .then(() => {
       matchQueries.acceptMatches(user_id, user_liked);
+      res.status(200).send("accepted");
     });
 };
 
@@ -25,6 +26,7 @@ const declineMatches = (req, res) => {
   matchQueries.clearMatches(user_id, user_liked)
     .then(() => {
       matchQueries.declineMatches(user_id, user_liked);
+      res.status(200).send("rejected");
     });
 };
 
