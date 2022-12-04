@@ -1,6 +1,6 @@
 import { Button, Grid, Typography, Box } from "@mui/material";
 import axios from "axios";
-import React from "react";
+import React, {useEffect} from "react";
 import RoomIcon from "@mui/icons-material/Room";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
@@ -10,6 +10,7 @@ function BrowseContent(props) {
     page,
     similarUsers,
     setEndOfList,
+    setLoading,
     setPage,
     profileInterests,
     renderInterestList,
@@ -26,7 +27,9 @@ function BrowseContent(props) {
       setEndOfList(true);
     }
 
+    setLoading(true);
     setPage((prev) => prev + 1);
+    
   };
 
   const swipeReject = () => {
@@ -34,9 +37,13 @@ function BrowseContent(props) {
       user_id: props.user.id,
       user_liked: similarUsers[page].id,
     };
-
     axios.post("api/matches/reject", matchObj);
-    console.log("rejected");
+
+    if (page === similarUsers.length - 1) {
+      setEndOfList(true);
+    }
+
+    setLoading(true);
     setPage((prev) => prev + 1);
   };
 

@@ -23,33 +23,12 @@ function Browse(props) {
   const [endOfList, setEndOfList] = useState(false);
   const navigator = useNavigate();
 
-  const fetchSimUsers = async function () {
-    if (props.user) {
-      setLoading(true);
-      const data = await axios.get(`/api/users/${props.user.id}/common`);
-
-      if (!data.data.length) {
-        setLoading(false);
-        setEndOfList(true);
-      }
-
-      setSimilarUsers(data.data);
-    }
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  };
 
   useEffect(() => {
-    axios
-      .get(`api/users/${JSON.parse(localStorage.getItem("user")).id}`)
-      .then((result) => {
-        const user = result.data[0];
-        props.setCurrentUser(user);
-      });
-    fetchSimUsers();
-  }, [page]);
+    setTimeout(() => {
+      setLoading(false);
+    },1000)
+  },[page])
 
   useEffect(() => {
     axios.get(`/api/user_interests/${props.user.id}`).then((data) => {
@@ -58,6 +37,18 @@ function Browse(props) {
       }
       setProfileInterest([...data.data]);
     });
+  }, []);
+
+  useEffect(() => {
+    axios.get(`/api/users/${props.user.id}/common`)
+    .then((result) => {
+      console.log(result);
+      setSimilarUsers(result.data);
+      if (!similarUsers) {
+        setLoading(false);
+        setEndOfList(true);
+      }
+    })
   }, []);
 
   const renderInterestList = profileInterests.map((interest) => {
@@ -99,6 +90,7 @@ function Browse(props) {
                 page={page}
                 user={props.user}
                 loading={loading}
+                setLoading ={setLoading}
                 similarUsers={similarUsers}
                 setEndOfList={setEndOfList}
                 setPage={setPage}
