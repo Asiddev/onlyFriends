@@ -1,14 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Box,
-  Card,
-  CardActions,
-  CardContent,
-  Container,
-  Button,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import MessageIcon from "@mui/icons-material/Message";
@@ -24,22 +16,18 @@ function MatchesContent() {
       .get(`api/matches/${JSON.parse(localStorage.getItem("user")).id}`)
       .then((matches) => {
         setMatchUpdate(false);
-        // console.log("matches here >>>>>", matches);
-        // console.log("matches.data", matches.data);
+
         setMatches(matches.data);
-        // console.log("matches", matches);
       });
   }, [matchUpdate]);
 
   const goToMsg = (event) => {
     const email = event.currentTarget.value;
-    const matchId = (event.currentTarget.getAttribute("matchid"));
-    navigate("/messages", {state:{email: email, matchId: matchId}} );
-  }
+    const matchId = event.currentTarget.getAttribute("matchid");
+    navigate("/messages", { state: { email: email, matchId: matchId } });
+  };
 
   const deleteMatch = (event) => {
-    // console.log("garbage clicked");
-
     event.preventDefault();
 
     const loggedInUser = JSON.parse(localStorage.getItem("user")).id;
@@ -70,7 +58,6 @@ function MatchesContent() {
       <React.Fragment key={match.id}>
         <Box
           sx={{
-            // border: "3px solid red",
             marginBottom: "1rem",
             padding: "1rem",
             borderRadius: "1rem",
@@ -81,25 +68,20 @@ function MatchesContent() {
             alignItems: "center",
           }}
         >
-
           <Box
             sx={{
-              display: 'flex',
-              alignItems: 'center',
+              display: "flex",
+              alignItems: "center",
             }}
           >
             <Box
               component="img"
-              sx={{ width: 50, height: 50, borderRadius: "100%"}}
+              sx={{ width: 50, height: 50, borderRadius: "100%" }}
               alt="OnlyFriends logo"
               src={match.profile_picture}
             />
 
-            <Box
-              sx={{
-                // border: "3px dashed pink",
-              }}
-            >
+            <Box>
               <Typography
                 variant="p"
                 fontWeight="light"
@@ -133,7 +115,7 @@ function MatchesContent() {
             </Button>
           </Box>
         </Box>
-      </React.Fragment >
+      </React.Fragment>
     );
   });
 
@@ -143,8 +125,7 @@ function MatchesContent() {
         sx={{
           borderRadius: "1.75rem",
           backgroundColor: "#E4F8FF",
-          // border: "3px solid red",
-          padding: "2rem"
+          padding: "2rem",
         }}
       >
         <Typography
@@ -156,9 +137,7 @@ function MatchesContent() {
           Matches
         </Typography>
 
-        <Typography variant="h5">
-          {matchesList}
-        </Typography>
+        <Typography variant="h5">{matchesList}</Typography>
       </Box>
     </>
   );

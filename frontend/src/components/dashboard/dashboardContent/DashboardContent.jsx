@@ -1,8 +1,4 @@
-import {
-  Alert,
-  AlertTitle,
-  Typography,
-} from "@mui/material";
+import { Alert, AlertTitle, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import DashboardForm from "./DashboardForm";
 
@@ -26,9 +22,7 @@ function DashboardContent(props) {
   } = props;
 
   return (
-    <Container maxWidth="md" sx={{
-      // border: "3px dashed blue"
-    }}>
+    <Container maxWidth="md">
       {/* this Box below is the main "Card" with rounded corners */}
       <Box
         component="form"
@@ -37,11 +31,16 @@ function DashboardContent(props) {
         sx={{
           borderRadius: "1.75rem",
           backgroundColor: "#E4F8FF",
-          // border: "3px solid red",
+
           padding: "2rem",
         }}
       >
-        <Typography variant="h4" color="#008CCF" align="center" marginBottom="2rem">
+        <Typography
+          variant="h4"
+          color="#008CCF"
+          align="center"
+          marginBottom="2rem"
+        >
           Profile Setup
         </Typography>
 
@@ -75,7 +74,6 @@ function DashboardContent(props) {
           bannerImageChange={bannerImageChange}
           bannerPreview={bannerPreview}
         />
-
       </Box>
     </Container>
   );

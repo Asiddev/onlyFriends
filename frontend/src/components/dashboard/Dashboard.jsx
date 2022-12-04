@@ -31,8 +31,6 @@ function Dashboard(props) {
   function getLocation() {
     setFetchingLocation(true);
     navigator.geolocation.getCurrentPosition(function (position) {
-      console.log("Latitude is :", position.coords.latitude);
-      console.log("Longitude is :", position.coords.longitude);
       axios
         .get("https://api64.ipify.org?format=json")
         .then((data) => {
@@ -79,8 +77,6 @@ function Dashboard(props) {
       setPicked(interestArray);
     });
   }, []);
-
-  //Function to logout and clear cookie and storage
 
   //Put function below into another file
   const bioUpdater = (event) => {
@@ -174,7 +170,7 @@ function Dashboard(props) {
         axios.post("/api/users/update", userObj);
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
         setError(err.response.data);
       });
 

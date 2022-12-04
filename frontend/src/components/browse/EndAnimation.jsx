@@ -1,5 +1,4 @@
 import React from "react";
-import Copyright from "../Copyright";
 
 function EndAnimation() {
   return (

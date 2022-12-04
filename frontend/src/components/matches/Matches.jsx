@@ -14,21 +14,13 @@ function Matches(props) {
       <Box
         sx={{
           pb: 10,
-          // border: "3px solid red"
         }}
       >
         <CssBaseline />
         <TopNav />
 
         {/* THIS IS THE MAIN BODY - BETWEEN THE TOP NAV AND BOTTOM NAV */}
-        <Container
-          maxWidth="md"
-          sx={
-            {
-              // border: "3px dashed blue"
-            }
-          }
-        >
+        <Container maxWidth="md">
           <MatchesContent />
         </Container>
 

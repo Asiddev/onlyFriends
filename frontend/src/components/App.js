@@ -7,7 +7,7 @@ import Browse from "./browse/Browse";
 import Matches from "./matches/Matches";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function App() {
   const [cookies, setCookie] = useCookies(null);
