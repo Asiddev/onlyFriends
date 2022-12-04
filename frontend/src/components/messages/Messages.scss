@@ -60,7 +60,20 @@
   display: flex;
   justify-content: flex-start;
 }
+
 .Reciever {
   display: flex;
   justify-content: flex-end;
+}
+
+.SenderMsg {
+  background-color: #008ccf;
+  color: white;
+  // border: 3px solid red;
+  font-weight: 800 !important;
+}
+
+.RecieverMsg {
+  background-color: #E1E1E1;
+  color: black;
 }

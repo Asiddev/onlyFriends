@@ -121,7 +121,9 @@ function Messages(props) {
               Messages
             </Typography>
 
-            <Typography variant="h5" display="flex" justifyContent="center">
+
+            <Typography variant='h5' display="flex" justifyContent="center" borderBottom="3px solid grey" padding="0.2rem 1rem" marginBottom="2rem">
+
               {/* You are currently talking to {reciever !== null && reciever.name} */}
               {reciever !== null && reciever.name}
             </Typography>
