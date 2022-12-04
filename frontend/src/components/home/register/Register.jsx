@@ -5,24 +5,10 @@ import { auth, db, storage } from "../../../configAPI/firebase.js";
 import { doc, setDoc } from "firebase/firestore";
 import "./Register.scss";
 import "../../../styles/animations.scss";
-import {
-  Alert,
-  AlertTitle,
-  Button,
-  CssBaseline,
-  TextField,
-  FormControlLabel,
-  Checkbox,
-  Link,
-  Grid,
-  Box,
-  Typography,
-  Container,
-  createTheme,
-  ThemeProvider,
-} from "@mui/material";
+import { createTheme } from "@mui/material";
 import axios from "axios";
-import Copyright from "../../Copyright";
+import RightRegisterSection from "./RightRegisterSection.jsx";
+import LeftRegisterSection from "./LeftRegisterSection.jsx";
 
 const theme = createTheme();
 
@@ -48,33 +34,37 @@ function Register() {
       password: newData.get("password"),
       password_confirmation: newData.get("password_confirmation"),
     };
-    
+
     //Insert user info into firebase auth database
-    try{
-      const res = await createUserWithEmailAndPassword(auth, newDataObj.email, newDataObj.password)
-      
+    try {
+      const res = await createUserWithEmailAndPassword(
+        auth,
+        newDataObj.email,
+        newDataObj.password
+      );
+
       await updateProfile(res.user, {
-        displayName: newDataObj.name
-      })
+        displayName: newDataObj.name,
+      });
       await setDoc(doc(db, "users", res.user.uid), {
         uid: res.user.uid,
         displayName: res.user.displayName,
-        email: res.user.email
-      })      
-    } catch(err) {
+        email: res.user.email,
+      });
+    } catch (err) {
       console.log(err);
     }
-    
-        axios.post("/api/users", newDataObj)
-          .then((data) => {
-            console.log("success!");
-            navigator("/login");
-          })
-          .catch((err) => {
-            console.log(err);
-            setError(err.response.data);
-          });
-    
+
+    axios
+      .post("/api/users", newDataObj)
+      .then((data) => {
+        console.log("success!");
+        navigator("/login");
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(err.response.data);
+      });
   };
 
   function isValidEmail(email) {
@@ -83,129 +73,8 @@ function Register() {
 
   return (
     <div className="container">
-      <div className="left-half">
-        <ThemeProvider theme={theme}>
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <Box
-              sx={{
-                marginTop: 8,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <img
-                src="https://i.imgur.com/Bgur1Fk.png"
-                alt="OnlyFriends logo"
-                style={{ width: "15rem", paddingBottom: "1rem" }}
-                className="bounce2"
-              />
-
-              <Typography component="h1" variant="h5" className="theme-font">
-                Register
-              </Typography>
-              <Box
-                component="form"
-                onSubmit={validator}
-                noValidate
-                sx={{ mt: 1 }}
-              >
-                {error && (
-                  <Alert severity="error">
-                    <AlertTitle>Error</AlertTitle>
-                    {error}
-                  </Alert>
-                )}
-                <br />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="name"
-                  label="Full Name"
-                  name="name"
-                  autoFocus
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password_confirmation"
-                  label="Password Confirmation"
-                  type="password"
-                  id="password_confirmation"
-                />
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-                />
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Register
-                </Button>
-
-                <Grid container>
-                  <Grid item xs>
-                    <Link href="#" variant="body2">
-                      Forgot password?
-                    </Link>
-                  </Grid>
-                  <Grid item>
-                    <Link href="/login" variant="body2">
-                      {"Already have an account?"}
-                    </Link>
-                  </Grid>
-                </Grid>
-              </Box>
-            </Box>
-            <br />
-            <Copyright sx={{ mt: 8, mb: 4 }} />
-          </Container>
-        </ThemeProvider>
-      </div>
-
-      <div className="right-half">
-        <img
-          className="picture-size"
-          src="https://i.imgur.com/8T2x8sm.png"
-          alt=""
-        />
-        <br />
-
-        <p>
-          <span className="light-blue">Only</span>
-          <span className="dark-blue">Friends</span> allows people with similar
-          interests or hobbies to get together.
-        </p>
-        <br />
-        <p>
-          Once you've created a profile, you will be part of a vast community of
-          people looking to find others that love to spend time off the same way
-          you do!
-        </p>
-      </div>
+      <LeftRegisterSection error={error} theme={theme} validator={validator} />
+      <RightRegisterSection />
     </div>
   );
 }
