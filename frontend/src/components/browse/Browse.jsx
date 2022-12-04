@@ -36,8 +36,8 @@ function Browse(props) {
       }
 
       if (!data.data.length) {
+        setLoading(false);
         setEndOfList(true);
-        navigator("/profile");
       }
 
       setSimilarUsers(data.data);
@@ -60,7 +60,9 @@ function Browse(props) {
 
   useEffect(() => {
     axios.get(`/api/user_interests/${props.user.id}`).then((data) => {
-      console.log(props.user);
+      if (!data.data.length) {
+        navigator("/profile");
+      }
       setProfileInterest([...data.data]);
     });
   }, []);
