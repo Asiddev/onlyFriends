@@ -13,6 +13,7 @@ import BrowseContent from "./BrowseContent";
 import BlizzardAnimation from "./BlizzardAnimation";
 import TopNav from "../topnav/TopNav";
 import Copyright from "../Copyright";
+import { useNavigate } from "react-router-dom";
 
 function Browse(props) {
   const [profileInterests, setProfileInterest] = useState([]);
@@ -21,8 +22,9 @@ function Browse(props) {
   const [loading, setLoading] = useState(false);
   const [endOfList, setEndOfList] = useState(false);
   const [seen, setSeen] = useState([]);
+  const navigator = useNavigate();
 
-  const fetchSimUsers = async function() {
+  const fetchSimUsers = async function () {
     if (props.user) {
       setLoading(true);
       const data = await axios.get(`/api/users/${props.user.id}/common`);
@@ -31,6 +33,11 @@ function Browse(props) {
         if (seen.includes(user.id)) {
           console.log(`yup saw ${user.name}`);
         }
+      }
+
+      if (!data.data.length) {
+        setEndOfList(true);
+        navigator("/profile");
       }
 
       setSimilarUsers(data.data);
@@ -84,17 +91,23 @@ function Browse(props) {
           />
         </>
       ) : (
-        <Box sx={{
-          pb: 10,
-          // border: "3px solid red"
-        }}>
+        <Box
+          sx={{
+            pb: 10,
+            // border: "3px solid red"
+          }}
+        >
           {endOfList ? (
             <EndAnimation />
           ) : (
-            <Container maxWidth="sm"
-              sx={{
-                // border: "3px dashed blue"
-              }}>
+            <Container
+              maxWidth="sm"
+              sx={
+                {
+                  // border: "3px dashed blue"
+                }
+              }
+            >
               <BrowseContent
                 page={page}
                 user={props.user}
