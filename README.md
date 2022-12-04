@@ -2,7 +2,7 @@
 
 by Alex Sidor, Kevin Lee, and Nico Hernandez
 
-OnlyFriends is an online networking application utilizing the PERN stack to align people with similar interesting and hobbies. Be a part of a vast community of people looking to find people that love to spend time off the same way you do!
+OnlyFriends is an online geosocial networking application utilizing the PERN stack to align people with similar interesting and hobbies. Be a part of a vast community of people looking to find people that love to spend time off the same way you do!
 
 ## Tech Stack
 - PostgreSQL
