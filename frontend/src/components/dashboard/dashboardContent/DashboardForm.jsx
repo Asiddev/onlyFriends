@@ -75,7 +75,7 @@ function DashboardForm(props) {
               width: "100px",
               height: "100px",
               borderRadius: "100%",
-              objectFit: "cover",
+              objectFit: "contain",
             }}
             alt="Profile pic"
             src={profilePreview}
