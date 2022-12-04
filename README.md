@@ -11,6 +11,31 @@ by Alex Sidor, Kevin Lee, and Nico Hernandez
 - Express
 - React
 - Node
+- 
+
+#
+
+## Demos
+
+### The main "browse" page
+![description](gifOrImgLinkHere)
+
+### Profile setup page
+![description](gifOrImgLinkHere)
+
+### Matches page
+![description](gifOrImgLinkHere)
+
+### Direct messaging page
+![description](gifOrImgLinkHere)
+
+### Register page (with error handling)
+![description](gifOrImgLinkHere)
+
+### Login page (with error handling)
+![description](gifOrImgLinkHere)
+
+#
 
 ## Setup
 - On your terminal, clone the repo via `git clone git@github.com:Asiddev/onlyFriends.git`
@@ -18,7 +43,7 @@ by Alex Sidor, Kevin Lee, and Nico Hernandez
   - duplicate the `.env.example` file located in `onlyFriends/backend/src`, then remove `.example` from its filename
     - in this newly-created `.env` file, provide the variables with relevant values
     - save your changes
-  - duplicate the `.env.example` file located in `onlyFriends/frontend`, then remove `.example` from its filename
+  - duplicate the *other* `.env.example` file located in `onlyFriends/frontend`, then remove `.example` from its filename
     - in this newly-created `.env` file, provide the variables with relevant values
     - save your changes
 - On your terminal, navigate to `onlyFriends/backend/src`
