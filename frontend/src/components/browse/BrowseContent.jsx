@@ -89,7 +89,7 @@ function BrowseContent(props) {
 
         <Box
           component="img"
-          sx={{ width: "100%", height: "20rem", objectFit: 'cover', marginBottom: '1rem' }}
+          sx={{ width: "100%", height: "20rem", objectFit: 'contain', marginBottom: '1rem' }}
           alt="Current potential match banner"
           src={similarUsers.length ? similarUsers[page].banner_picture : ""}
         />
