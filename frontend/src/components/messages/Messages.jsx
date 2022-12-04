@@ -39,7 +39,7 @@ function Messages(props) {
   const [senderName] = useState(currentUser.displayName);
   const [senderUid] = useState(currentUser.uid);
 
-  const[sender, setSender] = useState(null);
+  const [sender, setSender] = useState(null);
   const [reciever, setReciever] = useState(null);
   //Kevins function for test of message feature
 
@@ -137,7 +137,7 @@ function Messages(props) {
               Messages
             </Typography>
 
-            <Typography variant='h5' display="flex" justifyContent="center">
+            <Typography variant='h5' display="flex" justifyContent="center" borderBottom="3px solid grey" padding="0.2rem 1rem" marginBottom="2rem">
               {/* You are currently talking to {reciever !== null && reciever.name} */}
               {reciever !== null && reciever.name}
             </Typography>
@@ -149,8 +149,8 @@ function Messages(props) {
             >
               <MessageBox
                 chatUid={chatUid}
-                senderName = {senderName}
-                sender = {sender}
+                senderName={senderName}
+                sender={sender}
                 reciever={reciever}
               />
             </Box>
