@@ -23,14 +23,16 @@ function Browse(props) {
   const [endOfList, setEndOfList] = useState(false);
   const navigator = useNavigate();
 
-  const fetchSimUsers = async function () {
+  const fetchSimUsers = async function() {
+    setLoading(true);
+
     if (props.user) {
-      setLoading(true);
       const data = await axios.get(`/api/users/${props.user.id}/common`);
 
       if (!data.data.length) {
         setLoading(false);
         setEndOfList(true);
+        return;
       }
 
       setSimilarUsers(data.data);
