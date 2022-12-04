@@ -1,23 +1,15 @@
 import React, { useState } from "react";
-import { MultiSelect } from "react-multi-select-component";
 import axios from "axios";
 import { useEffect } from "react";
 import "./ItemList.scss";
 import "../../styles/animations.scss";
-import {
-  Button,
-  Grid,
-} from "@mui/material";
+import { Button, Grid } from "@mui/material";
 
 const ItemList = (props) => {
   const [interests, setInterests] = useState([]);
 
   const handleClick = (e) => {
     e.stopPropagation();
-    //ways of making number
-    //+value == makes a number
-    //parseInt(value) == makes number
-    //Number(value) == makes number
 
     const interestId = Number(e.target.value);
     if (props.picked.includes(interestId)) {

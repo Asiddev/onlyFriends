@@ -50,7 +50,6 @@ function LeftLoginSection(props) {
     axios
       .post("/api/users/login", newDataObj)
       .then((data) => {
-        console.log(data.data.user);
         props.setCurrentUser(data.data.user);
         localStorage.setItem("user", JSON.stringify(data.data.user));
         props.setCookie(data.token);
@@ -95,7 +94,7 @@ function LeftLoginSection(props) {
                   <AlertTitle>Error</AlertTitle>
                   {error}
                 </Alert>
-              )}{" "}
+              )}
               <br />
               <TextField
                 className="white-inputs"

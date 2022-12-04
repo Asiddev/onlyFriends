@@ -1,11 +1,5 @@
-import React from 'react';
-import {
-  Button,
-  FormControl,
-  TextField,
-  Typography,
-  Box,
-} from "@mui/material";
+import React from "react";
+import { Button, FormControl, TextField, Typography, Box } from "@mui/material";
 import ItemList from "../ItemList";
 import Autocomplete from "react-google-autocomplete";
 
@@ -28,14 +22,12 @@ function DashboardForm(props) {
   return (
     <Box
       sx={{
-        // border: "3px dashed orange",
         display: "flex column",
       }}
     >
       {/* row 1 of 6 - upload profile pic */}
       <Box
         sx={{
-          // border: "3px solid green",
           display: "flex",
           flexDirection: "row",
           gap: "2rem",
@@ -47,7 +39,6 @@ function DashboardForm(props) {
         <Box
           sx={{
             textAlign: "right",
-            // border: "3px solid blue",
             alignItems: "right",
             width: "12rem",
           }}
@@ -60,7 +51,6 @@ function DashboardForm(props) {
         </Box>
         <Box
           sx={{
-            // border: "3px dashed red",
             textAlign: "left",
             display: "flex",
             alignItems: "center",
@@ -96,7 +86,6 @@ function DashboardForm(props) {
       {/* row 2 of 6 - bio */}
       <Box
         sx={{
-          // border: "3px solid green",
           display: "flex",
           flexDirection: "row",
           justifyContent: "center",
@@ -108,7 +97,6 @@ function DashboardForm(props) {
         <Box
           sx={{
             textAlign: "right",
-            // border: "3px solid blue",
             alignItems: "right",
             width: "12rem",
           }}
@@ -121,7 +109,6 @@ function DashboardForm(props) {
         </Box>
         <Box
           sx={{
-            // border: "3px dashed red",
             textAlign: "left",
             display: "flex",
             alignItems: "center",
@@ -153,7 +140,6 @@ function DashboardForm(props) {
       {/* row 3 of 6 - location */}
       <Box
         sx={{
-          // border: "3px solid green",
           display: "flex",
           flexDirection: "row",
           justifyContent: "center",
@@ -165,7 +151,6 @@ function DashboardForm(props) {
         <Box
           sx={{
             textAlign: "right",
-            // border: "3px solid blue",
             alignItems: "right",
             width: "12rem",
           }}
@@ -178,7 +163,6 @@ function DashboardForm(props) {
         </Box>
         <Box
           sx={{
-            // border: "3px dashed red",
             textAlign: "left",
             display: "flex",
             alignItems: "center",
@@ -214,7 +198,6 @@ function DashboardForm(props) {
       {/* row 4 of 6 - upload banner */}
       <Box
         sx={{
-          // border: "3px solid green",
           display: "flex",
           flexDirection: "row",
           gap: "2rem",
@@ -226,7 +209,6 @@ function DashboardForm(props) {
         <Box
           sx={{
             textAlign: "right",
-            // border: "3px solid blue",
             alignItems: "right",
             width: "12rem",
           }}
@@ -239,7 +221,6 @@ function DashboardForm(props) {
         </Box>
         <Box
           sx={{
-            // border: "3px dashed red",
             textAlign: "left",
             display: "flex",
             alignItems: "center",
@@ -270,7 +251,6 @@ function DashboardForm(props) {
       {/* row 5 of 6 - select interests*/}
       <Box
         sx={{
-          // border: '3px dashed blue',
           marginBottom: "1rem",
           display: "flex",
           textAlign: "center",
@@ -303,7 +283,6 @@ function DashboardForm(props) {
       {/* row 6 of 6 - save button */}
       <Box
         sx={{
-          // border: '3px solid red',
           display: "flex",
           justifyContent: "center",
         }}

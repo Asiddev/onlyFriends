@@ -21,19 +21,12 @@ function Browse(props) {
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [endOfList, setEndOfList] = useState(false);
-  const [seen, setSeen] = useState([]);
   const navigator = useNavigate();
 
   const fetchSimUsers = async function () {
     if (props.user) {
       setLoading(true);
       const data = await axios.get(`/api/users/${props.user.id}/common`);
-
-      for (let user of data.data) {
-        if (seen.includes(user.id)) {
-          console.log(`yup saw ${user.name}`);
-        }
-      }
 
       if (!data.data.length) {
         setLoading(false);
@@ -96,20 +89,12 @@ function Browse(props) {
         <Box
           sx={{
             pb: 10,
-            // border: "3px solid red"
           }}
         >
           {endOfList ? (
             <EndAnimation />
           ) : (
-            <Container
-              maxWidth="sm"
-              sx={
-                {
-                  // border: "3px dashed blue"
-                }
-              }
-            >
+            <Container maxWidth="sm">
               <BrowseContent
                 page={page}
                 user={props.user}

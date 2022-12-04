@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, AppBar, Toolbar } from "@mui/material";
 
-function TopNav(props) {
+function TopNav() {
   return (
     <Box marginBottom={10}>
       <AppBar>

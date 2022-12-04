@@ -58,7 +58,6 @@ function Register() {
     axios
       .post("/api/users", newDataObj)
       .then((data) => {
-        console.log("success!");
         navigator("/login");
       })
       .catch((err) => {

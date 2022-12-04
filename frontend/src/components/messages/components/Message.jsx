@@ -8,18 +8,21 @@ import "../Messages.scss";
 const Message = (props) => {
   const message = props.message.message;
   const senderName = props.message.senderName;
+
   const postedDate = (props.message.date.seconds * 1000);
+
 
   const sender = props.sender;
   const reciever = props.reciever;
 
+
   const profileImage = senderName === sender.name ? sender.profile_picture : reciever.profile_picture;
+
 
   return (
     <Box
       className={senderName === sender.name ? "SenderMsg" : "RecieverMsg"}
       sx={{
-        // border: "3px dashed purple",
         marginBottom: "1rem",
         // backgroundColor: "white",
         borderRadius: "1rem",
@@ -48,9 +51,10 @@ const Message = (props) => {
       <Box
         sx={{
           display: "flex",
-          flexDirection: "column"
+          flexDirection: "column",
         }}
       >
+
         {/* <Typography
           variant="p">
           {senderName}
@@ -76,7 +80,6 @@ const Message = (props) => {
         </Box>
 
       </Box>
-
     </Box>
   );
 };

@@ -1,11 +1,6 @@
 import * as React from "react";
 import { useLocation } from "react-router-dom";
-import {
-  Typography,
-  Box,
-  Container,
-  CssBaseline,
-} from "@mui/material";
+import { Typography, Box, Container, CssBaseline } from "@mui/material";
 import "./Messages.scss";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -31,7 +26,6 @@ function Messages(props) {
   const { email, matchId } = state;
   const navigate = useNavigate();
 
-  //Kevins state for test of message feature
   const currentUser = auth.currentUser;
 
   const [chatUid, setChatUid] = useState(null);
@@ -41,7 +35,6 @@ function Messages(props) {
 
   const [sender, setSender] = useState(null);
   const [reciever, setReciever] = useState(null);
-  //Kevins function for test of message feature
 
   //Search in database for the person we want to talk to.
   const handleSearch = async () => {
@@ -74,7 +67,7 @@ function Messages(props) {
         //If it doesnt exist, create the chat in the overall chat db
         await setDoc(doc(db, "chats", combinedId), { messages: [] });
       }
-    } catch (err) { }
+    } catch (err) {}
   };
 
   //Render the search feature once to get the user data
@@ -82,12 +75,11 @@ function Messages(props) {
     Promise.all([
       axios.get(`/api/users/${Number(matchId)}`),
       axios.get(`api/users/${JSON.parse(localStorage.getItem("user")).id}`),
-      handleSearch()
-    ])
-      .then((result) => {
-        setReciever(result[0].data[0]);
-        setSender(result[1].data[0]);
-      });
+      handleSearch(),
+    ]).then((result) => {
+      setReciever(result[0].data[0]);
+      setSender(result[1].data[0]);
+    });
   }, []);
 
   const logOut = (event) => {
@@ -101,14 +93,10 @@ function Messages(props) {
 
   return (
     <>
-
-
-      {/* NEW CODE BELOW - replace entire return block above */}
       {/* everything on this page is in this main Box, think of it as a fragment */}
       <Box
         sx={{
           pb: 10,
-          // border: "3px solid red"
         }}
       >
         <CssBaseline />
@@ -116,15 +104,11 @@ function Messages(props) {
 
         {/* THIS IS THE MAIN BODY - BETWEEN THE TOP NAV AND BOTTOM NAV */}
 
-        <Container maxWidth="md"
-          sx={{
-            // border: "3px dashed blue"
-          }}>
+        <Container maxWidth="md">
           <Box
             sx={{
               borderRadius: "1.75rem",
               backgroundColor: "#E4F8FF",
-              // border: "3px solid red",
               padding: "2rem",
             }}
           >
@@ -137,16 +121,14 @@ function Messages(props) {
               Messages
             </Typography>
 
+
             <Typography variant='h5' display="flex" justifyContent="center" borderBottom="3px solid grey" padding="0.2rem 1rem" marginBottom="2rem">
+
               {/* You are currently talking to {reciever !== null && reciever.name} */}
               {reciever !== null && reciever.name}
             </Typography>
 
-            <Box
-              sx={{
-                // border: "3px solid red",
-              }}
-            >
+            <Box>
               <MessageBox
                 chatUid={chatUid}
                 senderName={senderName}
@@ -154,9 +136,7 @@ function Messages(props) {
                 reciever={reciever}
               />
             </Box>
-            <Box
-            // sx={{ border: "3px dashed green" }}
-            >
+            <Box>
               <Input
                 senderUid={senderUid}
                 senderName={senderName}
@@ -169,7 +149,7 @@ function Messages(props) {
         <br />
         <Copyright />
         <BottomNav value={props.value} setValue={props.setValue} />
-      </Box >
+      </Box>
     </>
   );
 }
