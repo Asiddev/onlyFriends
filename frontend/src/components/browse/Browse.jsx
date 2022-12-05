@@ -23,35 +23,52 @@ function Browse(props) {
   const [endOfList, setEndOfList] = useState(false);
   const navigator = useNavigate();
 
+  const [userInterestList, setUserInterestList] = useState([]);
+  let renderInterestList = ''
+
 
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     },1000)
+    if (similarUsers[page] && userInterestList[page]) {
+      setProfileInterest(userInterestList[page])
+    }
   },[page])
-
+  
   useEffect(() => {
+    setLoading(true);
+
     axios.get(`/api/user_interests/${props.user.id}`).then((data) => {
       if (!data.data.length) {
         navigator("/profile");
       }
-      setProfileInterest([...data.data]);
+      // setProfileInterest([...data.data]);
     });
-  }, []);
 
-  useEffect(() => {
     axios.get(`/api/users/${props.user.id}/common`)
     .then((result) => {
-      console.log(result);
-      setSimilarUsers(result.data);
-      if (!similarUsers) {
+      const users = result.data
+      setSimilarUsers(users);
+      if (!result.data) {
         setLoading(false);
         setEndOfList(true);
+      }
+      //Render each users interest list
+      for (let i = 0; i < users.length; i++) {
+        axios.get(`/api/user_interests/${users[i].id}`)
+        .then((result) => {
+          setUserInterestList((prev)=> [...prev, result.data]);
+          if (i === page) {
+            setProfileInterest(result.data)
+          }
+        })
       }
     })
   }, []);
 
-  const renderInterestList = profileInterests.map((interest) => {
+
+  renderInterestList = profileInterests.map((interest) => {
     return (
       <Button
         className="btn"
