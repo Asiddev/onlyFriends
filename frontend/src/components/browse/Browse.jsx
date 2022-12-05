@@ -34,6 +34,10 @@ function Browse(props) {
     if (similarUsers[page] && userInterestList[page]) {
       setProfileInterest(userInterestList[page])
     }
+    if(similarUsers.length === 0) {
+      setLoading(false);
+      setEndOfList(true);
+    }
   },[page])
   
   useEffect(() => {

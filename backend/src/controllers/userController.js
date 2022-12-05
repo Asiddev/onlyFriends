@@ -38,7 +38,6 @@ const addUser = (req, res) => {
     const hash = bcrypt.hashSync(password, salt);
 
     userQueries.addUser(email, hash, name).then((data) => {
-      console.log(data.rows[0]);
       return data.rows[0];
     });
 

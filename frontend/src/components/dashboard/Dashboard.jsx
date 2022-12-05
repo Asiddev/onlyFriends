@@ -38,11 +38,9 @@ function Dashboard(props) {
           return ip;
         })
         .then((data) => {
-          console.log(data);
           axios.get(`http://ip-api.com/json/${data}`).then((data) => {
             let { city, region, country } = data.data;
             let string = `${city}, ${region}, ${country}`;
-            console.log(string);
             setLocation(string);
           });
         });
