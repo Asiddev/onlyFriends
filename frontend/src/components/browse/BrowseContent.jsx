@@ -1,6 +1,6 @@
 import { Button, Grid, Typography, Box } from "@mui/material";
 import axios from "axios";
-import React, { useEffect } from "react";
+import React from "react";
 import RoomIcon from "@mui/icons-material/Room";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
@@ -27,8 +27,6 @@ function BrowseContent(props) {
       setEndOfList(true);
       return;
     }
-
-    console.log("after if/return")
 
     setLoading(true);
     setPage((prev) => prev + 1);
@@ -98,7 +96,6 @@ function BrowseContent(props) {
             justifyContent: "space-between",
             alignContent: "center",
             height: "100%",
-            // border: "3px solid red",
             margin: "0 -4rem 0 -4rem",
           }}
         >
