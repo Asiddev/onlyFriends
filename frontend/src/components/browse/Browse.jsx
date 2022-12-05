@@ -21,10 +21,8 @@ function Browse(props) {
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [endOfList, setEndOfList] = useState(false);
-  const navigator = useNavigate();
-
   const [userInterestList, setUserInterestList] = useState([]);
-  let renderInterestList = ''
+  const navigator = useNavigate();
 
 
   useEffect(() => {
@@ -34,22 +32,17 @@ function Browse(props) {
     if (similarUsers[page] && userInterestList[page]) {
       setProfileInterest(userInterestList[page])
     }
-    if(similarUsers.length === 0) {
-      setLoading(false);
-      setEndOfList(true);
-    }
   },[page])
   
   useEffect(() => {
     setLoading(true);
-
+    //If logged user is new, direct to profile page
     axios.get(`/api/user_interests/${props.user.id}`).then((data) => {
       if (!data.data.length) {
         navigator("/profile");
       }
-      // setProfileInterest([...data.data]);
     });
-
+    //Get useres common match and set them up
     axios.get(`/api/users/${props.user.id}/common`)
     .then((result) => {
       const users = result.data
@@ -72,7 +65,7 @@ function Browse(props) {
   }, []);
 
 
-  renderInterestList = profileInterests.map((interest) => {
+  const renderInterestList = profileInterests.map((interest) => {
     return (
       <Button
         className="btn"
