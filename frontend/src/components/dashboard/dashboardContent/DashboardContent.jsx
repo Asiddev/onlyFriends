@@ -23,7 +23,7 @@ function DashboardContent(props) {
 
   return (
     <Container maxWidth="md">
-      {/* this Box below is the main "Card" with rounded corners */}
+
       <Box
         component="form"
         onSubmit={postProfile}
