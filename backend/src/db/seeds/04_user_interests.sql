@@ -23,3 +23,10 @@ INSERT INTO user_interests (user_id, interest_id, created_at) VALUES (7, 2, '202
 INSERT INTO user_interests (user_id, interest_id, created_at) VALUES (8, 1, '2022-11-25');
 INSERT INTO user_interests (user_id, interest_id, created_at) VALUES (8, 2, '2022-11-25');
 INSERT INTO user_interests (user_id, interest_id, created_at) VALUES (8, 3, '2022-11-25');
+
+-- every user has to have 58 as interest id, this is the "lighthouse" option
+INSERT INTO user_interests (user_id, interest_id, created_at) VALUES (9, 58, '2022-12-04');
+INSERT INTO user_interests (user_id, interest_id, created_at) VALUES (10, 58, '2022-12-04');
+INSERT INTO user_interests (user_id, interest_id, created_at) VALUES (11, 58, '2022-12-04');
+INSERT INTO user_interests (user_id, interest_id, created_at) VALUES (12, 58, '2022-12-04');
+INSERT INTO user_interests (user_id, interest_id, created_at) VALUES (13, 58, '2022-12-04');
