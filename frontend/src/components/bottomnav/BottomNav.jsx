@@ -55,14 +55,6 @@ function BottomNav(props) {
           component={Link}
           icon={<PeopleAltIcon />}
         />
-        {/* <BottomNavigationAction
-          component={Link}
-          to={"/messages"}
-          href="/messages"
-          value={"/messages"}
-          label={"Messages"}
-          icon={<MessageIcon />}
-        /> */}
 
         <BottomNavigationAction
           label="Logout"
