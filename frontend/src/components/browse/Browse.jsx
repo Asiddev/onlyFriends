@@ -23,12 +23,11 @@ function Browse(props) {
   const [endOfList, setEndOfList] = useState(false);
   const navigator = useNavigate();
 
-
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    },1000)
-  },[page])
+    }, 1000);
+  }, [page]);
 
   useEffect(() => {
     axios.get(`/api/user_interests/${props.user.id}`).then((data) => {
@@ -40,15 +39,14 @@ function Browse(props) {
   }, []);
 
   useEffect(() => {
-    axios.get(`/api/users/${props.user.id}/common`)
-    .then((result) => {
+    axios.get(`/api/users/${props.user.id}/common`).then((result) => {
       console.log(result);
-      setSimilarUsers(result.data);
-      if (!similarUsers) {
-        setLoading(false);
+      if (!result.data.length) {
         setEndOfList(true);
       }
-    })
+      console.log(result.data);
+      setSimilarUsers(result.data);
+    });
   }, []);
 
   const renderInterestList = profileInterests.map((interest) => {
@@ -90,7 +88,7 @@ function Browse(props) {
                 page={page}
                 user={props.user}
                 loading={loading}
-                setLoading ={setLoading}
+                setLoading={setLoading}
                 similarUsers={similarUsers}
                 setEndOfList={setEndOfList}
                 setPage={setPage}
