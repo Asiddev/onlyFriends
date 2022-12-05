@@ -25,8 +25,8 @@ const addUser = (req, res) => {
       return res.status(401).json("Email is taken");
     }
 
-    if (password.length < 5) {
-      return res.status(401).json("Password length less than 5");
+    if (password.length < 6) {
+      return res.status(401).json("Password length less than 6");
     }
 
     if (password !== password_confirmation) {
