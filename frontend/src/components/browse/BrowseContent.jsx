@@ -4,6 +4,7 @@ import React from "react";
 import RoomIcon from "@mui/icons-material/Room";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import EndAnimation from "./EndAnimation";
 
 function BrowseContent(props) {
   const {
@@ -49,6 +50,9 @@ function BrowseContent(props) {
 
   return (
     <>
+      {/* {setEndOfList ? (
+        <EndAnimation />
+      ) : ( */}
       <Box
         sx={{
           borderRadius: "1.75rem",
@@ -118,7 +122,11 @@ function BrowseContent(props) {
         </Box>
 
         <Box
-          sx={{ marginBottom: "1rem", marginTop: "-2rem", marginLeft: "1rem" }}
+          sx={{
+            marginBottom: "1rem",
+            marginTop: "-2rem",
+            marginLeft: "1rem",
+          }}
         >
           <Typography variant="p">
             <RoomIcon fontSize="sm" />

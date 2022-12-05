@@ -24,7 +24,6 @@ function Browse(props) {
   const [userInterestList, setUserInterestList] = useState([]);
   const navigator = useNavigate();
 
-
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -46,11 +45,10 @@ function Browse(props) {
     axios.get(`/api/users/${props.user.id}/common`)
     .then((result) => {
       const users = result.data
-      setSimilarUsers(users);
-      if (!result.data) {
-        setLoading(false);
+      if (!users.length) {
         setEndOfList(true);
       }
+      setSimilarUsers(users);
       //Render each users interest list
       for (let i = 0; i < users.length; i++) {
         axios.get(`/api/user_interests/${users[i].id}`)
@@ -104,7 +102,7 @@ function Browse(props) {
                 page={page}
                 user={props.user}
                 loading={loading}
-                setLoading ={setLoading}
+                setLoading={setLoading}
                 similarUsers={similarUsers}
                 setEndOfList={setEndOfList}
                 setPage={setPage}
