@@ -61,7 +61,6 @@ function BrowseContent(props) {
           sx={{
             display: "flex",
             alignItems: "center",
-            marginBottom: "1rem",
           }}
         >
           <Box
@@ -84,7 +83,7 @@ function BrowseContent(props) {
             width: "100%",
             height: "20rem",
             objectFit: "contain",
-            marginBottom: "1rem",
+            marginBottom: "-0.5rem",
           }}
           alt="Current potential match banner"
           src={similarUsers.length ? similarUsers[page].banner_picture : ""}
@@ -130,7 +129,7 @@ function BrowseContent(props) {
           </Typography>
         </Box>
 
-        <Box sx={{ marginBottom: "1rem" }}>
+        <Box sx={{ marginBottom: "1rem", padding: "0 1rem 0 1rem" }}>
           <Typography variant="body2" color="text.secondary">
             {similarUsers.length ? similarUsers[page].description : ""}
           </Typography>
@@ -140,12 +139,17 @@ function BrowseContent(props) {
           sx={{
             display: "flex",
             justifyContent: "center",
+            marginBottom: "1rem",
           }}
         >
           <Typography variant="h6">Interests</Typography>
         </Box>
 
-        <Grid container className="interests-container">
+        <Grid container className="interests-container"
+          sx={{
+            padding: "0 0.8rem 0 0.8rem",
+          }}
+        >
           <Grid item>{profileInterests && renderInterestList}</Grid>
         </Grid>
       </Box>
