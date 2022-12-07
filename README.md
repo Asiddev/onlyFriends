@@ -15,22 +15,22 @@ OnlyFriends is an online geosocial networking application utilizing the PERN sta
 ## Demos
 
 ### The main "browse" page
-![description](gifOrImgLinkHere)
+![description](https://github.com/Asiddev/onlyFriends/blob/main/planning/docs/browse.gif?raw=true)
 
 ### Profile setup page
-![description](https://github.com/Asiddev/onlyFriends/blob/main/planning/docs/profile-setup.gif?raw=true)
+![description](https://github.com/Asiddev/onlyFriends/blob/main/planning/docs/profilesetup.gif?raw=true)
 
 ### Matches page
-![description](gifOrImgLinkHere)
+![description](https://github.com/Asiddev/onlyFriends/blob/main/planning/docs/matches.gif?raw=true)
 
 ### Direct messaging page
 ![description](gifOrImgLinkHere)
 
 ### Register page (with error handling)
-![description](gifOrImgLinkHere)
+![description](https://github.com/Asiddev/onlyFriends/blob/main/planning/docs/register.gif?raw=true)
 
 ### Login page (with error handling)
-![description](gifOrImgLinkHere)
+![description](https://github.com/Asiddev/onlyFriends/blob/main/planning/docs/login.gif?raw=true)
 
 ## Setup
 - On your terminal, clone the repo via `git clone git@github.com:Asiddev/onlyFriends.git`
