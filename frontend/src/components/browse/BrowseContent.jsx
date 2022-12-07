@@ -139,19 +139,21 @@ function BrowseContent(props) {
           sx={{
             display: "flex",
             justifyContent: "center",
-            marginBottom: "1rem",
+            margin: "1rem 0 0.7rem 0",
           }}
         >
           <Typography variant="h6">Interests</Typography>
         </Box>
 
-        <Grid container className="interests-container"
+        <Box
           sx={{
-            padding: "0 0.8rem 0 0.8rem",
+            padding: "0 0.7rem 0 0.7rem",
           }}
         >
-          <Grid item>{profileInterests && renderInterestList}</Grid>
-        </Grid>
+          <Grid container className="interests-container">
+            <Grid item>{profileInterests && renderInterestList}</Grid>
+          </Grid>
+        </Box>
       </Box>
     </>
   );
