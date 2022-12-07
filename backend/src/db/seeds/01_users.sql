@@ -18,9 +18,6 @@ VALUES
 -- ('Speedy Hernandez', 'speedy@email.com', '$2b$10$B0Yjjbke2i0cRJ.31OtBYOxuYVB9BcEGwopaVlOU9svnVVd2tXrXG','https://i.imgur.com/33C92cP.png','https://i.imgur.com/Ry6gVFw.jpg','#95. Racecar driver. Life is a highway.', 'Vancouver, BC, Canada', '2022-12-04'),
 
 
--- ('Mr.Roll', 'RR@email.com', '$2b$10$B0Yjjbke2i0cRJ.31OtBYOxuYVB9BcEGwopaVlOU9svnVVd2tXrXG','https://imgur.com/a/lhorJ5n','https://imgur.com/a/gGDlLhF','Check out my new hit single!', 'Vancouver, BC, Canada', '2022-12-04'),
--- ('Hordor', 'Hordor@homedepot.com', '$2b$10$B0Yjjbke2i0cRJ.31OtBYOxuYVB9BcEGwopaVlOU9svnVVd2tXrXG','https://imgur.com/a/219RnvK','https://imgur.com/a/hS0vNkN','Doors and door accessories', 'Vancouver, BC, Canada', '2022-12-04')
--- ;
 
 
 -- For presentation seed
