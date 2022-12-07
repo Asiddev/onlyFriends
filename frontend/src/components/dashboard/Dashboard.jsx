@@ -4,7 +4,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Box, CssBaseline } from "@mui/material";
+import { Box, CssBaseline, Typography } from "@mui/material";
 import "./Dashboard.scss";
 import "../../styles/animations.scss";
 import BottomNav from "../bottomnav/BottomNav.jsx";
@@ -30,7 +30,7 @@ function Dashboard(props) {
 
   function getLocation() {
     setFetchingLocation(true);
-    navigator.geolocation.getCurrentPosition(function (position) {
+    navigator.geolocation.getCurrentPosition(function(position) {
       axios
         .get("https://api64.ipify.org?format=json")
         .then((data) => {
@@ -183,8 +183,10 @@ function Dashboard(props) {
       {loading ? (
         <>
           <TopNav />
-          <span className="center savingGif" color="primary">
-            Saving...
+          <span className="center savingGif">
+            <Typography variant="h6">
+              Generating
+            </Typography>
           </span>
         </>
       ) : (
