@@ -24,7 +24,7 @@ OnlyFriends is an online geosocial networking application utilizing the PERN sta
 ![description](https://github.com/Asiddev/onlyFriends/blob/main/planning/docs/matches.gif?raw=true)
 
 ### Direct messaging page
-![description]()
+![description](https://github.com/Asiddev/onlyFriends/blob/main/planning/docs/directmessage.gif?raw=true)
 
 ### Register page (with error handling)
 ![description](https://github.com/Asiddev/onlyFriends/blob/main/planning/docs/register.gif?raw=true)
