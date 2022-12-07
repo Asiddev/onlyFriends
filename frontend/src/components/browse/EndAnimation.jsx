@@ -1,22 +1,33 @@
 import React from "react";
+import { Typography, Box } from "@mui/material";
 
 function EndAnimation() {
   return (
     <>
-      <div className="page_404 body">
-        <div className="row">
-          <div className="col-sm-12 ">
-            <div className="contant_box_404">
-              <h3 className="h2">No more users in your area</h3>
-
-              <p>Please check back after some time</p>
-            </div>
-            <div className="col-sm-10 col-sm-offset-1  text-center">
-              <div className="four_zero_four_bg"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "1rem",
+        }}
+      >
+        <Typography variant="h4">
+          No more users in your area!
+        </Typography>
+        <Typography variant="p">
+          Please check back after some time
+        </Typography>
+        <Box
+          component="img"
+          sx={{
+            // border: "3px solid red",
+          }}
+          alt="Current potential match profile pic"
+          src="https://media.tenor.com/2VBRsBlhEekAAAAd/travolta-confused.gif"
+        />
+      </Box>
     </>
   );
 }
