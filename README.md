@@ -2,7 +2,7 @@
 
 Created by [Alex Sidor](https://github.com/Asiddev), [Kevin Lee](https://github.com/jhssttj), and [Nico Hernandez](https://github.com/nicohsfu)
 
-OnlyFriends is an online geosocial networking application utilizing the PERN stack to align people with similar interesting and hobbies. Be a part of a vast community of people looking to find people that love to spend time off the same way you do!
+OnlyFriends is an online geosocial networking application utilizing the PERN stack to align people with similar interests and hobbies. Be a part of a vast community of people looking to find people that love to spend time off the same way you do!
 
 ## Tech Stack
 - PostgreSQL
@@ -11,6 +11,7 @@ OnlyFriends is an online geosocial networking application utilizing the PERN sta
 - Node
 - Firebase
 - Google Maps Platform
+- Material UI
 
 ## Demos
 
